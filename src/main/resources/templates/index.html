@@ -10,5 +10,11 @@
 <a href="/auth/loginForm">로그인</a>
 <a href="/auth/joinForm">회원가입</a>
 
+<div th:if="${#authentication.principal} != anonymousUser">
+    <div th:text="${#authentication.principal.member.username}">
+        사용자
+    </div>
+</div>
+
 </body>
 </html>

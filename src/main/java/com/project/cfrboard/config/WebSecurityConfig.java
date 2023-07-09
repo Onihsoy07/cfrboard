@@ -1,5 +1,6 @@
 package com.project.cfrboard.config;
 
+import com.project.cfrboard.auth.PrincipalDetailsService;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -19,7 +21,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final PrincipalDetailsService principalDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,22 +44,36 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests(request ->
-                        request.anyRequest().permitAll())
+        return http
+                .authorizeRequests()
+                    .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                    .loginPage("/auth/loginForm")
+                    .loginProcessingUrl("/loginProc")
+                    .failureUrl("/auth/loginForm")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/")
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .invalidateHttpSession(true)
+    //                .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl("/")
+                .and()
                 .csrf().disable()
-                .formLogin(form -> form
-                        .loginPage("/auth/loginForm")
-                        .loginProcessingUrl("/loginProc")
-                        .failureUrl("/auth/loginForm")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/"))
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("/"));
-        return http.build();
+                .build();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+
+        daoAuthenticationProvider.setUserDetailsService(principalDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return daoAuthenticationProvider;
     }
 
 }
