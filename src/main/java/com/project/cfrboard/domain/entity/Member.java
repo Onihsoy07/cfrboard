@@ -1,16 +1,12 @@
 package com.project.cfrboard.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(schema = "cfrboard")
 public class Member extends Base {
 
@@ -28,4 +24,10 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder
+    public Member(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }
