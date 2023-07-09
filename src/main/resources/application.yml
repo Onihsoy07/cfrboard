@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: ENC(KiAsU+eEUig6hBE0/6g7640NK5gXd8n004/4CLYJZJEH5+uof5PO/nE+5h7w9Km0)
+    username: ENC(zmLkHZZhjFlp2SLpqhqh/A==)
+    password: ENC(KsRUhNYxCuYWWaE29/nv6g==)
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password: ${JASYPT_PASSWORD}
