@@ -38,29 +38,23 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        // [STEP1] 서버에 인증정보를 저장하지 않기에 csrf를 사용하지 않는다.
-        http.csrf().disable();
-
-        // [STEP2] form 기반의 로그인에 대해 비 활성화하며 커스텀으로 구성한 필터를 사용한다.
-        http.formLogin().disable();
-
-        // [STEP3] 토큰을 활용하는 경우 모든 요청에 대해 '인가'에 대해서 사용.
-        http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
-
-        // [STEP4] Spring Security Custom Filter Load - Form '인증'에 대해서 사용
-//        http.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        // [STEP5] Session 기반의 인증기반을 사용하지 않고 추후 JWT를 이용하여서 인증 예정
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        // [STEP6] Spring Security JWT Filter Load
-//        http.addFilterBefore(jwtAuthorizationFilter(), BasicAuthenticationFilter.class);
-
-        // [STEP7] 최종 구성한 값을 사용함.
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests(request ->
+                        request.anyRequest().permitAll())
+                .csrf().disable()
+                .formLogin(form -> form
+                        .loginPage("/auth/loginForm")
+                        .loginProcessingUrl("/loginProc")
+                        .failureUrl("/auth/loginForm")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/"));
         return http.build();
     }
-
 
 }
