@@ -24,4 +24,9 @@ public class Reply extends Base {
     @ColumnDefault("0")
     private Integer depth;
 
+    @Builder
+    public Reply(String comment, Integer depth) {
+        this.comment = comment;
+        this.depth = depth;
+    }
 }

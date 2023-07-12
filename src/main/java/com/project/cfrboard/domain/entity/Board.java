@@ -22,4 +22,9 @@ public class Board extends Base {
     @Lob
     private String content;
 
+    @Builder
+    public Board(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
