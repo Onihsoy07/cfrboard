@@ -1,9 +1,6 @@
 package com.project.cfrboard.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -11,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(schema = "cfrboard")
 public class Reply extends Base {
 

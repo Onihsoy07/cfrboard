@@ -5,9 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(schema = "cfrboard")
 public class Board extends Base {
 
