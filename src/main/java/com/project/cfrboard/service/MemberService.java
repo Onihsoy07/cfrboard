@@ -21,15 +21,11 @@ public class MemberService {
 
     @Transactional
     public void join(MemberJoinDto memberJoinDto) {
-//        Member member = new Member().builder()
-//                .username(memberJoinDto.getUsername())
-//                .password(passwordEncoder.encode(memberJoinDto.getPassword()))
-//                .role(Role.USER)
-//                .build();
-
-        Member member = new Member(memberJoinDto.getUsername(),
-                                   passwordEncoder.encode(memberJoinDto.getPassword()),
-                                   Role.USER);
+        Member member = Member.builder()
+                .username(memberJoinDto.getUsername())
+                .password(passwordEncoder.encode(memberJoinDto.getPassword()))
+                .role(Role.USER)
+                .build();
 
         memberRepository.save(member);
     }
