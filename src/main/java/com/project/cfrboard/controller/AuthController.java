@@ -1,6 +1,7 @@
 package com.project.cfrboard.controller;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
+import com.project.cfrboard.domain.dto.MemberLoginDto;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,12 @@ public class AuthController {
     private final MemberService memberService;
 
     @GetMapping("/loginForm")
-    public String loginForm(@ModelAttribute Member member) {
+    public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto) {
         return "auth/loginForm";
     }
 
     @GetMapping("/joinForm")
-    public String joinForm(@ModelAttribute Member member) {
+    public String joinForm(@ModelAttribute MemberJoinDto memberJoinDto) {
         return "auth/joinForm";
     }
 
