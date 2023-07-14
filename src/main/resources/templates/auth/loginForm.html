@@ -8,7 +8,7 @@
 <body>
 
 <h1>로그인</h1>
-<form action="#" th:action="@{/loginProc}" th:object="${member}" method="post">
+<form action="#" th:action="@{/loginProc}" th:object="${memberLoginDto}" method="post">
     <div>
         <label for="loginId">로그인 ID</label>
         <input type="text" id="loginId" th:field="*{username}" class="form-control">
