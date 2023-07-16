@@ -23,17 +23,17 @@ public class AuthController {
 
     private final MemberService memberService;
 
-    @GetMapping("/loginForm")
+    @GetMapping("/login")
     public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto) {
         return "auth/loginForm";
     }
 
-    @GetMapping("/joinForm")
+    @GetMapping("/register")
     public String joinForm(@ModelAttribute MemberJoinDto memberJoinDto) {
         return "auth/joinForm";
     }
 
-    @PostMapping("/joinForm")
+    @PostMapping("/register")
     public String join(@Valid @ModelAttribute MemberJoinDto memberJoinDto,
                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
