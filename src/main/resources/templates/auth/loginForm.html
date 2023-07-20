@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>로그인</title>
 </head>
-<body>
+<body th:with="principal=${#authentication.principal}">
+
+<th:block th:replace="~{layout/nav :: nav}" />
 
 <h1>로그인</h1>
 <form action="#" th:action="@{/loginProc}" th:object="${memberLoginDto}" method="post">

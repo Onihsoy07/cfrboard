@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body th:with="principal=${#authentication.principal}">
+
+<th:block th:replace="~{layout/nav :: nav}" />
 
 <h1>
     4xx 에러(클라이언트 문제)
