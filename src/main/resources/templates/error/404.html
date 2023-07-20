@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="kr"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="~{layout/header :: header(~{::title})}">
+    <title>에러 페이지</title>
 </head>
 <body th:with="principal=${#authentication.principal}">
 
