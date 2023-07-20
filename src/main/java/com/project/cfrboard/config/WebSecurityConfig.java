@@ -1,6 +1,7 @@
 package com.project.cfrboard.config;
 
 import com.project.cfrboard.auth.PrincipalDetailsService;
+import com.project.cfrboard.handler.CustomAuthSuccessHandler;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,7 @@ public class WebSecurityConfig {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .defaultSuccessUrl("/")
+                    .successHandler(new CustomAuthSuccessHandler())
                 .and()
                 .logout()
                     .logoutUrl("/logout")

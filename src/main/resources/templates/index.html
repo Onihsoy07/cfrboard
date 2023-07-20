@@ -48,6 +48,8 @@
     </div>
 </nav>
 
+<div th:if="${principal} != anonymousUser" th:text="${principal.member.username}"></div>
+
 
 <div class="jumbotron text-center" style="margin-bottom:0">
     <p>Footer</p>

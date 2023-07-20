@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -24,7 +26,19 @@ public class AuthController {
     private final MemberService memberService;
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto) {
+    public String loginForm(@ModelAttribute MemberLoginDto memberLoginDto,
+                            HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String referer = request.getHeader("Referer");
+        String host = request.getHeader("Host");
+
+        if (session.getAttribute("prePage") == null) {
+            if (referer == null || referer.contains("/auth") || !referer.contains(host)) {
+                referer = "/";
+            }
+            session.setAttribute("prePage", referer);
+        }
+
         return "auth/loginForm";
     }
 
