@@ -8,7 +8,6 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: update
-    show-sql: true
 
 server:
   error:
@@ -20,3 +19,24 @@ jasypt:
   encryptor:
     bean: jasyptStringEncryptor
     password: ${JASYPT_PASSWORD}
+
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction:
+          interceptor: TRACE
+        jdbc:
+          datasource:
+            DataSourceTransactionManager: DEBUG
+        orm:
+          jpa:
+            JpaTransactionManager: DEBUG
+
+      hibernate:
+        #JPA log
+        resource:
+          transaction: DEBUG
+        #JPA SQL
+        SQL: DEBUG
