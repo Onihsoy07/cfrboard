@@ -66,11 +66,4 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/ducheck")
-    public String usernameDuplicateCheck(@RequestParam("username") String username,
-                                         Model model,
-                                         @ModelAttribute MemberJoinDto memberJoinDto) {
-        model.addAttribute("isDuplicate", memberService.usernameDuplicateCheck(username));
-        return "auth/joinForm";
-    }
 }
