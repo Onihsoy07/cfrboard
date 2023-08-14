@@ -4,3 +4,10 @@
 .small-btn {
     padding: 2px;
 }
+.small-btn:disabled {
+    background-color: green;
+    border-color: green;
+}
+.error-text {
+    color: red;
+}

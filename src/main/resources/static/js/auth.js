@@ -2,26 +2,44 @@ $(function() {
     let isIdChecked = false;
 
     $("#btn-duplicateCheck").click(function() {
+        const idMsg = document.getElementById("idMsg");
         let username = $("#loginId").val();
-        alert(username);
-        console.log(username);
-        $("form").load("/auth/ducheck form", "username="+username);
-//        $.ajax({
-//            url : "/auth/ducheck?username="+username,
-//            type : "GET"
-//        }).done(function(res) {
-//            alert("성공");
-//            location.reload();
-//        }).fail(function() {
-//            alert("실패");
-//        })
+        if(username == "") {
+            alert("아이디를 입력하세요.");
+        } else {
+            $.ajax({
+                url : "/auth/ducheck?username="+username,
+                type : "GET"
+            }).done(function(res) {
+                if(res == true) {
+                    idMsg.innerHTML = "중복 아이디가 존재합니다.";
+                    idMsg.style.display = "block";
+                } else if(res == false) {
+                    idMsg.style.display = "none";
+                    isIdChecked = true;
+                    $("#btn-duplicateCheck").attr("disabled", true);
+                    $("#loginId").attr("disabled", true);
+                }
+            }).fail(function() {
+                console.log("에러");
+            })
+        }
     });
 
     $("#register").click(function() {
-        if(isIdChecked){
-            $("form").submit();
-        }else {
+        let password = $("#password").val();
+        let passwordCheck = $("#passwordCheck").val();
+
+        if(isIdChecked == false) {
             alert("id 중복체크를 해주세요");
+        } else if(password == "") {
+            alert("비밀번호를 입력하세요.");
+        } else if(passwordCheck == "") {
+            alert("비밀번호 확인을 입력하세요.");
+        } else if(password != passwordCheck) {
+            alert("비밀번호가 다릅니다.");
+        } else {
+            $("form").submit();
         }
     });
 
