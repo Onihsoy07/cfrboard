@@ -1,15 +1,15 @@
 package com.project.cfrboard.domain.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(schema = "cfrboard")
-public class Reply extends Base {
+public class CfrData extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +17,13 @@ public class Reply extends Base {
     private Long id;
 
     @Column(nullable = false, unique = false)
-    @Lob
-    private String comment;
+    private String value;
 
     @Column(nullable = false, unique = false)
-    @ColumnDefault("0")
-    private Integer depth;
+    @OrderBy("createDate")
+    private Float confidence;
 
-    @Builder
-    public Reply(String comment, Integer depth) {
-        this.comment = comment;
-        this.depth = depth;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

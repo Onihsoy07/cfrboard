@@ -3,9 +3,10 @@ package com.project.cfrboard.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Data
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(schema = "cfrboard")
 public class Member extends Base {
@@ -23,6 +24,9 @@ public class Member extends Base {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CfrData> cfrDataList;
 
     @Builder
     public Member(String username, String password, Role role) {
