@@ -18,18 +18,25 @@ public class ModelMapperTest {
 
     @Test
     void modelMapperTest() {
-        //givne
+        //given
         Member member = Member.builder()
                 .username("hello")
                 .password("helloTest")
                 .role(Role.USER)
                 .build();
 
+        MemberLoginDto loginDto = new MemberLoginDto();
+        loginDto.setUsername("loginTest");
+        loginDto.setPassword("loginTestPassword");
+
         //when
         MemberLoginDto result = modelMapper.map(member, MemberLoginDto.class);
+        Member result1 = modelMapper.map(loginDto, Member.class);
 
         //then
         assertThat(member.getUsername()).isEqualTo(result.getUsername());
         assertThat(member.getPassword()).isEqualTo(result.getPassword());
+        assertThat(result1.getUsername()).isEqualTo(loginDto.getUsername());
+        assertThat(result1.getPassword()).isEqualTo(loginDto.getPassword());
     }
 }
