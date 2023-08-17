@@ -39,3 +39,5 @@ out/
 
 ### jspyst password ###
 src/main/resources/jasypt-encryptor-password.txt
+
+src/main/resources/static/image/haruka.png
