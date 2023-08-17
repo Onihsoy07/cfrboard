@@ -9,6 +9,12 @@ spring:
     hibernate:
       ddl-auto: update
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
 server:
   error:
     whitelabel:
@@ -18,7 +24,7 @@ server:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-    password: ${JASYPT_PASSWORD}
+#    password: ${JASYPT_PASSWORD}
 
 
 logging:
@@ -40,3 +46,9 @@ logging:
           transaction: DEBUG
         #JPA SQL
         SQL: DEBUG
+
+#API 필수 정보
+open_api:
+  naver:
+    Client_ID: ENC(nLH6e1kgYsR04iGXA4YR4rmQ1ik0yM1cSwOKxiM4CSc=)
+    Client_Secret: ENC(NBrP7dSYnPTh9fa6rgkeueqAqV1bTTVI)
