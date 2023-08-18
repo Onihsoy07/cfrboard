@@ -11,3 +11,17 @@
 .error-text {
     color: red;
 }
+.cfr_form {
+    justify-content: center;
+    display: flex;
+}
+.image_upload {
+    justify-content: center;
+    display: flex;
+    border: dashed blue;
+    height: 70px;
+    width: 200px;
+}
+.image_file {
+    display: none;
+}

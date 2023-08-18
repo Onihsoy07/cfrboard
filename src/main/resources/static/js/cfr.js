@@ -1,0 +1,3 @@
+function inputFile() {
+    $('#imageFile').click();
+}
