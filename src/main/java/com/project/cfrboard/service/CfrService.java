@@ -2,6 +2,7 @@ package com.project.cfrboard.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.cfrboard.domain.dto.CfrDataDto;
 import com.project.cfrboard.domain.dto.CfrResponseDto;
 import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
@@ -18,6 +19,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -85,4 +88,10 @@ public class CfrService {
             return false;
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<CfrDataDto> getCfrList(Member member) {
+        return cfrDataRepository.findCfrDataDtoList(member);
+    }
+
 }
