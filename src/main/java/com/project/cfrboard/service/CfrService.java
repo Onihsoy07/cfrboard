@@ -3,12 +3,17 @@ package com.project.cfrboard.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.cfrboard.domain.dto.CfrResponseDto;
+import com.project.cfrboard.domain.entity.CfrData;
+import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.repository.CfrDataRepository;
+import com.project.cfrboard.exception.NotOnePeoplePhotoException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class CfrService {
 
     private final CfrDataRepository cfrDataRepository;
+    private final ModelMapper modelMapper;
 
     @Value("${open_api.naver.Client_ID}")
     private String X_Naver_Client_Id;
@@ -56,5 +62,27 @@ public class CfrService {
         }
 
         return cfrResponseDto;
+    }
+
+    @Transactional
+    public void save(CfrResponseDto cfrResponseDto, Member member) {
+        if (isOnePeople(cfrResponseDto)) {
+            CfrData cfrData = CfrData.builder()
+                    .value(cfrResponseDto.getFaces().get(0).celebrity.value)
+                    .confidence(cfrResponseDto.getFaces().get(0).celebrity.confidence)
+                    .member(member)
+                    .build();
+            cfrDataRepository.save(cfrData);
+        } else {
+            throw new NotOnePeoplePhotoException(String.format("사람의 수가 %d명 입니다.", cfrResponseDto.getFaces().size()));
+        }
+    }
+
+    private Boolean isOnePeople(CfrResponseDto cfrResponseDto) {
+        if (cfrResponseDto.getFaces().size() == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

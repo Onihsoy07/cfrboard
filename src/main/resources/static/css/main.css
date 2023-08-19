@@ -25,3 +25,9 @@
 .image_file {
     display: none;
 }
+.input_label {
+    margin: auto;
+}
+.summit_box {
+    margin: 20px;
+}

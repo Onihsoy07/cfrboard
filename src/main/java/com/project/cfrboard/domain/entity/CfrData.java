@@ -26,4 +26,11 @@ public class CfrData extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public CfrData(String value, Float confidence, Member member) {
+        this.value = value;
+        this.confidence = confidence;
+        this.member = member;
+    }
 }
