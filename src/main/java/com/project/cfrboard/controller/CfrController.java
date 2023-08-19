@@ -31,7 +31,7 @@ public class CfrController {
 
     @PostMapping
     public String saveCfrData(@RequestParam("image") MultipartFile multipartFile,
-                                                      @AuthenticationPrincipal PrincipalDetails principal) {
+                              @AuthenticationPrincipal PrincipalDetails principal) {
         CfrResponseDto cfrResponseDto = cfrService.getCfrResponseDto(multipartFile);
         try {
             cfrService.save(cfrResponseDto, principal.getMember());

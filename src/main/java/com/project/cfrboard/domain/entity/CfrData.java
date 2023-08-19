@@ -20,7 +20,6 @@ public class CfrData extends Base {
     private String value;
 
     @Column(nullable = false, unique = false)
-    @OrderBy("createDate")
     private Float confidence;
 
     @ManyToOne(fetch = FetchType.LAZY)
