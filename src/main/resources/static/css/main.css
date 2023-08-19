@@ -31,3 +31,18 @@
 .summit_box {
     margin: 20px;
 }
+.cfr_list {
+ text-align: center;
+ border: 1px solid #aaaaaa;
+ border-collapse: collapse;
+ width: 600px;
+}
+.cfr_list_head {
+    height: 50px;
+}
+.cfr_list_body {
+    height: 40px;
+}
+th, td {
+    border: 1px solid #aaaaaa;
+}
