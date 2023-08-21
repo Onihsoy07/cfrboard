@@ -31,6 +31,7 @@ public class CfrApiController {
             log.error("사진의 사람의 수가 0 or 다수입니다.", e);
             return ResponseEntity.status(HttpStatus.OK).body(false);
         }
+        //400 Bad Request: "{"errorCode":"ER04","errorMessage":"Image size is too large (너무 큰 이미지 입니다.)"}"
     }
 
 }

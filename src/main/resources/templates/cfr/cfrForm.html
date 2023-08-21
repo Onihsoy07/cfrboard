@@ -14,17 +14,21 @@
         <form id="cfr_form" class="cfr_form" action="#" th:action method="post" enctype="multipart/form-data">
             <div class="image_upload">
                 <label class="input_label" onclick="inputFile()">사진 업로드</label>
-                <input type="file" name="image" class="input_image" id="imageFile" accept="image/jpeg, image/png" />
+                <input type="file" name="image" class="input_image" id="imageFile" accept="image/jpeg, image/png" onchange="handleImageUpload(event)" />
             </div>
             <div class="summit_box">
                 <button id="upload_btn" type="button">전송</button>
             </div>
         </form>
+        <div class="preview_box">
+            <img class="preview_image" id="preview" />
+        </div>
     </div>
 </div>
 
 
 <script type="text/javascript" th:src="@{/js/cfr.js}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
 
 </body>
 </html>

@@ -46,3 +46,11 @@
 th, td {
     border: 1px solid #aaaaaa;
 }
+.preview_box {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+.preview_image {
+    height: 400px;
+}

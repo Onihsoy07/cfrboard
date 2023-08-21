@@ -28,3 +28,37 @@ $(function() {
 function inputFile() {
     $('#imageFile').click();
 }
+
+//이미지 압축
+async function handleImageUpload(event) {
+
+    document.getElementById("preview").src = "";
+    const imageFile = event.target.files[0];
+
+    if(imageFile.size/1024/1024 >= 1.99) {
+        const options = {
+            maxSizeMB: 1.9,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true
+        }
+
+        try {
+            const compressedFile = await imageCompression(imageFile, options);
+            const resizingFile = new File([compressedFile], imageFile.name, { type: imageFile.type });
+            readURL(resizingFile);
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        readURL(imageFile);
+    }
+}
+
+//이미지 미리보기
+function readURL(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("preview").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
