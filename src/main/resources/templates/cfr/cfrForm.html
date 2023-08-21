@@ -11,13 +11,13 @@
 <div style="height:1000px;margin:15px;">
     <div class="container">
         <h1 style="text-align: center;margin-bottom: 50px;">CLOVA Face Recognition</h1>
-        <form class="cfr_form" action="#" th:action method="post" enctype="multipart/form-data">
+        <form id="cfr_form" class="cfr_form" action="#" th:action method="post" enctype="multipart/form-data">
             <div class="image_upload">
                 <label class="input_label" onclick="inputFile()">사진 업로드</label>
-                <input type="file" name="image" class="image_file" id="imageFile" />
+                <input type="file" name="image" class="input_image" id="imageFile" accept="image/jpeg, image/png" />
             </div>
             <div class="summit_box">
-                <button type="submit">전송</button>
+                <button id="upload_btn" type="button">전송</button>
             </div>
         </form>
     </div>
