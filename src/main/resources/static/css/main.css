@@ -54,3 +54,6 @@ th, td {
 .preview_image {
     height: 400px;
 }
+.resize_progress {
+    display: none;
+}

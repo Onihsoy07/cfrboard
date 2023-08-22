@@ -14,13 +14,14 @@
         <form id="cfr_form" class="cfr_form" action="#" th:action method="post" enctype="multipart/form-data">
             <div class="image_upload">
                 <label class="input_label" onclick="inputFile()">사진 업로드</label>
-                <input type="file" name="image" class="input_image" id="imageFile" accept="image/jpeg, image/png" onchange="handleImageUpload(event)" />
+                <input type="file" name="image" class="input_image" id="imageFile" accept="image/*" onchange="handleImageUpload(event)" />
             </div>
             <div class="summit_box">
                 <button id="upload_btn" type="button">전송</button>
             </div>
         </form>
         <div class="preview_box">
+            <progress class="resize_progress" max="100" value="0"></progress>
             <img class="preview_image" id="preview" />
         </div>
     </div>

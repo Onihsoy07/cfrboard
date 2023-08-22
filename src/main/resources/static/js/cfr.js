@@ -32,14 +32,24 @@ function inputFile() {
 //이미지 압축
 async function handleImageUpload(event) {
 
-    document.getElementById("preview").src = "";
     const imageFile = event.target.files[0];
+    document.getElementById("preview").src = "";
 
     if(imageFile.size/1024/1024 >= 1.99) {
+        var resize_progress = document.querySelector(".resize_progress");
+        resize_progress.style.display = "block";
+        resize_progress.value = "0";
+
         const options = {
             maxSizeMB: 1.9,
             maxWidthOrHeight: 1920,
-            useWebWorker: true
+            useWebWorker: true,
+            onProgress: function(c) {
+                resize_progress.value = c;
+                if(c >= 100) {
+                    resize_progress.style.display = "none";
+                }
+            }
         }
 
         try {
