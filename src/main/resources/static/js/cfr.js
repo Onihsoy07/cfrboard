@@ -2,9 +2,8 @@ $(function() {
     $("#upload_btn").click(function() {
 //        $("#cfr_form").preventDefault(); // 폼의 자체 서브밋 동작을 비활성
 
-        var imageInput = $("#imageFile")[0];
         var formData = new FormData();
-        formData.append("image", imageInput.files[0]);
+        formData.append("image", resizingFile);
 
         $.ajax({
             url : "/cfr",
@@ -30,6 +29,8 @@ function inputFile() {
 }
 
 //이미지 압축
+var resizingFile;
+
 async function handleImageUpload(event) {
 
     const imageFile = event.target.files[0];
@@ -54,8 +55,9 @@ async function handleImageUpload(event) {
 
         try {
             const compressedFile = await imageCompression(imageFile, options);
-            const resizingFile = new File([compressedFile], imageFile.name, { type: imageFile.type });
+            resizingFile = new File([compressedFile], imageFile.name, { type: imageFile.type });
             readURL(resizingFile);
+            document.getElementById("upload_btn").style.visibility = "visible";
         } catch (error) {
             console.log(error);
         }

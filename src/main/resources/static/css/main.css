@@ -57,3 +57,6 @@ th, td {
 .resize_progress {
     display: none;
 }
+#upload_btn {
+    visibility: hidden;
+}
