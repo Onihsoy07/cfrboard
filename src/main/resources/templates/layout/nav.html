@@ -13,6 +13,7 @@
     <h1>Cfr Board</h1>
   </div>
 
+<!--/*
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="/"
        th:href="@{/}">Home</a>
@@ -44,6 +45,33 @@
       </ul>
     </div>
   </nav>
+*/-->
+
+
+  <div class="cus_navbar">
+    <a href="/" th:href="@{/}">Home</a>
+
+    <th:block th:if="${principal} == anonymousUser">
+      <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
+      <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
+    </th:block>
+
+    <th:block th:if="${principal} != anonymousUser">
+      <a href="/cfr" th:href="@{/cfr}">CFR</a>
+      <a href="#" th:href="@{#}">글쓰기</a>
+
+      <div class="dropdown">
+        <button class="dropbtn" th:text="${principal.member.username}">
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#">회원정보수정</a>
+          <a href="/logout" th:href="@{/logout}">로그아웃</a>
+        </div>
+      </div>
+    </th:block>
+
+  </div>
 
 </th:block>
 
