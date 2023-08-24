@@ -43,4 +43,17 @@ $(function() {
         }
     });
 
+    $("#password_check").click(function() {
+        let password = $("#password").val();
+
+        console.log(password);
+
+        if(password == "") {
+            alert("비밀번호를 입력하세요.");
+        } else {
+            $("form").submit();
+        }
+    });
+
 });
+
