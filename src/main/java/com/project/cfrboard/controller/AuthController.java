@@ -2,6 +2,7 @@ package com.project.cfrboard.controller;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
 import com.project.cfrboard.domain.dto.MemberLoginDto;
+import com.project.cfrboard.domain.dto.MemberPasswordCheck;
 import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,11 @@ public class AuthController {
         }
         memberService.join(memberJoinDto);
         return "redirect:/";
+    }
+
+    @GetMapping("/confirm")
+    public String confirm(@ModelAttribute MemberPasswordCheck memberPasswordCheck) {
+        return "auth/confirm";
     }
 
 }
