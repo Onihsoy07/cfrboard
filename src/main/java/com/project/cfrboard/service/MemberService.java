@@ -43,7 +43,19 @@ public class MemberService {
         return memberRepository.findByUsername(username).isPresent();
     }
 
+    public void passwordCheckComplete(String username) {
+        Member member = memberRepository.findByUsername(username).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
+        });
+        member.setPasswordCheckTrue();
+    }
 
+    public void passwordCheckReset(String username) {
+        Member member = memberRepository.findByUsername(username).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
+        });
+        member.setPasswordCheckFalse();
+    }
 
 
 }

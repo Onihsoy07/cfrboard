@@ -1,6 +1,7 @@
 package com.project.cfrboard.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,10 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ColumnDefault("false")
+    @Column(nullable = false, unique = false)
+    private Boolean passwordCheck;
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CfrData> cfrDataList;
 
@@ -33,5 +38,13 @@ public class Member extends Base {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public void setPasswordCheckTrue() {
+        this.passwordCheck = true;
+    }
+
+    public void setPasswordCheckFalse() {
+        this.passwordCheck = false;
     }
 }
