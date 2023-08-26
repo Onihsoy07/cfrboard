@@ -1,15 +1,12 @@
 package com.project.cfrboard.domain.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Getter @Setter
-@DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(schema = "cfrboard")
 public class Member extends Base {
@@ -29,7 +26,7 @@ public class Member extends Base {
     private Role role;
 
     @Column(nullable = true, unique = false)
-    @ColumnDefault("false")
+//    @ColumnDefault("false")
     private Boolean passwordCheck;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -47,6 +44,11 @@ public class Member extends Base {
     }
 
     public void setPasswordCheckFalse() {
+        this.passwordCheck = false;
+    }
+
+    @PrePersist
+    public void prePersist() {
         this.passwordCheck = false;
     }
 }
