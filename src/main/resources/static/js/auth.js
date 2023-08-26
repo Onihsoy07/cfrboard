@@ -19,6 +19,7 @@ $(function() {
                     isIdChecked = true;
                     $("#btn-duplicateCheck").attr("disabled", true);
                     $("#loginId").attr("disabled", true);
+                    $("#mainId").attr("value", username);
                 }
             }).fail(function() {
                 console.log("에러");
