@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     @GetMapping("/confirm")
-    public String confirm(@ModelAttribute MemberPasswordCheckDto memberPasswordCheckDto) {
+    public String confirm(@ModelAttribute MemberPasswordCheckDto passwordCheckDto) {
         return "auth/confirm";
     }
 

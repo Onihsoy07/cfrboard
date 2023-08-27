@@ -18,11 +18,20 @@ import org.springframework.web.bind.annotation.*;
 public class AuthApiController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/ducheck")
     public ResponseEntity<Boolean> usernameDuplicateCheck(@RequestParam String username) {
         return ResponseEntity.ok(memberService.usernameDuplicateCheck(username));
+    }
+
+    @PostMapping("/confirm")
+    public ResponseEntity<Boolean> confirmCheck(@ModelAttribute MemberPasswordCheckDto passwordCheckDto,
+                                                @AuthenticationPrincipal PrincipalDetails principal) {
+        if (passwordCheckDto.getPassword() == null || principal == null || !(memberService.passwordCheck(passwordCheckDto, principal.getPassword()))) {
+            return ResponseEntity.ok(false);
+        } else {
+            return ResponseEntity.ok(true);
+        }
     }
 
 }
