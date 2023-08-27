@@ -54,7 +54,7 @@ $(function() {
             formData.append("password", password);
 
             $.ajax({
-                url : "/auth/confirm",
+                url : "/member/confirm",
                 type : "POST",
                 data : formData,
                 processData: false,

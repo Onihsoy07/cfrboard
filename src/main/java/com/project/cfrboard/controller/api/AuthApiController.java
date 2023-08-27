@@ -24,14 +24,4 @@ public class AuthApiController {
         return ResponseEntity.ok(memberService.usernameDuplicateCheck(username));
     }
 
-    @PostMapping("/confirm")
-    public ResponseEntity<Boolean> confirmCheck(@ModelAttribute MemberPasswordCheckDto passwordCheckDto,
-                                                @AuthenticationPrincipal PrincipalDetails principal) {
-        if (passwordCheckDto.getPassword() == null || principal == null || !(memberService.passwordCheck(passwordCheckDto, principal.getPassword()))) {
-            return ResponseEntity.ok(false);
-        } else {
-            return ResponseEntity.ok(true);
-        }
-    }
-
 }

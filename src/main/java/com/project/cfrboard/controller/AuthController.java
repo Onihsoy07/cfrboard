@@ -66,9 +66,4 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/confirm")
-    public String confirm(@ModelAttribute MemberPasswordCheckDto passwordCheckDto) {
-        return "auth/confirm";
-    }
-
 }
