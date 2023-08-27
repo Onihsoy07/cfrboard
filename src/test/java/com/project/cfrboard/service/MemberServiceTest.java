@@ -1,8 +1,8 @@
 package com.project.cfrboard.service;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
+import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
 import com.project.cfrboard.domain.entity.Member;
-import com.project.cfrboard.domain.entity.Role;
 import com.project.cfrboard.domain.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -25,10 +25,7 @@ class MemberServiceTest {
     @Test
     void usernameDuplicateCheck() {
         //given
-        MemberJoinDto memberJoinDto = new MemberJoinDto();
-        memberJoinDto.setUsername("member");
-        memberJoinDto.setPassword("memberps");
-        memberJoinDto.setPasswordCheck("memberps");
+        MemberJoinDto memberJoinDto = createMemberJoinDto("member", "memberps");
 
         memberService.join(memberJoinDto);
 
@@ -45,10 +42,7 @@ class MemberServiceTest {
         //given
         String username = "member";
 
-        MemberJoinDto memberJoinDto = new MemberJoinDto();
-        memberJoinDto.setUsername(username);
-        memberJoinDto.setPassword("memberps");
-        memberJoinDto.setPasswordCheck("memberps");
+        MemberJoinDto memberJoinDto = createMemberJoinDto(username, "password");
 
         memberService.join(memberJoinDto);
 
@@ -61,5 +55,36 @@ class MemberServiceTest {
         //then
         assertThat(findMember.getPasswordCheck()).isTrue();
 
+    }
+
+    @Test
+    void passwordCheckTest() {
+        //given
+        String username = "member";
+        String password = "memberps";
+
+        MemberJoinDto memberJoinDto = createMemberJoinDto(username, password);
+
+        memberService.join(memberJoinDto);
+
+        Member findMember = memberRepository.findByUsername(username).get();
+
+        MemberPasswordCheckDto passwordCheckDto = new MemberPasswordCheckDto(password);
+
+        //when
+        Boolean aBoolean = memberService.passwordCheck(passwordCheckDto, findMember.getPassword());
+
+        //then
+        assertThat(aBoolean).isTrue();
+
+    }
+
+    private MemberJoinDto createMemberJoinDto(String username, String password) {
+        MemberJoinDto memberJoinDto = new MemberJoinDto();
+        memberJoinDto.setUsername(username);
+        memberJoinDto.setPassword(password);
+        memberJoinDto.setPasswordCheck(password);
+
+        return memberJoinDto;
     }
 }
