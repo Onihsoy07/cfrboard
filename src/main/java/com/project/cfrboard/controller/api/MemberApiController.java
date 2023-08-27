@@ -26,6 +26,7 @@ public class MemberApiController {
         if (passwordCheckDto.getPassword() == null || principal == null || !(memberService.passwordCheck(passwordCheckDto, principal.getPassword()))) {
             return ResponseEntity.ok(false);
         } else {
+            memberService.passwordCheckComplete(principal.getUsername());
             return ResponseEntity.ok(true);
         }
     }

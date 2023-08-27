@@ -45,16 +45,12 @@ public class MemberService {
     }
 
     public void passwordCheckComplete(String username) {
-        Member member = memberRepository.findByUsername(username).orElseThrow(() -> {
-            throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
-        });
+        Member member = findByUsername(username);
         member.setPasswordCheckTrue();
     }
 
     public void passwordCheckReset(String username) {
-        Member member = memberRepository.findByUsername(username).orElseThrow(() -> {
-            throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
-        });
+        Member member = findByUsername(username);
         member.setPasswordCheckFalse();
     }
 
@@ -65,6 +61,22 @@ public class MemberService {
         } else {
             return false;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean passwordCheckIsTrue(String username) {
+        Member member = findByUsername(username);
+        if (member.getPasswordCheck()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Member findByUsername(String username) {
+        return memberRepository.findByUsername(username).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
+        });
     }
 
 
