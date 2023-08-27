@@ -1,6 +1,7 @@
 package com.project.cfrboard.service;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
+import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.entity.Role;
 import com.project.cfrboard.domain.repository.MemberRepository;
@@ -55,6 +56,15 @@ public class MemberService {
             throw new IllegalArgumentException(String.format("username : %s 를 찾을 수 없습니다.", username));
         });
         member.setPasswordCheckFalse();
+    }
+
+    public Boolean passwordCheck(MemberPasswordCheckDto passwordCheckDto,
+                                 String password) {
+        if (passwordEncoder.matches(passwordCheckDto.getPassword(), password)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

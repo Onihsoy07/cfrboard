@@ -2,12 +2,11 @@ package com.project.cfrboard.controller;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
 import com.project.cfrboard.domain.dto.MemberLoginDto;
-import com.project.cfrboard.domain.dto.MemberPasswordCheck;
+import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
 import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +67,7 @@ public class AuthController {
     }
 
     @GetMapping("/confirm")
-    public String confirm(@ModelAttribute MemberPasswordCheck memberPasswordCheck) {
+    public String confirm(@ModelAttribute MemberPasswordCheckDto memberPasswordCheckDto) {
         return "auth/confirm";
     }
 
