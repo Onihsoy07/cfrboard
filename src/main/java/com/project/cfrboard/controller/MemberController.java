@@ -22,7 +22,7 @@ public class MemberController {
 
     @GetMapping("/confirm")
     public String confirm(@ModelAttribute MemberPasswordCheckDto passwordCheckDto) {
-        return "auth/confirm";
+        return "member/confirm";
     }
 
     @GetMapping

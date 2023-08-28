@@ -13,7 +13,6 @@
         <h1>비밀번호 확인</h1>
         <form action="#" th:action th:object="${memberPasswordCheckDto}" method="post">
             <div>
-<!--                <label for="password">비밀번호</label>-->
                 <input type="password" id="password" th:field="*{password}" class="form-control">
             </div>
             <button id="password_check" type="button" class="btn btn-primary" style="margin-top:10px;">확인</button>
@@ -22,6 +21,6 @@
 </div>
 
 
-<script type="text/javascript" th:src="@{/js/auth.js}"></script>
+<script type="text/javascript" th:src="@{/js/member.js}"></script>
 </body>
 </html>
