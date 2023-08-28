@@ -86,7 +86,7 @@ public class MemberService {
 
             MemberPasswordCheckDto passwordCheckDto = new MemberPasswordCheckDto(password);
 
-            if (passwordCheck(passwordCheckDto, member.getPassword())) {
+            if (!passwordCheck(passwordCheckDto, member.getPassword())) {
                 member.update(passwordEncoder.encode(password));
                 return "ok";
             } else {

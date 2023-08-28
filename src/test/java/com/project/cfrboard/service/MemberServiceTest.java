@@ -2,6 +2,7 @@ package com.project.cfrboard.service;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
 import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
+import com.project.cfrboard.domain.dto.MemberUpdateDto;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -79,6 +80,30 @@ class MemberServiceTest {
 
     }
 
+    @Test
+    void update() {
+        //given
+        String username = "member";
+        String password = "memberps";
+        String updatePassword = "updateMemberps";
+
+        MemberJoinDto memberJoinDto = createMemberJoinDto(username, password);
+        MemberUpdateDto updateDto = new MemberUpdateDto(updatePassword, updatePassword);
+        MemberPasswordCheckDto passwordCheckDto = new MemberPasswordCheckDto(updatePassword);
+
+        memberService.join(memberJoinDto);
+
+        Member findMember = memberRepository.findByUsername(username).get();
+
+        //when
+        String result = memberService.update(updateDto, username);
+
+        //then
+        assertThat(result).isEqualTo("ok");
+        assertThat(memberService.passwordCheck(passwordCheckDto, findMember.getPassword())).isTrue();
+
+    }
+
     private MemberJoinDto createMemberJoinDto(String username, String password) {
         MemberJoinDto memberJoinDto = new MemberJoinDto();
         memberJoinDto.setUsername(username);
@@ -87,4 +112,5 @@ class MemberServiceTest {
 
         return memberJoinDto;
     }
+
 }
