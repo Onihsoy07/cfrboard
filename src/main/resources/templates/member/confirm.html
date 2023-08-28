@@ -11,7 +11,7 @@
 <div style="height:1000px;margin:15px;">
     <div class="container">
         <h1>비밀번호 확인</h1>
-        <form action="#" th:action th:object="${memberPasswordCheckDto}" method="post">
+        <form action="#" th:action th:object="${memberPasswordCheckDto}">
             <div>
                 <input type="password" id="password" th:field="*{password}" class="form-control">
             </div>
