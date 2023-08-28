@@ -47,6 +47,10 @@ public class Member extends Base {
         this.passwordCheck = false;
     }
 
+    public void update(String password) {
+        this.password = password;
+    }
+
     @PrePersist
     public void prePersist() {
         this.passwordCheck = false;

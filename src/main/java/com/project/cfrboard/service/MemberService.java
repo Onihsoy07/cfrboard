@@ -2,6 +2,7 @@ package com.project.cfrboard.service;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
 import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
+import com.project.cfrboard.domain.dto.MemberUpdateDto;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.entity.Role;
 import com.project.cfrboard.domain.repository.MemberRepository;
@@ -72,6 +73,28 @@ public class MemberService {
             return false;
         }
     }
+
+    public String update(MemberUpdateDto memberUpdateDto,
+                         String username) {
+        if (memberUpdateDto.getPassword() == null || memberUpdateDto.getPasswordCheck() == null) {
+            return "null";
+        } else if (memberUpdateDto.getPassword() != memberUpdateDto.getPasswordCheck()) {
+            return "non";
+        } else {
+            String password = memberUpdateDto.getPassword();
+            Member member = findByUsername(username);
+
+            MemberPasswordCheckDto passwordCheckDto = new MemberPasswordCheckDto(password);
+
+            if (passwordCheck(passwordCheckDto, member.getPassword())) {
+                member.update(passwordEncoder.encode(password));
+                return "ok";
+            } else {
+                return "same";
+            }
+        }
+    }
+
 
     private Member findByUsername(String username) {
         return memberRepository.findByUsername(username).orElseThrow(() -> {
