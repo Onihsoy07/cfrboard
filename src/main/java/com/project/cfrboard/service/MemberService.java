@@ -8,7 +8,10 @@ import com.project.cfrboard.domain.entity.Role;
 import com.project.cfrboard.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     public void join(MemberJoinDto memberJoinDto) {
         Member member = Member.builder()
@@ -88,6 +92,10 @@ public class MemberService {
 
             if (!passwordCheck(passwordCheckDto, member.getPassword())) {
                 member.update(passwordEncoder.encode(password));
+
+                Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
                 return "ok";
             } else {
                 return "same";
