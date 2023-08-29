@@ -2,6 +2,7 @@ package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
+import com.project.cfrboard.domain.dto.MemberUpdateDto;
 import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,5 +27,13 @@ public class MemberApiController {
             memberService.passwordCheckComplete(principal.getUsername());
             return ResponseEntity.ok(true);
         }
+    }
+
+    @PutMapping
+    public ResponseEntity<String> updateMember(@RequestBody MemberUpdateDto updateDto,
+                                               @AuthenticationPrincipal PrincipalDetails principal) {
+
+        String result = memberService.update(updateDto, principal.getUsername());
+        return ResponseEntity.ok(result);
     }
 }

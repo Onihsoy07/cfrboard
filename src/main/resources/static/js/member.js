@@ -43,7 +43,6 @@ $(function() {
                 url : "/member",
                 type : "PUT",
                 contentType: "application/json;charset=utf-8",
-                dataType:"json",
                 data : JSON.stringify(data)
             }).done(function(res) {
                 if(res == "ok") {

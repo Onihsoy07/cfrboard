@@ -78,7 +78,7 @@ public class MemberService {
                          String username) {
         if (memberUpdateDto.getPassword() == null || memberUpdateDto.getPasswordCheck() == null) {
             return "null";
-        } else if (memberUpdateDto.getPassword() != memberUpdateDto.getPasswordCheck()) {
+        } else if (!memberUpdateDto.getPassword().equals(memberUpdateDto.getPasswordCheck())) {
             return "non";
         } else {
             String password = memberUpdateDto.getPassword();
