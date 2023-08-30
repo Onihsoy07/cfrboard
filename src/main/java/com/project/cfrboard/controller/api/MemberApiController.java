@@ -32,8 +32,19 @@ public class MemberApiController {
     @PutMapping
     public ResponseEntity<String> updateMember(@RequestBody MemberUpdateDto updateDto,
                                                @AuthenticationPrincipal PrincipalDetails principal) {
-
         String result = memberService.update(updateDto, principal.getUsername());
         return ResponseEntity.ok(result);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Boolean> deleteMember(@RequestParam("id") String username,
+                                                @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null || username == null || !principal.getUsername().equals(username)) {
+            return ResponseEntity.ok(false);
+        } else {
+            memberService.delete(username);
+            return ResponseEntity.ok(true);
+        }
+    }
+
 }
