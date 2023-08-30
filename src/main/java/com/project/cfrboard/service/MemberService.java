@@ -103,6 +103,10 @@ public class MemberService {
         }
     }
 
+    public void delete(String username) {
+        memberRepository.deleteByUsername(username);
+    }
+
 
     private Member findByUsername(String username) {
         return memberRepository.findByUsername(username).orElseThrow(() -> {
