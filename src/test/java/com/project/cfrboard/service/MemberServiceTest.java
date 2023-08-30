@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
@@ -102,6 +104,26 @@ class MemberServiceTest {
         assertThat(result).isEqualTo("ok");
         assertThat(memberService.passwordCheck(passwordCheckDto, findMember.getPassword())).isTrue();
 
+    }
+
+    @Test
+    void delete() {
+        //given
+        String username = "member";
+        String password = "memberps";
+
+        MemberJoinDto memberJoinDto = createMemberJoinDto(username, password);
+        memberService.join(memberJoinDto);
+
+        Optional<Member> findMember = memberRepository.findByUsername(username);
+        assertThat(findMember.isPresent()).isTrue();
+
+        //when
+        memberService.delete(username);
+
+        //then
+        findMember = memberRepository.findByUsername(username);
+        assertThat(findMember.isPresent()).isFalse();
     }
 
     private MemberJoinDto createMemberJoinDto(String username, String password) {
