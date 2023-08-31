@@ -61,5 +61,25 @@ $(function() {
         }
     });
 
+    $("#btn-delete").click(function() {
+        const username = $("#loginId").val();
+
+        $.ajax({
+            url : "/member?id=" + username,
+            type : "DELETE",
+            contentType: "application/json;charset=utf-8"
+//            data : JSON.stringify(data)
+        }).done(function(res) {
+            if(res == true) {
+                alert("회원 탈퇴 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert("회원 탈퇴 실패하였습니다.");
+            }
+        }).fail(function(err) {
+            alert("통신에 실패하였습니`다.");
+        });
+    });
+
 
 });
