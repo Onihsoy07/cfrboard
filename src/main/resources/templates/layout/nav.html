@@ -58,7 +58,17 @@
 
     <th:block th:if="${principal} != anonymousUser">
       <a href="/cfr" th:href="@{/cfr}">CFR</a>
-      <a href="#" th:href="@{#}">글쓰기</a>
+      <a href="/boards" th:href="@{/boards}">글쓰기</a>
+
+      <div class="dropdown">
+        <button class="dropbtn" th:text="게시판">
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="/boards?bt=fr" th:href="@{/boards?bt=fr}">자유게시판</a>
+          <a href="/boards?bt=cfr" th:href="@{/boards?bt=cfr}">CFR게시판</a>
+        </div>
+      </div>
 
       <div class="dropdown">
         <button class="dropbtn" th:text="${principal.member.username}">
@@ -66,6 +76,7 @@
         </button>
         <div class="dropdown-content">
           <a href="/auth/confirm" th:href="@{/member/confirm}">회원정보수정</a>
+          <a href="/cfr/list" th:href="@{/cfr/list}">CFR 리스트</a>
           <a href="/logout" th:href="@{/logout}">로그아웃</a>
         </div>
       </div>
