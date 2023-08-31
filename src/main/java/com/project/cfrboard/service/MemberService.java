@@ -105,6 +105,7 @@ public class MemberService {
 
     public void delete(String username) {
         memberRepository.deleteByUsername(username);
+        SecurityContextHolder.clearContext();
     }
 
 
