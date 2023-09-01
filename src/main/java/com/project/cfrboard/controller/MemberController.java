@@ -8,33 +8,41 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/confirm")
-    public String confirm(@ModelAttribute MemberPasswordCheckDto passwordCheckDto) {
+    @GetMapping("/{memberId}/confirm")
+    public String confirm(@PathVariable Long memberId,
+                          @ModelAttribute MemberPasswordCheckDto passwordCheckDto,
+                          Model model) {
+        model.addAttribute("memberId", memberId);
         return "member/confirm";
     }
 
-    @GetMapping
-    public String detail(@AuthenticationPrincipal PrincipalDetails principal,
-                         @ModelAttribute MemberModifyDto memberModifyDto) {
+    @GetMapping("/{memberId}/edit")
+    public String detail(@PathVariable Long memberId,
+                         @AuthenticationPrincipal PrincipalDetails principal,
+                         @ModelAttribute MemberModifyDto memberModifyDto,
+                         Model model) {
+        model.addAttribute("memberId", memberId);
         String username = principal.getUsername();
         if (memberService.passwordCheckIsTrue(username)) {
             memberService.passwordCheckReset(username);
             memberModifyDto.setUsername(principal.getUsername());
             return "member/detail";
         } else {
-            return "redirect:/member/confirm";
+            return "redirect:/members/" + memberId + "/confirm";
         }
     }
 }

@@ -12,6 +12,7 @@
     <div class="container">
         <h1>회원 정보</h1>
         <form action="#" th:action th:object="${memberModifyDto}">
+            <input type="hidden" id="memberId" th:value="${memberId}" />
             <div>
                 <label for="loginId">아이디</label>
                 <input type="text" id="loginId" th:field="*{username}" class="form-control" readonly>

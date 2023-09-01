@@ -1,6 +1,7 @@
 $(function() {
     $("#password_check").click(function() {
         let password = $("#password").val();
+        let memberId = $("#memberId").val();
 
         if(password == "") {
             alert("비밀번호를 입력하세요.");
@@ -9,14 +10,14 @@ $(function() {
             formData.append("password", password);
 
             $.ajax({
-                url : "/member/confirm",
+                url : "/members/" + memberId + "/confirm",
                 type : "POST",
                 data : formData,
                 processData: false,
                 contentType: false
             }).done(function(res){
                 if(res == true) {
-                    location.href = "/member";
+                    location.href = "/members/" + memberId + "/edit";
                 } else {
                     alert("비밀번호가 다릅니다.");
                 }
@@ -27,6 +28,7 @@ $(function() {
     });
 
     $("#btn-modify").click(function() {
+        let memberId = $("#memberId").val();
         let data = {
             password : $("#password").val(),
             passwordCheck : $("#passwordCheck").val()
@@ -40,7 +42,7 @@ $(function() {
             alert("비밀번호와 비밀번호 확인이 다릅니다.");
         } else {
             $.ajax({
-                url : "/member",
+                url : "/members/" + memberId,
                 type : "PUT",
                 contentType: "application/json;charset=utf-8",
                 data : JSON.stringify(data)
@@ -62,10 +64,10 @@ $(function() {
     });
 
     $("#btn-delete").click(function() {
-        const username = $("#loginId").val();
+        let memberId = $("#memberId").val();
 
         $.ajax({
-            url : "/member?id=" + username,
+            url : "/members/" + memberId,
             type : "DELETE",
             contentType: "application/json;charset=utf-8"
 //            data : JSON.stringify(data)

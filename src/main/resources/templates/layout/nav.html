@@ -75,7 +75,7 @@
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-          <a href="/auth/confirm" th:href="@{/member/confirm}">회원정보수정</a>
+          <a href="#" th:href="@{/members/{userId}/confirm(userId=${principal.member.id})}">회원정보수정</a>
           <a href="/cfr/list" th:href="@{/cfr/list}">CFR 리스트</a>
           <a href="/logout" th:href="@{/logout}">로그아웃</a>
         </div>

@@ -19,7 +19,7 @@ public class AuthApiController {
 
     private final MemberService memberService;
 
-    @GetMapping("/ducheck")
+    @GetMapping("/duplicate-check")
     public ResponseEntity<Boolean> usernameDuplicateCheck(@RequestParam String username) {
         return ResponseEntity.ok(memberService.usernameDuplicateCheck(username));
     }

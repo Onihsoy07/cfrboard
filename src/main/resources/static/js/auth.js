@@ -8,7 +8,7 @@ $(function() {
             alert("아이디를 입력하세요.");
         } else {
             $.ajax({
-                url : "/auth/ducheck?username="+username,
+                url : "/auth/duplicate-check?username="+username,
                 type : "GET"
             }).done(function(res) {
                 if(res == true) {

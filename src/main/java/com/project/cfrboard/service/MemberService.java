@@ -103,8 +103,8 @@ public class MemberService {
         }
     }
 
-    public void delete(String username) {
-        memberRepository.deleteByUsername(username);
+    public void delete(Long memberId) {
+        memberRepository.deleteById(memberId);
         SecurityContextHolder.clearContext();
     }
 

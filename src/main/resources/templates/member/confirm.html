@@ -12,6 +12,7 @@
     <div class="container">
         <h1>비밀번호 확인</h1>
         <form action="#" th:action th:object="${memberPasswordCheckDto}">
+            <input type="hidden" id="memberId" th:value="${memberId}" />
             <div>
                 <input type="password" id="password" th:field="*{password}" class="form-control">
             </div>
