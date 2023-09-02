@@ -8,7 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -44,14 +50,18 @@ class CfrDataRepositoryTest {
                 .build();
         cfrDataRepository.save(cfrData);
 
+        Member findMember = memberRepository.findByUsername("test").get();
+
+        Pageable pageable = PageRequest.of(0, 15, Sort.by("id"));
+
         //when
-        List<CfrDataDto> cfrDataDtoList = cfrDataRepository.findCfrDataDtoList(member);
+        Page<CfrDataDto> cfrDataDtoList = cfrDataRepository.findCfrDataDtoList(findMember.getId(), pageable);
 
         //then
         log.info("cfrDataDtoList = {}", cfrDataDtoList);
-        assertThat(cfrDataDtoList.size()).isEqualTo(1);
-        assertThat(cfrDataDtoList.get(0).getValue()).isEqualTo(cfrData.getValue());
-        assertThat(cfrDataDtoList.get(0).getConfidence()).isEqualTo(cfrData.getConfidence());
+        assertThat(cfrDataDtoList.getContent().size()).isEqualTo(1);
+        assertThat(cfrDataDtoList.getContent().get(0).getValue()).isEqualTo(cfrData.getValue());
+        assertThat(cfrDataDtoList.getContent().get(0).getConfidence()).isEqualTo(cfrData.getConfidence());
 
     }
 }
