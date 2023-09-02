@@ -119,7 +119,7 @@ class MemberServiceTest {
         assertThat(findMember.isPresent()).isTrue();
 
         //when
-        memberService.delete(username);
+        memberService.delete(findMember.get().getId());
 
         //then
         findMember = memberRepository.findByUsername(username);
