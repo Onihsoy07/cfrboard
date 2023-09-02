@@ -12,26 +12,46 @@
     <div class="container">
         <h1 style="text-align: center;margin-bottom: 50px;">CLOVA Face Recognition List</h1>
         <div class="d-flex justify-content-center">
-            <table class="cfr_list">
-                <thead class="cfr_list_head">
-                <tr>
-                    <th>value</th>
-                    <th>confidence</th>
-                    <th>createDate</th>
-                    <th style="width:100px;"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="cfr_list_body" th:each="cfrData : ${cfrDataList}">
-                    <td th:text="${cfrData.value}"></td>
-                    <td th:text="${cfrData.confidence}"></td>
-                    <td th:text="${cfrData.createDate}"></td>
-                    <td>
-                        <button>글쓰기</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="container-fluid">
+
+                <div class="list_wrap">
+                    <div class="list-group cus-list">
+                        <div class="list-group-item align-items-center list-head">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-value">value</div>
+                                <div class="col-confidence">confidence</div>
+                                <div class="col-createDate">createDate</div>
+                                <div class="col-write"></div>
+                            </div>
+                        </div>
+                        <div class="list-body" th:each="cfrData : ${cfrDataList.content}">
+                            <div class="list-group-item align-items-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-value" th:text="${cfrData.value}"></div>
+                                    <div class="col-confidence" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}"></div>
+                                    <div class="col-createDate" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:s')}"></div>
+                                    <div class="col-write">
+                                        <a th:href="@{#}">글쓰기</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination-wrapper" style="margin-top:20px;">
+                    <ul class="pagination justify-content-center">
+                        <th:block th:each="page : ${#numbers.sequence(1, cfrDataList.totalPages)}">
+                            <li class="page-item">
+                                <a class="page-link"
+                                   th:href="|/cfrs?page=${page}|"
+                                   th:text="${page}">page</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

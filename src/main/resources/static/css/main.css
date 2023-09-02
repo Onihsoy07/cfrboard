@@ -115,3 +115,21 @@ th, td {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.col-value{
+    width: 10%;
+    text-align: center;
+}
+.col-confidence{
+    width: 10%;
+    text-align: center;
+}
+.col-createDate{
+    width: 25%;
+    text-align: center;
+}
+.col-write{
+    width: 10%;
+    text-align: center;
+}
+

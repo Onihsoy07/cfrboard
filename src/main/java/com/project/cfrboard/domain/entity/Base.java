@@ -17,11 +17,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class Base {
 
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @CreatedDate
     private LocalDateTime createDate;
 
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @LastModifiedDate
     private LocalDateTime updateDate;
 
