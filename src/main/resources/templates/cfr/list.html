@@ -29,7 +29,7 @@
                                 <div class="d-flex justify-content-between">
                                     <div class="col-value" th:text="${cfrData.value}"></div>
                                     <div class="col-confidence" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}"></div>
-                                    <div class="col-createDate" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:s')}"></div>
+                                    <div class="col-createDate" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
                                     <div class="col-write">
                                         <a th:href="@{#}">글쓰기</a>
                                     </div>

@@ -33,6 +33,9 @@ var resizingFile;
 
 async function handleImageUpload(event) {
 
+    var upload_btn = document.getElementById("upload_btn");
+    upload_btn.style.visibility = "hidden";
+
     const imageFile = event.target.files[0];
     document.getElementById("preview").src = "";
 
@@ -57,12 +60,14 @@ async function handleImageUpload(event) {
             const compressedFile = await imageCompression(imageFile, options);
             resizingFile = new File([compressedFile], imageFile.name, { type: imageFile.type });
             readURL(resizingFile);
-            document.getElementById("upload_btn").style.visibility = "visible";
+            upload_btn.style.visibility = "visible";
         } catch (error) {
             console.log(error);
         }
     } else {
         readURL(imageFile);
+        resizingFile = imageFile;
+        upload_btn.style.visibility = "visible";
     }
 }
 
