@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cfr")
+@RequestMapping("/cfrs")
 public class CfrApiController {
 
     private final CfrService cfrService;

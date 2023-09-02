@@ -57,7 +57,7 @@
     </th:block>
 
     <th:block th:if="${principal} != anonymousUser">
-      <a href="/cfr" th:href="@{/cfr}">CFR</a>
+      <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
       <a href="/boards" th:href="@{/boards}">글쓰기</a>
 
       <div class="dropdown">
@@ -76,7 +76,7 @@
         </button>
         <div class="dropdown-content">
           <a href="#" th:href="@{/members/{userId}/confirm(userId=${principal.member.id})}">회원정보수정</a>
-          <a href="/cfr/list" th:href="@{/cfr/list}">CFR 리스트</a>
+          <a href="/cfrs" th:href="@{/cfrs}">CFR 리스트</a>
           <a href="/logout" th:href="@{/logout}">로그아웃</a>
         </div>
       </div>

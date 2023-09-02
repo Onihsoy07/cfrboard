@@ -6,14 +6,14 @@ $(function() {
         formData.append("image", resizingFile);
 
         $.ajax({
-            url : "/cfr",
+            url : "/cfrs",
             type : "POST",
             data : formData,
             processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
             contentType: false //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
         }).done(function(res){
             if(res == true) {
-                location.href = "/cfr/list";
+                location.href = "/cfrs";
             } else {
                 alert("사진이 조건에 맞지 않습니다.");
             }
