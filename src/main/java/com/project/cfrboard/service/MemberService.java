@@ -4,7 +4,7 @@ import com.project.cfrboard.domain.dto.MemberJoinDto;
 import com.project.cfrboard.domain.dto.MemberPasswordCheckDto;
 import com.project.cfrboard.domain.dto.MemberUpdateDto;
 import com.project.cfrboard.domain.entity.Member;
-import com.project.cfrboard.domain.entity.Role;
+import com.project.cfrboard.domain.entity.enumeration.Role;
 import com.project.cfrboard.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service

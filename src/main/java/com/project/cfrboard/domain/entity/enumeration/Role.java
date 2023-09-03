@@ -1,4 +1,4 @@
-package com.project.cfrboard.domain.entity;
+package com.project.cfrboard.domain.entity.enumeration;
 
 import lombok.Getter;
 

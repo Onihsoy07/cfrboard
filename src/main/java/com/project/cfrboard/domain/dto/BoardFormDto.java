@@ -1,6 +1,6 @@
 package com.project.cfrboard.domain.dto;
 
-import com.project.cfrboard.domain.entity.BoardTable;
+import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,5 +20,7 @@ public class BoardFormDto {
     private String content;
 
     private BoardTable boardTable;
+
+    private Long cfrId;
 
 }

@@ -1,5 +1,6 @@
 package com.project.cfrboard.domain.entity;
 
+import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import lombok.*;
 
 import javax.persistence.*;

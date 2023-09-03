@@ -2,7 +2,7 @@ package com.project.cfrboard.test;
 
 import com.project.cfrboard.domain.dto.MemberLoginDto;
 import com.project.cfrboard.domain.entity.Member;
-import com.project.cfrboard.domain.entity.Role;
+import com.project.cfrboard.domain.entity.enumeration.Role;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
