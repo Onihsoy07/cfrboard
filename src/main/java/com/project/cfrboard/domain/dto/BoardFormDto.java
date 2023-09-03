@@ -11,12 +11,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class BoardFormDto {
 
-    @NotBlank(message = "제목를 입력하시오.")
-    @Min(value = 5, message = "제목을 5자 이상 쓰시오.")
+    @NotBlank(message = "제목를 입력해주세요.")
+    @Min(value = 5, message = "제목을 5자 이상 입력해주세요.")
     private String title;
 
-    @NotBlank(message = "내용를 입력하시오.")
-    @Min(value = 10, message = "내용을 10자 이상 쓰시오.")
+    @NotBlank(message = "내용를 입력해주세요.")
+    @Min(value = 10, message = "내용을 10자 이상 입력해주세요.")
     private String content;
 
     private String boardTable;

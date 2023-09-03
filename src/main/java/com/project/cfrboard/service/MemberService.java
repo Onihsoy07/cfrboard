@@ -79,9 +79,9 @@ public class MemberService {
     public String update(MemberUpdateDto memberUpdateDto,
                          String username) {
         if (memberUpdateDto.getPassword() == null || memberUpdateDto.getPasswordCheck() == null) {
-            return "null";
+            return "비밀번호를 입력해주세요.";
         } else if (!memberUpdateDto.getPassword().equals(memberUpdateDto.getPasswordCheck())) {
-            return "non";
+            return "비밀번호와 비밀번호 확인이 다릅니다.";
         } else {
             String password = memberUpdateDto.getPassword();
             Member member = findByUsername(username);
@@ -96,7 +96,7 @@ public class MemberService {
 
                 return "ok";
             } else {
-                return "same";
+                return "기존 비밀번호와 같습니다.";
             }
         }
     }

@@ -16,10 +16,10 @@ $(function() {
                 processData: false,
                 contentType: false
             }).done(function(res){
-                if(res == true) {
+                if(res.success) {
                     location.href = "/members/" + memberId + "/edit";
                 } else {
-                    alert("비밀번호가 다릅니다.");
+                    alert(res.msg);
                 }
             }).fail(function(error){
                 alert("통신에 실패하였습니다.");
@@ -47,14 +47,11 @@ $(function() {
                 contentType: "application/json;charset=utf-8",
                 data : JSON.stringify(data)
             }).done(function(res) {
-                if(res == "ok") {
+                if(res.success) {
                     alert("비밀번호 수정이 완료되었습니다.");
                     location.href = "/";
-                } else if(res = "same") {
-                    alert("기존 비밀번호와 새 비밀번호가 일치합니다.");
-                    return false;
-                } else if(res = "non") {
-                    alert("비밀번호와 비밀번호 확인이 다릅니다.");
+                } else {
+                    alert(res.msg);
                     return false;
                 }
             }).fail(function(err) {
@@ -72,7 +69,7 @@ $(function() {
             contentType: "application/json;charset=utf-8"
 //            data : JSON.stringify(data)
         }).done(function(res) {
-            if(res == true) {
+            if(res.success) {
                 alert("회원 탈퇴 완료되었습니다.");
                 location.href = "/";
             } else {
