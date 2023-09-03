@@ -19,7 +19,7 @@ public class BoardFormDto {
     @Min(value = 10, message = "내용을 10자 이상 쓰시오.")
     private String content;
 
-    private BoardTable boardTable;
+    private String boardTable;
 
     private Long cfrId;
 
