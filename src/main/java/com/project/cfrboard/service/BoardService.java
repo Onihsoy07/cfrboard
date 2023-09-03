@@ -19,7 +19,7 @@ public class BoardService {
                 .title(boardFormDto.getTitle())
                 .content(boardFormDto.getContent())
                 .build();
-        
+
         boardRepository.save(board);
     }
 }
