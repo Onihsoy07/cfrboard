@@ -42,7 +42,12 @@
                 <div class="pagination-wrapper" style="margin-top:20px;">
                     <ul class="pagination justify-content-center">
                         <th:block th:each="page : ${#numbers.sequence(1, cfrDataList.totalPages)}">
-                            <li class="page-item">
+                            <li th:if="${cfrDataList.number == page-1}" class="page-item active">
+                                <a class="page-link"
+                                   th:href="|/cfrs?page=${page}|"
+                                   th:text="${page}">page</a>
+                            </li>
+                            <li th:unless="${cfrDataList.number == page-1}" class="page-item">
                                 <a class="page-link"
                                    th:href="|/cfrs?page=${page}|"
                                    th:text="${page}">page</a>
