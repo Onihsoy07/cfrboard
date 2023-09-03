@@ -133,3 +133,12 @@ th, td {
     text-align: center;
 }
 
+.list-head {
+    background-color: #DCDCDC;
+}
+
+.board-title a {
+    color: black;
+    text-decoration-line: none;
+}
+

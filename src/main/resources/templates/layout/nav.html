@@ -10,7 +10,9 @@
 <th:block th:fragment="nav">
 
   <div class="jumbotron text-center" style="margin-bottom:0">
-    <h1>Cfr Board</h1>
+    <h1 class="board-title">
+      <a th:href="@{/}">CFR Board</a>
+    </h1>
   </div>
 
 <!--/*
@@ -52,14 +54,6 @@
     <a href="/" th:href="@{/}">Home</a>
 
     <th:block th:if="${principal} == anonymousUser">
-      <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
-      <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
-    </th:block>
-
-    <th:block th:if="${principal} != anonymousUser">
-      <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
-      <a href="/boards" th:href="@{/boards}">글쓰기</a>
-
       <div class="dropdown">
         <button class="dropbtn" th:text="게시판">
           <i class="fa fa-caret-down"></i>
@@ -69,6 +63,24 @@
           <a href="/boards?bt=cfr" th:href="@{/boards?bt=cfr}">CFR게시판</a>
         </div>
       </div>
+      <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
+      <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
+    </th:block>
+
+    <th:block th:if="${principal} != anonymousUser">
+      
+      <div class="dropdown">
+        <button class="dropbtn" th:text="게시판">
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="/boards?bt=fr" th:href="@{/boards?bt=fr}">자유게시판</a>
+          <a href="/boards?bt=cfr" th:href="@{/boards?bt=cfr}">CFR게시판</a>
+        </div>
+      </div>
+
+      <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
+      <a href="/boards/form" th:href="@{/boards/form}">글쓰기</a>
 
       <div class="dropdown">
         <button class="dropbtn" th:text="${principal.member.username}">
