@@ -22,9 +22,14 @@ public class Board extends Base {
     @Lob
     private String content;
 
+    @Column(nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    private BoardTable boardTable;
+
     @Builder
-    public Board(String title, String content) {
+    public Board(String title, String content, BoardTable boardTable) {
         this.title = title;
         this.content = content;
+        this.boardTable = boardTable;
     }
 }

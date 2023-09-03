@@ -18,6 +18,7 @@ public class BoardService {
         Board board = Board.builder()
                 .title(boardFormDto.getTitle())
                 .content(boardFormDto.getContent())
+                .boardTable(boardFormDto.getBoardTable())
                 .build();
 
         boardRepository.save(board);
