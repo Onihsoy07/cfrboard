@@ -11,10 +11,10 @@ $(function() {
                 url : "/auth/duplicate-check?username="+username,
                 type : "GET"
             }).done(function(res) {
-                if(res == true) {
+                if(res.data) {
                     idMsg.innerHTML = "중복 아이디가 존재합니다.";
                     idMsg.style.display = "block";
-                } else if(res == false) {
+                } else {
                     idMsg.style.display = "none";
                     isIdChecked = true;
                     $("#btn-duplicateCheck").attr("disabled", true);

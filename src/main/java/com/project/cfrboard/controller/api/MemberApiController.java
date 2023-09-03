@@ -45,9 +45,10 @@ public class MemberApiController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "비밀번호가 다릅니다."));
             } else {
                 memberService.passwordCheckComplete(principal.getUsername());
-                httpServletResponse.setStatus(HttpStatus.CREATED.value());
+
+                //Location 동작 안함???
                 httpServletResponse.setHeader("Location", "/members/"+memberId+"/edit");
-                return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "사용자 확인 완료"));
+                return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, null, "사용자 확인 완료"));
             }
         }
 
