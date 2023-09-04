@@ -12,13 +12,13 @@ $(function() {
             processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
             contentType: false //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
         }).done(function(res){
-            if(res == true) {
+            if(res.success) {
                 location.href = "/cfrs";
             } else {
-                alert("사진이 조건에 맞지 않습니다.");
+                alert(res.msg);
             }
         }).fail(function(error){
-            alert("통신에 실패하였습니다.");
+            alert(error.responseJSON.msg);
         });
     });
 

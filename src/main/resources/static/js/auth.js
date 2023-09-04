@@ -22,7 +22,7 @@ $(function() {
                     $("#mainId").attr("value", username);
                 }
             }).fail(function() {
-                console.log("에러");
+                alert(error.responseJSON.msg);
             })
         }
     });

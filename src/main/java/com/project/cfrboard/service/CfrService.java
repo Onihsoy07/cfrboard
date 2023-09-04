@@ -51,12 +51,19 @@ public class CfrService {
         HttpEntity<MultiValueMap<String, Object>> CFRRequest =
                 new HttpEntity<>(body, httpHeaders);
 
-        ResponseEntity<String> response = rt.exchange(
-                "https://openapi.naver.com/v1/vision/celebrity",
-                HttpMethod.POST,
-                CFRRequest,
-                String.class
-        );
+        ResponseEntity<String> response = null;
+
+        try {
+            response = rt.exchange(
+                    "https://openapi.naver.com/v1/vision/celebrity",
+                    HttpMethod.POST,
+                    CFRRequest,
+                    String.class
+            );
+        } catch (Exception e) {
+            log.info("getCfrResponseDto error={}", e);
+            throw e;
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         CfrResponseDto cfrResponseDto;

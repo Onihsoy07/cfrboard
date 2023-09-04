@@ -22,7 +22,7 @@ $(function() {
                     alert(res.msg);
                 }
             }).fail(function(error){
-                alert("통신에 실패하였습니다.");
+                alert(error.responseJSON.msg);
             });
         }
     });
@@ -55,7 +55,7 @@ $(function() {
                     return false;
                 }
             }).fail(function(err) {
-                alert("통신에 실패하였습니다.");
+                alert(error.responseJSON.msg);
             });
         }
     });
@@ -76,7 +76,7 @@ $(function() {
                 alert("회원 탈퇴 실패하였습니다.");
             }
         }).fail(function(err) {
-            alert("통신에 실패하였습니`다.");
+            alert(error.responseJSON.msg);
         });
     });
 

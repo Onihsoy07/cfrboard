@@ -11,8 +11,6 @@ $(function() {
             cfrId : cfrId
         }
 
-        console.log(data);
-
         if(data.title.length < 5) {
             alert("제목을 5글자 이상 써주세요.");
             return false;
@@ -28,9 +26,13 @@ $(function() {
             type : "POST",
             data : data
         }).done(function(res) {
-            location.href = "/boards?bt=" + data.boardTable;
+            if (res.success) {
+                location.href = "/boards?bt=" + data.boardTable;
+            } else {
+                alert(res.msg);
+            }
         }).fail(function() {
-            console.log("에러");
+            alert(error.responseJSON.msg);
         })
 
     });
