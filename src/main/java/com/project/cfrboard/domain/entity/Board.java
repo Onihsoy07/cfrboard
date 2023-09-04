@@ -27,10 +27,19 @@ public class Board extends Base {
     @Enumerated(EnumType.STRING)
     private BoardTable boardTable;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cfrdata_id")
+    private CfrData cfrData;
+
     @Builder
-    public Board(String title, String content, BoardTable boardTable) {
+    public Board(String title, String content, BoardTable boardTable, CfrData cfrData) {
         this.title = title;
         this.content = content;
         this.boardTable = boardTable;
+        this.cfrData = cfrData;
     }
 }
