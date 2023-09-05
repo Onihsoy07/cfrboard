@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
 @Table(schema = "cfrboard")
 public class CfrData extends Base {
 
