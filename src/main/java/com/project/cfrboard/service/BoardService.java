@@ -31,11 +31,12 @@ public class BoardService {
             throw new NoBoardTableException(String.format("BoardTable %s가 존재하지 않습니다.", boardFormDto.getBoardTable()));
         }
 
-        if (BoardTable.FREE.equals(boardFormDto.getBoardTable())) {
+        if (BoardTable.FREE.getValue().equals(boardFormDto.getBoardTable())) {
             board = Board.builder()
                     .title(boardFormDto.getTitle())
                     .content(boardFormDto.getContent())
-                    .boardTable(BoardTable.valueOf(boardFormDto.getBoardTable()))
+                    .boardTable(BoardTable.FREE)
+                    .member(member)
                     .cfrData(null)
                     .build();
         } else {
@@ -47,7 +48,8 @@ public class BoardService {
             board = Board.builder()
                     .title(boardFormDto.getTitle())
                     .content(boardFormDto.getContent())
-                    .boardTable(BoardTable.valueOf(boardFormDto.getBoardTable()))
+                    .boardTable(BoardTable.CFR)
+                    .member(member)
                     .cfrData(cfrData)
                     .build();
         }

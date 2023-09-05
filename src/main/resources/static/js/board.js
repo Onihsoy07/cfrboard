@@ -24,14 +24,16 @@ $(function() {
         $.ajax({
             url : "/boards",
             type : "POST",
-            data : data
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data : JSON.stringify(data)
         }).done(function(res) {
             if (res.success) {
                 location.href = "/boards?bt=" + data.boardTable;
             } else {
                 alert(res.msg);
             }
-        }).fail(function() {
+        }).fail(function(error) {
             alert(error.responseJSON.msg);
         })
 

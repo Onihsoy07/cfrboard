@@ -37,10 +37,11 @@ public class Board extends Base {
     private CfrData cfrData;
 
     @Builder
-    public Board(String title, String content, BoardTable boardTable, CfrData cfrData) {
+    public Board(String title, String content, BoardTable boardTable, Member member, CfrData cfrData) {
         this.title = title;
         this.content = content;
         this.boardTable = boardTable;
+        this.member = member;
         this.cfrData = cfrData;
     }
 }
