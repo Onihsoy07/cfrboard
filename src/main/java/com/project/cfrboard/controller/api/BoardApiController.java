@@ -46,6 +46,8 @@ public class BoardApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "BoardTable이 잘못되었습니다."));
         } catch (NotMatchMemberDataException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "접근 권리 없음"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "존재하지 않는 CFR DATA입니다."));
         }
     }
 }

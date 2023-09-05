@@ -23,7 +23,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final CfrDataRepository cfrDataRepository;
 
-    public void save(BoardFormDto boardFormDto, Member member) throws NoBoardTableException, NotMatchMemberDataException {
+    public void save(BoardFormDto boardFormDto, Member member) throws NoBoardTableException, NotMatchMemberDataException, IllegalArgumentException {
         boolean isPresentBoard = Arrays.stream(BoardTable.values()).anyMatch(bt -> bt.getValue().equals(boardFormDto.getBoardTable()));
         Board board = null;
 
@@ -40,6 +40,10 @@ public class BoardService {
                     .cfrData(null)
                     .build();
         } else {
+            if (boardFormDto.getCfrId() == null) {
+                throw new IllegalArgumentException("CfrData ID가 존재하지 않습니다.");
+            }
+
             CfrData cfrData = getCfrData(boardFormDto.getCfrId());
             if (member != cfrData.getMember()) {
                 throw new NotMatchMemberDataException("Member의 CfrData가 아닙니다.");
