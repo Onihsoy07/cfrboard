@@ -1,5 +1,6 @@
 package com.project.cfrboard.service;
 
+import com.project.cfrboard.domain.dto.BoardDto;
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.CfrData;
@@ -11,13 +12,17 @@ import com.project.cfrboard.exception.NoBoardTableException;
 import com.project.cfrboard.exception.NotMatchMemberDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -59,6 +64,10 @@ public class BoardService {
         }
 
         boardRepository.save(board);
+    }
+
+    public Page<BoardDto> getBoardList(String boardTable) {
+//        boardRepository.
     }
 
     private CfrData getCfrData(Long id) {

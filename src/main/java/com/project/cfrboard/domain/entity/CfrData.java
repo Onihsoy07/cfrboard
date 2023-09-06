@@ -3,6 +3,7 @@ package com.project.cfrboard.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +26,9 @@ public class CfrData extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "cfrdata", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Board> boardList;
 
     @Builder
     public CfrData(String value, Float confidence, Member member) {

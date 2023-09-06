@@ -4,6 +4,7 @@ import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +26,9 @@ public class Board extends Base {
     private String content;
 
     @Column(nullable = false, unique = false)
+    private Integer viewCount;
+
+    @Column(nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
     private BoardTable boardTable;
 
@@ -36,6 +40,12 @@ public class Board extends Base {
     @JoinColumn(name = "cfrdata_id")
     private CfrData cfrData;
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replyList;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Likes> likesList;
+
     @Builder
     public Board(String title, String content, BoardTable boardTable, Member member, CfrData cfrData) {
         this.title = title;
@@ -43,5 +53,10 @@ public class Board extends Base {
         this.boardTable = boardTable;
         this.member = member;
         this.cfrData = cfrData;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.viewCount = 0;
     }
 }
