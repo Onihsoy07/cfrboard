@@ -34,6 +34,7 @@ public class BoardController {
     public String boardMainPage(@RequestParam("bt") String boardTable,
                                 @PageableDefault Pageable pageable,
                                 Model model) {
+        model.addAttribute("boardTable", boardTable);
         model.addAttribute("boardList", boardService.getBoardList(boardTable, cusPageable(pageable)));
         return "board/board";
     }

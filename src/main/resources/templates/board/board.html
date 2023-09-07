@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header(~{::title})}">
+    <title>게시판</title>
+</head>
+<body th:with="principal=${#authentication.principal}">
+
+<th:block th:replace="~{layout/nav :: nav}" />
+
+<div style="height:1000px;margin:15px;">
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="list_wrap">
+                <div class="list-group cus-list">
+                    <div class="list-group-item align-items-center list-head">
+                        <div class="row-top">
+                            <div class="col-title">제목</div>
+                        </div>
+                        <div class="d-flex justify-content-between row-bottom">
+                            <div class="col-author">작성자</div>
+                            <div class="col-time">작성일</div>
+                            <div class="col-view">조회수</div>
+                            <div class="col-good">추천</div>
+                        </div>
+                    </div>
+                    <div class="cusHov list-body" th:each="board : ${boardList.content}">
+                        <a class="list-bodyInner"
+                           th:href="|/${board.id}?page=${boardList.number+1}|">
+                            <div class="row-top">
+                                <div class="col-title" th:text="${board.title}"></div>
+                            </div>
+                            <div class="row-bottom">
+                                <div class="col-author" th:text="${board.memberDto.username}"></div>
+                                <div class="row-bottom-rightInner">
+                                    <div class="col-time" th:text="${board.createDate}">${board.createDate.substring(11, 16)}</div>
+                                    <div class="col-view" th:text="${board.viewCount}"></div>
+                                    <div class="col-good" th:text="${board.likesCount}">0</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination-wrapper">
+                <ul class="pagination justify-content-center">
+                    <th:block th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
+                        <li th:if="${page-1 == boardList.number}" class="page-item active">
+                            <a class="page-link" th:href="|?bt=${boardTable}&page=${page}|" th:text="${page}">page</a>
+                        </li>
+                        <li th:unless="${page-1 == boardList.number}" class="page-item">
+                            <a class="page-link" th:href="|?bt=${boardTable}&page=${page}|" th:text="${page}">page</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+
+        </div>
+
+
+        <div class="searchBox">
+            <select id="searchKeyword">
+                <option value="title">제목</option>
+                <option value="writer">작성자</option>
+            </select>
+            <input class="searchInput" id="searchInput" type="text" />
+            <button class="searchButton" type="button" onclick="boardSearch()">
+                <img class="image-thumb" src="https://media.istockphoto.com/id/1167683205/ko/%EB%B2%A1%ED%84%B0/%EA%B2%80%EC%83%89-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?s=612x612&w=0&k=20&c=zFYCQOhkQmFkjFOz8B0SnZpwnDv_M_n1D2jgrfzkLfk=">
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/board.js}"></script>
+
+</body>
+</html>

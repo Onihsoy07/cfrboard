@@ -142,3 +142,166 @@ th, td {
     text-decoration-line: none;
 }
 
+/*기존 리스트 페이지 css*/
+.content {
+    overflow: auto;
+    background-color: white;
+    padding-top: 5px;
+}
+
+.list_wrap {
+    overflow: auto;
+    margin: 10px 10px;
+}
+
+.main_wrap {
+  overflow: auto;
+  position: relative;
+  width: 100%;
+  margin: 29px auto 0 auto;
+  margin-bottom:20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.pagination-wrapper {
+    margin-top: 5px;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: gray;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+    color: gray;
+    background-color: #dee2e6;
+}
+
+
+.page-item.active .page-link {
+    color: grey;
+    background-color: #dee2e6;
+    border-color: #dee2e6;
+}
+
+.searchBox {
+    justify-content: center;
+    overflow: auto;
+    display: flex;
+    width: auto;
+    height: 45px;
+    margin: 0 auto;
+}
+
+.searchInput {
+    width: 400px;
+}
+
+.searchButton {
+    width: 43px;
+    height: 43px;
+}
+
+.image-thumb {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.cusHov:hover {
+  background-color: #ddd;
+}
+
+.cus-list {
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-radius: 0px;
+    border-color: #bbb;
+}
+
+.list-head {
+    display: flex;
+    background-color: #ddd;
+    padding: 15px 20px;
+    border-bottom: 1px solid;
+    border-color: #bbb;
+}
+
+.list-body {
+    background-color: white;
+    border-bottom: 1px solid;
+    border-color: #bbb;
+}
+
+.list-bodyInner {
+    display: flex;
+    padding: 10px;
+    width:100%;
+}
+
+.cusHov a {
+    text-decoration: none;
+    color: gray;
+}
+
+.cusHov a:link    { text-decoration:none;color:gray; }
+.cusHov a:visited { text-decoration:none;color:gray; }
+.cusHov a:hover   { text-decoration:none;color:gray; }
+.cusHov a:active  { text-decoration:none;color:gray; }
+
+.col-title {
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+    color: black;
+}
+
+.col-author {
+    font-size: 14px;
+    width: 20%;
+    text-align: left;
+    color: black;
+}
+
+.col-time {
+    font-size: 14px;
+    width: 50%;
+    text-align: center;
+    color: black;
+}
+
+.col-view {
+    font-size: 14px;
+    width: 25%;
+    text-align: center;
+    color: black;
+}
+
+.col-good {
+    font-size: 14px;
+    width: 25%;
+    text-align: center;
+    color: black;
+}
+
+.row-top {
+    width: 45%;
+}
+
+.row-bottom {
+    display: flex;
+    width: 55%;
+}
+
+.row-bottom-rightInner {
+    width: 80%;
+    display: flex;
+}
+
