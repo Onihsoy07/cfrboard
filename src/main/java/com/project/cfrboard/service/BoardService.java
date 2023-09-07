@@ -1,7 +1,7 @@
 package com.project.cfrboard.service;
 
-import com.project.cfrboard.domain.dto.BoardDto;
 import com.project.cfrboard.domain.dto.BoardFormDto;
+import com.project.cfrboard.domain.dto.BoardThumbDto;
 import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
@@ -13,6 +13,8 @@ import com.project.cfrboard.exception.NotMatchMemberDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,9 +68,11 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-//    public Page<BoardDto> getBoardList(String boardTable) {
-//        boardRepository.
-//    }
+    @Transactional(readOnly = true)
+    public Page<BoardThumbDto> getBoardList(String boardTable, Pageable pageable) {
+        List<Board> boardList = boardRepository.findByBoardTable(BoardTable.valueOf(boardTable.toUpperCase()), pageable);
+        return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countBy());
+    }
 
     private CfrData getCfrData(Long id) {
         return cfrDataRepository.findById(id).orElseThrow(() -> {
