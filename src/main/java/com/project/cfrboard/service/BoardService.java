@@ -66,9 +66,9 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public Page<BoardDto> getBoardList(String boardTable) {
+//    public Page<BoardDto> getBoardList(String boardTable) {
 //        boardRepository.
-    }
+//    }
 
     private CfrData getCfrData(Long id) {
         return cfrDataRepository.findById(id).orElseThrow(() -> {

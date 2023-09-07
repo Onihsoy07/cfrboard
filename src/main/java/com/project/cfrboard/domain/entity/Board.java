@@ -2,6 +2,7 @@ package com.project.cfrboard.domain.entity;
 
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,6 +28,9 @@ public class Board extends Base {
 
     @Column(nullable = false, unique = false)
     private Integer viewCount;
+
+    @Formula("(select count(*) from likes l where l.board_id = id)")
+    private Integer likesCount;
 
     @Column(nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
