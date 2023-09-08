@@ -1,12 +1,11 @@
 package com.project.cfrboard.domain.entity.enumeration;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 public enum BoardTable {
 
-    FREE("free"), CFR("cfr");
+    FREE("FREE"), CFR("CFR");
 
     private final String value;
 

@@ -70,8 +70,9 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public Page<BoardThumbDto> getBoardList(String boardTable, Pageable pageable) {
-        List<Board> boardList = boardRepository.findByBoardTable(BoardTable.valueOf(boardTable.toUpperCase()), pageable);
-        return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countBy());
+        BoardTable bt = BoardTable.valueOf(boardTable.toUpperCase());
+        List<Board> boardList = boardRepository.findByBoardTable(bt, pageable);
+        return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countByBoardTable(bt));
     }
 
     private CfrData getCfrData(Long id) {

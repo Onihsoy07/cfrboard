@@ -47,7 +47,12 @@
 
             <div class="pagination-wrapper">
                 <ul class="pagination justify-content-center">
-                    <th:block th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
+                    <th:block th:if="${boardList.totalPages == 0}">
+                        <li class="page-item active">
+                            <a class="page-link" th:href="|?bt=${boardTable}&page=1|" th:text="1">1</a>
+                        </li>
+                    </th:block>
+                    <th:block th:unless="${boardList.totalPages == 0}" th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
                         <li th:if="${page-1 == boardList.number}" class="page-item active">
                             <a class="page-link" th:href="|?bt=${boardTable}&page=${page}|" th:text="${page}">page</a>
                         </li>

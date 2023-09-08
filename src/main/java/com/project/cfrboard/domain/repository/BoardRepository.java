@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select distinct b from Board b left join fetch b.member where b.boardTable = :boardTable order by b.createDate desc")
     List<Board> findByBoardTable(@Param("boardTable") BoardTable boardTable, Pageable pageable);
 
-    Long countBy();
+    Long countByBoardTable(BoardTable boardTable);
 
 
 }

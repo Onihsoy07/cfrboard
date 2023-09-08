@@ -2,9 +2,11 @@ package com.project.cfrboard.controller;
 
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.dto.BoardThumbDto;
+import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +36,18 @@ public class BoardController {
     public String boardMainPage(@RequestParam("bt") String boardTable,
                                 @PageableDefault Pageable pageable,
                                 Model model) {
+        if (!EnumUtils.isValidEnumIgnoreCase(BoardTable.class, boardTable)) {
+            return "redirect:/boards?bt=free";
+        }
+
         model.addAttribute("boardTable", boardTable);
-        model.addAttribute("boardList", boardService.getBoardList(boardTable, cusPageable(pageable)));
+
+        Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+        if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
+            return "redirect:/boards?bt=" + boardTable;
+        }
+        model.addAttribute("boardList", boardList);
+
         return "board/board";
     }
 

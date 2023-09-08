@@ -41,6 +41,8 @@ dependencies {
 	testImplementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 	//modelmapper
 	implementation 'org.modelmapper:modelmapper:3.0.0'
+	//EnumUtils
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 tasks.named('test') {
