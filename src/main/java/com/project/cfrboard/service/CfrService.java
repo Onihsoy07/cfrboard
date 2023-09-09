@@ -10,7 +10,6 @@ import com.project.cfrboard.domain.repository.CfrDataRepository;
 import com.project.cfrboard.exception.NotOnePeoplePhotoException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +29,6 @@ import java.util.List;
 public class CfrService {
 
     private final CfrDataRepository cfrDataRepository;
-    private final ModelMapper modelMapper;
 
     @Value("${open_api.naver.Client_ID}")
     private String X_Naver_Client_Id;
@@ -101,6 +99,11 @@ public class CfrService {
     @Transactional(readOnly = true)
     public Page<CfrDataDto> getCfrList(Long memberId, Pageable pageable) {
         return cfrDataRepository.findCfrDataDtoList(memberId, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CfrDataDto> getCfrList(Long memberId) {
+        return cfrDataRepository.findCfrDataDtoList(memberId);
     }
 
 }
