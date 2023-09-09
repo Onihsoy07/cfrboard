@@ -26,8 +26,9 @@ class BoardRepositoryTest {
     @Test
     void findByBoardTableTest() {
         PageRequest page = PageRequest.of(0, 2);
-        List<Board> boardList = boardRepository.findByBoardTable(BoardTable.valueOf("FREE"), page);
-        PageImpl<BoardThumbDto> boards = new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), page, boardRepository.countBy());
+        BoardTable boardTable = BoardTable.valueOf("FREE");
+        List<Board> boardList = boardRepository.findByBoardTable(boardTable, page);
+        PageImpl<BoardThumbDto> boards = new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), page, boardRepository.countByBoardTable(boardTable));
         log.info("boards = {}", boards);
     }
 }
