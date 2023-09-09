@@ -13,10 +13,10 @@ import java.util.List;
 
 public interface CfrDataRepository extends JpaRepository<CfrData, Long> {
 
-    @Query("select new com.project.cfrboard.domain.dto.CfrDataDto(c.value, c.confidence, c.createDate) from CfrData c where c.member.id = :memberId order by c.createDate desc")
+    @Query("select new com.project.cfrboard.domain.dto.CfrDataDto(c.id, c.value, c.confidence, c.createDate) from CfrData c where c.member.id = :memberId order by c.createDate desc")
     Page<CfrDataDto> findCfrDataDtoList(@Param("memberId") Long memberId, Pageable pageable);
 
-    @Query("select new com.project.cfrboard.domain.dto.CfrDataDto(c.value, c.confidence, c.createDate) from CfrData c where c.member.id = :memberId order by c.createDate desc")
+    @Query("select new com.project.cfrboard.domain.dto.CfrDataDto(c.id, c.value, c.confidence, c.createDate) from CfrData c where c.member.id = :memberId order by c.createDate desc")
     List<CfrDataDto> findCfrDataDtoList(@Param("memberId") Long memberId);
 
 }

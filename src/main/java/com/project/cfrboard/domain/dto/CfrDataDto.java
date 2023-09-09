@@ -9,11 +9,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CfrDataDto {
 
+    private Long id;
     private String value;
     private Float confidence;
     private LocalDateTime createDate;
 
-    public CfrDataDto(String value, Float confidence, LocalDateTime createDate) {
+    public CfrDataDto(Long id, String value, Float confidence, LocalDateTime createDate) {
+        this.id = id;
         this.value = value;
         this.confidence = confidence;
         this.createDate = createDate;
