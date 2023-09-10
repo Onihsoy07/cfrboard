@@ -12,6 +12,7 @@ import com.project.cfrboard.exception.NoBoardTableException;
 import com.project.cfrboard.exception.NotMatchMemberDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public class BoardService {
     private final CfrDataRepository cfrDataRepository;
 
     public void save(BoardFormDto boardFormDto, Member member) throws NoBoardTableException, NotMatchMemberDataException, IllegalArgumentException {
-        boolean isPresentBoard = Arrays.stream(BoardTable.values()).anyMatch(bt -> bt.getValue().equals(boardFormDto.getBoardTable()));
+        boolean isPresentBoard = EnumUtils.isValidEnumIgnoreCase(BoardTable.class, boardFormDto.getBoardTable());
         Board board = null;
 
         if (!isPresentBoard) {
@@ -52,7 +53,7 @@ public class BoardService {
             }
 
             CfrData cfrData = getCfrData(boardFormDto.getCfrId());
-            if (member != cfrData.getMember()) {
+            if (member.getId() != cfrData.getMember().getId()) {
                 throw new NotMatchMemberDataException("Member의 CfrData가 아닙니다.");
             }
 

@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum BoardTable {
 
-    FREE("FREE"), CFR("CFR");
+    FREE("free"), CFR("cfr");
 
     private final String value;
 
