@@ -55,7 +55,7 @@
 
     <th:block th:if="${principal} == anonymousUser">
       <div class="dropdown">
-        <button class="dropbtn" th:text="게시판">
+        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards?bt=free}'|">
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -70,7 +70,7 @@
     <th:block th:if="${principal} != anonymousUser">
 
       <div class="dropdown">
-        <button class="dropbtn" th:text="게시판">
+        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards?bt=free}'|">
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
@@ -83,7 +83,7 @@
       <a href="/boards/form" th:href="@{/boards/form}">글쓰기</a>
 
       <div class="dropdown">
-        <button class="dropbtn" th:text="${principal.member.username}">
+        <button class="dropbtn" th:text="${principal.member.username}" th:onclick="|location.href='@{/members/{userId}/confirm(userId=${principal.member.id})}'|">
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
