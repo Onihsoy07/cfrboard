@@ -35,7 +35,7 @@
                             <div class="row-bottom">
                                 <div class="col-author" th:text="${board.memberDto.username}"></div>
                                 <div class="row-bottom-rightInner">
-                                    <div class="col-time" th:text="${board.createDate}">${board.createDate.substring(11, 16)}</div>
+                                    <div class="col-time" th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
                                     <div class="col-view" th:text="${board.viewCount}"></div>
                                     <div class="col-good" th:text="${board.likesCount}">0</div>
                                 </div>

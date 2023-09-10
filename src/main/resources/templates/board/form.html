@@ -8,14 +8,37 @@
 
 <th:block th:replace="~{layout/nav :: nav}" />
 
-<div style="height:1000px;margin:15px;">
+<div th:id="back-ground" style="margin:15px;">
     <div class="container">
 
+        <div class="back-blur"></div>
+        <div class="b-cfrlist-outer">
+            <input id="list-size" type="hidden" th:value="${cfrList.size}" />
+            <div class="b-cfrlist-inner">
+                <div class="b-cfrlist-wrapper" th:each="cfrData : ${cfrList}">
+                    <div class="b-cfrlist justify-content-between" th:onclick="|selectCfr(${cfrData.id})|">
+                        <div th:id="|cfr-value${cfrData.id}|" th:text="${cfrData.value}" class="b-cfrlist-value"></div>
+                        <div th:id="|cfr-confidence${cfrData.id}|" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}" class=b-cfrlist-confidence></div>
+                        <div th:id="|cfr-createDate${cfrData.id}|" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}" class=b-cfrlist-createDate></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
-            <select class="select-table">
-                <option value="free" th:text="자유게시판"></option>
-                <option value="cfr" th:text="CFR게시판"></option>
-            </select>
+            <div>
+                <select class="select-table">
+                    <option value="free" th:text="자유게시판"></option>
+                    <option value="cfr" th:text="CFR게시판"></option>
+                </select>
+
+                <button class="btn-cfr-list" type="button" onclick="openCfrList();">변경</button>
+            </div>
+
+
+            <div th:class="cfr-result">
+
+            </div>
         </div>
 
         <div class="form-group">

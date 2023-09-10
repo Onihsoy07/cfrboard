@@ -2,13 +2,14 @@ $(function() {
     $("#btn-save").click(function() {
 
         let target = $(".select-table option:selected").val();
-        var cfrId = null;
+
+        alert(selectCfrId);
 
         let data = {
             title : $("#title").val(),
             content : $("#content").val(),
             boardTable : target,
-            cfrId : cfrId
+            cfrId : selectCfrId
         }
 
         if(data.title.length < 5) {
@@ -39,8 +40,45 @@ $(function() {
 
     });
 
+    $(".select-table").change(function() {
+        const listSize = $("#list-size").val();
+        if(listSize <= 0) {
+            $(this).val("free").prop("selected", true);
+            alert("cfr 데이터가 없습니다.");
+            return false;
+        }
+
+        const boardTable = this.value;
+        if(boardTable == "cfr") {
+            openCfrList();
+            $(".btn-cfr-list").css("visibility", "visible");
+        } else {
+            $(".btn-cfr-list").css("visibility", "hidden");
+            $(".cfr-result").css("visibility", "hidden");
+        }
+    });
+
 });
 
+var selectCfrId = null;
+
+function selectCfr(cfrId) {
+    selectCfrId = cfrId;
+    $("div").remove(".result");
+    $("body").css("overflow", "auto");
+    $(".b-cfrlist-outer").css("display", "none");
+    $(".back-blur").css("display", "none");
+    $(".cfr-result").css("visibility", "visible");
+    $(".cfr-result").append("<div class='result'>" + $("#cfr-value" + cfrId).text() + "</div>");
+    $(".cfr-result").append("<div class='result'>" + $("#cfr-confidence" + cfrId).text() + "</div>");
+    $(".cfr-result").append("<div class='result'>" + $("#cfr-createDate" + cfrId).text() + "</div>");
+}
+
+function openCfrList() {
+    $("body").css("overflow", "hidden");
+    $(".b-cfrlist-outer").css("display", "block");
+    $(".back-blur").css("display", "block");
+}
 
 
 
