@@ -55,12 +55,12 @@
 
     <th:block th:if="${principal} == anonymousUser">
       <div class="dropdown">
-        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards?bt=free}'|">
+        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-          <a href="/boards?bt=fr" th:href="@{/boards?bt=free}">자유게시판</a>
-          <a href="/boards?bt=cfr" th:href="@{/boards?bt=cfr}">CFR게시판</a>
+          <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
+          <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
         </div>
       </div>
       <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
@@ -70,12 +70,12 @@
     <th:block th:if="${principal} != anonymousUser">
 
       <div class="dropdown">
-        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards?bt=free}'|">
+        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-          <a href="/boards?bt=fr" th:href="@{/boards?bt=free}">자유게시판</a>
-          <a href="/boards?bt=cfr" th:href="@{/boards?bt=cfr}">CFR게시판</a>
+          <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
+          <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
         </div>
       </div>
 

@@ -30,7 +30,7 @@ $(function() {
             data : JSON.stringify(data)
         }).done(function(res) {
             if (res.success) {
-                location.href = "/boards?bt=" + data.boardTable;
+                location.href = "/boards/" + data.boardTable;
             } else {
                 alert(res.msg);
             }
