@@ -11,7 +11,7 @@ $(function() {
 
             $.ajax({
                 url : "/members/" + memberId + "/confirm",
-                type : "POST",
+                type : "PUT",
                 data : formData,
                 processData: false,
                 contentType: false
