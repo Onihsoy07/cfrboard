@@ -13,6 +13,31 @@
     <section class="content">
         <div class="container-fluid">
 
+            <div class="container-fluid" th:if="${boardView!=null}">
+                <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
+                <th:block th:if="${principal} != anonymousUser and ${boardView.memberDto.id} == ${principal?.member.id}">
+                    <a href="/board/${boardView.id}/updateForm"
+                       th:href="|/board/${boardView.id}/updateForm|"
+                       class="btn btn-warning">수정</a>
+                    <button id="btn-delete" class="btn btn-danger">삭제</button>
+                </th:block>
+                <br/><br/>
+                <div>
+                    <h3 th:text="${boardView.title}">title</h3>
+                </div>
+                <br/>
+                <div>
+                    작성자:<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
+                    글 번호:<span><i id="id" th:text="${boardView.id}">id</i>&nbsp;&nbsp;&nbsp;</span>
+                    작성 일자:<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                </div>
+                <hr>
+                <div>
+                    <div th:utext="${boardView.content}">content</div>
+                </div>
+                <hr>
+            </div>
+
             <div class="list_wrap">
                 <div class="list-group cus-list">
                     <div class="list-group-item align-items-center list-head">
@@ -28,7 +53,7 @@
                     </div>
                     <div class="cusHov list-body" th:each="board : ${boardList.content}">
                         <a class="list-bodyInner"
-                           th:href="|/${board.id}?page=${boardList.number+1}|">
+                           th:href="|/boards/${boardTable}/${board.id}?page=${boardList.number+1}|">
                             <div class="row-top">
                                 <div class="col-title" th:text="${board.title}"></div>
                             </div>
@@ -49,15 +74,15 @@
                 <ul class="pagination justify-content-center">
                     <th:block th:if="${boardList.totalPages == 0}">
                         <li class="page-item active">
-                            <a class="page-link" th:href="|?bt=${boardTable}&page=1|" th:text="1">1</a>
+                            <a class="page-link" th:href="|?page=1|" th:text="1">1</a>
                         </li>
                     </th:block>
                     <th:block th:unless="${boardList.totalPages == 0}" th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
                         <li th:if="${page-1 == boardList.number}" class="page-item active">
-                            <a class="page-link" th:href="|?bt=${boardTable}&page=${page}|" th:text="${page}">page</a>
+                            <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
                         </li>
                         <li th:unless="${page-1 == boardList.number}" class="page-item">
-                            <a class="page-link" th:href="|?bt=${boardTable}&page=${page}|" th:text="${page}">page</a>
+                            <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
                         </li>
                     </th:block>
                 </ul>
