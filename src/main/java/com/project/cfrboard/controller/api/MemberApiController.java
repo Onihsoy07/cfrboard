@@ -25,7 +25,7 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-    @PostMapping("/{memberId}/confirm")
+    @PutMapping("/{memberId}/confirm")
     public ResponseEntity<ResponseDto<?>> confirmCheck(@PathVariable Long memberId,
                                                        @Valid @ModelAttribute MemberPasswordCheckDto passwordCheckDto,
                                                        BindingResult bindingResult,
