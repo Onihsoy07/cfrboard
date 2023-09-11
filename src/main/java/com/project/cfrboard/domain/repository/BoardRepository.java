@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
@@ -18,6 +19,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByBoardTable(@Param("boardTable") BoardTable boardTable, Pageable pageable);
 
     Long countByBoardTable(BoardTable boardTable);
+
+    @Query("select b from Board b left join fetch b.member left join fetch b.cfrData where b.id = :id")
+    Optional<Board> findByIdFetch(@Param("id") Long id);
 
 
 }

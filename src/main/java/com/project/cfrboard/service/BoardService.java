@@ -1,5 +1,6 @@
 package com.project.cfrboard.service;
 
+import com.project.cfrboard.domain.dto.BoardDto;
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.dto.BoardThumbDto;
 import com.project.cfrboard.domain.entity.Board;
@@ -76,9 +77,21 @@ public class BoardService {
         return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countByBoardTable(bt));
     }
 
-    private CfrData getCfrData(Long id) {
-        return cfrDataRepository.findById(id).orElseThrow(() -> {
-            throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", id));
+    @Transactional(readOnly = true)
+    public BoardDto getBoardView(Long boardId) {
+        Board board = getBoard(boardId);
+        return new BoardDto(board);
+    }
+
+    private CfrData getCfrData(Long cfrId) {
+        return cfrDataRepository.findById(cfrId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", cfrId));
+        });
+    }
+
+    private Board getBoard(Long boardId) {
+        return boardRepository.findByIdFetch(boardId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
         });
     }
 }
