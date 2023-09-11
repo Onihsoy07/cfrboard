@@ -41,16 +41,34 @@ public class BoardController {
                                 @PageableDefault Pageable pageable,
                                 Model model) {
         if (!EnumUtils.isValidEnumIgnoreCase(BoardTable.class, boardTable)) {
-            return "redirect:/boards?bt=free";
+            return "redirect:/boards/free";
         }
 
         model.addAttribute("boardTable", boardTable);
 
         Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
         if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
-            return "redirect:/boards?bt=" + boardTable;
+            return "redirect:/boards/" + boardTable;
         }
         model.addAttribute("boardList", boardList);
+
+        return "board/board";
+    }
+
+    @GetMapping("/{boardTable}/{boardId}")
+    public String boardView(@PathVariable("boardTable") String boardTable,
+                            @PathVariable("boardId") Long boardId,
+                            @PageableDefault Pageable pageable,
+                            Model model) {
+        model.addAttribute("boardTable", boardTable);
+
+        Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+        if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
+            return "redirect:/boards/" + boardTable;
+        }
+        model.addAttribute("boardList", boardList);
+
+        model.addAttribute("boardView", boardService.getBoardView(boardId));
 
         return "board/board";
     }
