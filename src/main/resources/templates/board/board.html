@@ -16,8 +16,8 @@
             <div class="container-fluid" th:if="${boardView!=null}">
                 <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
                 <th:block th:if="${principal} != anonymousUser and ${boardView.memberDto.id} == ${principal?.member.id}">
-                    <a href="/board/${boardView.id}/updateForm"
-                       th:href="|/board/${boardView.id}/updateForm|"
+                    <a href="/boards/${boardView.id}/update-form"
+                       th:href="|/boards/${boardView.id}/update-form|"
                        class="btn btn-warning">수정</a>
                     <button id="btn-delete" class="btn btn-danger">삭제</button>
                 </th:block>
@@ -36,6 +36,30 @@
                     <div th:utext="${boardView.content}">content</div>
                 </div>
                 <hr>
+                <div id="replyWin">
+                    <div id="replyBox">
+                        <div class="card-body" th:if="${principal}!=anonymousUser">
+                            <div class="row">
+                                <div class="form-group col-sm-8">
+                                    <input class="form-control input-sm" id="comment" type="text" placeholder="댓글 입력...">
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <button type="button" class="btn btn-primary" id="btn-replySave111" onclick="writeReply()">
+                                        저장
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+<!--                        <div id="replyView">-->
+<!--                            <div th:id="|replybox${reply.id}|" th:style="|display:flex;margin-top:10px;margin-left:${reply.id*10}px|" th:name="|comment_${reply.id}|" th:each="reply : ${replyList}">-->
+<!--                                <span th:id="comment" style="width:130px;" th:text="${reply.comment}">댓글 &nbsp;</span>-->
+<!--                                <div th:id="|replyBtnBox${reply.id}|">-->
+<!--                                    <button th:id="|replyBtn${reply.id}|" type="button" th:onclick="|newHello(${reply.id})|" th:class="|replyButton${reply.id}|">버튼</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
             </div>
 
             <div class="list_wrap">
