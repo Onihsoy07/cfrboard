@@ -1,9 +1,7 @@
 package com.project.cfrboard.domain.repository;
 
-import com.project.cfrboard.domain.dto.BoardDto;
 import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,7 +19,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Long countByBoardTable(BoardTable boardTable);
 
     @Query("select b from Board b left join fetch b.member left join fetch b.cfrData where b.id = :id")
-    Optional<Board> findByIdFetch(@Param("id") Long id);
+    Optional<Board> findByIdFetchMemberAndCfrdata(@Param("id") Long id);
+
+    @Query("select b from Board b left join fetch b.member where b.id = :id")
+    Optional<Board> findByIdFetchMember(@Param("id") Long id);
 
 
 }

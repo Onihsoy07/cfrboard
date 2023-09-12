@@ -3,6 +3,7 @@ package com.project.cfrboard.service;
 import com.project.cfrboard.domain.dto.BoardDto;
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.dto.BoardThumbDto;
+import com.project.cfrboard.domain.dto.BoardUpdateFormDto;
 import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
@@ -20,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -83,6 +83,19 @@ public class BoardService {
         return new BoardDto(board);
     }
 
+    @Transactional(readOnly = true)
+    public BoardUpdateFormDto getUpdateBoardForm(Long boardId) {
+        Board board = getBoard(boardId);
+        return new BoardUpdateFormDto(board);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isBoardMaster(Long memberId, Long boardId) {
+        return boardRepository.findByIdFetchMember(boardId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
+        }).getMember().getId().equals(memberId);
+    }
+
     private CfrData getCfrData(Long cfrId) {
         return cfrDataRepository.findById(cfrId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", cfrId));
@@ -90,7 +103,7 @@ public class BoardService {
     }
 
     private Board getBoard(Long boardId) {
-        return boardRepository.findByIdFetch(boardId).orElseThrow(() -> {
+        return boardRepository.findByIdFetchMemberAndCfrdata(boardId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
         });
     }
