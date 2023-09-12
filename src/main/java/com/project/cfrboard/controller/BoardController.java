@@ -73,6 +73,22 @@ public class BoardController {
         return "board/board";
     }
 
+    @GetMapping("/{boardId}/update-form")
+    public String updateBoard(@PathVariable("boardId") Long boardId,
+                              @AuthenticationPrincipal PrincipalDetails principal,
+                              Model model) {
+        if (boardId == null || principal == null) {
+            return "redirect:/";
+        }
+        if (!boardService.isBoardMaster(principal.getMember().getId(), boardId)) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("boardUpdateForm", boardService.getUpdateBoardForm(boardId));
+
+        return "board/updateForm";
+    }
+
     private PageRequest cusPageable(Pageable pageable) {
         return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 15, Sort.by("createDate").descending());
     }
