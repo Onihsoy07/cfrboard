@@ -2,6 +2,7 @@ package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.BoardFormDto;
+import com.project.cfrboard.domain.dto.BoardUpdateFormDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
 import com.project.cfrboard.exception.NoBoardTableException;
 import com.project.cfrboard.exception.NotMatchMemberDataException;
@@ -50,4 +51,28 @@ public class BoardApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "존재하지 않는 CFR DATA입니다."));
         }
     }
+
+    @PutMapping("/{boardId}")
+    public ResponseEntity<ResponseDto<?>> update(@PathVariable("boardId") Long boardId,
+                                                 @Valid @RequestBody BoardUpdateFormDto boardUpdateFormDto,
+                                                 BindingResult bindingResult,
+                                                 @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (!boardService.isBoardMaster(principal.getMember().getId(), boardId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (bindingResult.hasErrors()) {
+            ObjectError error = bindingResult.getAllErrors().get(0);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
+        }
+
+        boardService.update(boardUpdateFormDto, boardId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "변경 성공"));
+
+    }
+
 }
