@@ -28,8 +28,16 @@
                 <br/>
                 <div>
                     작성자:<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
-                    글 번호:<span><i id="id" th:text="${boardView.id}">id</i>&nbsp;&nbsp;&nbsp;</span>
                     작성 일자:<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                    <div class="etc-info">
+                        <div class="form-group">
+                            <input id="boardId" type="hidden" th:value="${boardView.id}" />
+                        </div>
+
+                        <div class="form-group">
+                            <input id="boardTable" type="hidden" th:value="${boardTable}" />
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <div>
