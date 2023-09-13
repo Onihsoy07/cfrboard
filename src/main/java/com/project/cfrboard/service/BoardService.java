@@ -102,6 +102,10 @@ public class BoardService {
         board.update(boardUpdateFormDto.getTitle(), boardUpdateFormDto.getContent());
     }
 
+    public void delete(Long boardId) {
+        boardRepository.deleteById(boardId);
+    }
+
     private CfrData getCfrData(Long cfrId) {
         return cfrDataRepository.findById(cfrId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", cfrId));
