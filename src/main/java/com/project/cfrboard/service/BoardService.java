@@ -79,13 +79,13 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public BoardDto getBoardView(Long boardId) {
-        Board board = getBoard(boardId);
+        Board board = getBoardFetchMemberAndCfrdata(boardId);
         return new BoardDto(board);
     }
 
     @Transactional(readOnly = true)
     public BoardUpdateFormDto getUpdateBoardForm(Long boardId) {
-        Board board = getBoard(boardId);
+        Board board = getBoardFetchMemberAndCfrdata(boardId);
         return new BoardUpdateFormDto(board);
     }
 
@@ -96,15 +96,28 @@ public class BoardService {
         }).getMember().getId().equals(memberId);
     }
 
+    public void update(BoardUpdateFormDto boardUpdateFormDto,
+                       Long boardId) {
+        Board board = getBoard(boardId);
+        board.update(boardUpdateFormDto.getTitle(), boardUpdateFormDto.getContent());
+    }
+
     private CfrData getCfrData(Long cfrId) {
         return cfrDataRepository.findById(cfrId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", cfrId));
         });
     }
 
-    private Board getBoard(Long boardId) {
+    private Board getBoardFetchMemberAndCfrdata(Long boardId) {
         return boardRepository.findByIdFetchMemberAndCfrdata(boardId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
         });
     }
+
+    private Board getBoard(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
+        });
+    }
+
 }

@@ -24,9 +24,12 @@ public class BoardUpdateFormDto {
     @Size(min = 10, message = "내용을 10자 이상 입력해주세요.")
     private String content;
 
+    private String boardTable;
+
     public BoardUpdateFormDto(Board board) {
         this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
+        this.boardTable = board.getBoardTable().getValue();
     }
 }

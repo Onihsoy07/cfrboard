@@ -59,6 +59,11 @@ public class Board extends Base {
         this.cfrData = cfrData;
     }
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     @PrePersist
     public void prePersist() {
         this.viewCount = 0;
