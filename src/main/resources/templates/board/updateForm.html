@@ -11,8 +11,14 @@
 <div th:id="back-ground" style="margin:15px;">
     <div class="container">
 
-        <div class="form-group">
-            <input id="boardId" type="hidden" th:value="${boardUpdateForm.id}" />
+        <div class="etc-info">
+            <div class="form-group">
+                <input id="boardId" type="hidden" th:value="${boardUpdateForm.id}" />
+            </div>
+
+            <div class="form-group">
+                <input id="boardTable" type="hidden" th:value="${boardUpdateForm.boardTable}" />
+            </div>
         </div>
 
         <div class="form-group">

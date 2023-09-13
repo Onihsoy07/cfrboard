@@ -3,8 +3,6 @@ $(function() {
 
         let target = $(".select-table option:selected").val();
 
-        alert(selectCfrId);
-
         let data = {
             title : $("#title").val(),
             content : $("#content").val(),
@@ -31,6 +29,43 @@ $(function() {
         }).done(function(res) {
             if (res.success) {
                 location.href = "/boards/" + data.boardTable;
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error) {
+            alert(error.responseJSON.msg);
+        })
+
+    });
+
+    $("#btn-update").click(function() {
+        const boardId = $("#boardId").val();
+        const boardTable = $("#boardTable").val();
+
+        let data = {
+            title : $("#title").val(),
+            content : $("#content").val()
+        }
+
+        if(data.title.length < 5) {
+            alert("제목을 5글자 이상 써주세요.");
+            return false;
+        }
+
+        if(data.content.length < 16) {
+            alert("내용을 10글자 이상 써주세요.");
+            return false;
+        }
+
+        $.ajax({
+            url : "/boards/" + boardId,
+            type : "PUT",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data : JSON.stringify(data)
+        }).done(function(res) {
+            if (res.success) {
+                location.href = "/boards/" + boardTable + "/" + boardId;
             } else {
                 alert(res.msg);
             }
