@@ -19,6 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -59,9 +62,12 @@ public class BoardController {
     public String boardView(@PathVariable("boardTable") String boardTable,
                             @PathVariable("boardId") Long boardId,
                             @PageableDefault Pageable pageable,
-                            Model model) {
+                            Model model,
+                            HttpServletRequest request,
+                            HttpServletResponse response) {
         model.addAttribute("boardTable", boardTable);
 
+        boardService.viewCount(boardId, request, response);
         Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
         if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
             return "redirect:/boards/" + boardTable;

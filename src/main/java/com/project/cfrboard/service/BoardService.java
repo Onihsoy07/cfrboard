@@ -21,6 +21,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Slf4j
@@ -122,6 +129,55 @@ public class BoardService {
         return boardRepository.findById(boardId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
         });
+    }
+
+    @Transactional
+    public void viewCount(Long boardId, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        Cookie thisCookie = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("viewBoardList".equals(cookie.getName())) {
+                    thisCookie = cookie;
+                    break;
+                }
+            }
+        }
+
+        if (thisCookie == null) {
+            thisCookie = new Cookie("viewBoardList", String.format("_%d_", boardId));
+            cookieSetAndViewCount(boardId, response, thisCookie);
+        } else if (thisCookie.getValue().contains(String.format("_%d_", boardId))) {
+        } else {
+            thisCookie.setValue(thisCookie.getValue() + String.format("%d_", boardId));
+            cookieSetAndViewCount(boardId, response, thisCookie);
+        }
+    }
+
+    private void cookieSetAndViewCount(Long boardId, HttpServletResponse response, Cookie cookie) {
+        cookie.setMaxAge(calcEndSec());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        boardRepository.addViewCount(boardId);
+    }
+
+    private int calcEndSec() {
+        // 현재 하루의 종료 시간, 2022-08-20T23:59:59.9999999
+        LocalDateTime todayEndTime = LocalDate.now().atTime(LocalTime.MAX);
+
+        // 현재 시간, 2022-08-20T19:39:10.936
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // 하루 종료 시간을 시간초로 변환
+        long todayEndSecond = todayEndTime.toEpochSecond(ZoneOffset.UTC);
+
+        // 현재 시간을 시간초로 변환
+        long currentSecond = currentTime.toEpochSecond(ZoneOffset.UTC);
+
+        // 하루 종료까지 남은 시간초
+        long remainingTime = todayEndSecond - currentSecond;
+
+        return Long.valueOf(remainingTime).intValue();
     }
 
 }

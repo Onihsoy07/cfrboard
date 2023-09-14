@@ -4,6 +4,7 @@ import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,6 +24,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query("select b from Board b left join fetch b.member where b.id = :id")
     Optional<Board> findByIdFetchMember(@Param("id") Long id);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update Board b set b.viewCount = b.viewCount+1 where b.id=:id")
+    void addViewCount(@Param("id") Long id);
 
 
 }
