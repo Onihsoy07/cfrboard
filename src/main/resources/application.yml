@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ENC(KiAsU+eEUig6hBE0/6g7640NK5gXd8n004/4CLYJZJEH5+uof5PO/nE+5h7w9Km0)
-    username: ENC(zmLkHZZhjFlp2SLpqhqh/A==)
-    password: ENC(KsRUhNYxCuYWWaE29/nv6g==)
+    url: ENC(8moTJdaz9PLrriwOapxf5P7QrXoxfeI0j+hzXGKeLshMOCM9MuQDtY+yAP9yd9a4)
+    username: ENC(vZkgke8ER30sYbI2bJBn6g==)
+    password: ENC(kEJFPxxxZ7tpFzoRzZ5heQ==)
 
   jpa:
     open-in-view: true
@@ -50,5 +50,5 @@ logging:
 #API 필수 정보
 open_api:
   naver:
-    Client_ID: ENC(nLH6e1kgYsR04iGXA4YR4rmQ1ik0yM1cSwOKxiM4CSc=)
-    Client_Secret: ENC(NBrP7dSYnPTh9fa6rgkeueqAqV1bTTVI)
+    Client_ID: ENC(IKvlU8PFnYwk8dVDPrCKTHnj6cmU2AVPdtDCu49qUPg=)
+    Client_Secret: ENC(VVIIlbgGy58tdkgrAUk7AuBlEE8o3b5U)
