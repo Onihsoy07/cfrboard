@@ -43,6 +43,22 @@
                 <div>
                     <div th:utext="${boardView.content}">content</div>
                 </div>
+
+                <div style="height:50px;margin-bottom:20px;">
+                    <span class="view-good">
+                        <button th:if="${principal} != anonymousUser" class="badge good-button" th:onclick="goodBtn([[${boardView.id}]], [[${principal?.member.id}]])">
+                            <div id="goodCntOuter">
+                                <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
+                            </div>
+                            <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
+                        </button>
+                        <button th:unless="${principal} != anonymousUser" class="badge good-button" th:onclick="authAlam()">
+                            <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
+                            <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
+                        </button>
+                    </span>
+                </div>
+
                 <hr>
                 <div id="replyWin">
                     <div id="replyBox">

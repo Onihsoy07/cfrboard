@@ -362,3 +362,24 @@ th, td {
 .btn-cfr-list {
     visibility: hidden;
 }
+
+/*좋아요*/
+.view-good {
+    text-align: center;
+    box-sizing: border-box;
+    height: 20px;
+    width: 100%;
+    display: inline-block;
+}
+.good-button {
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+}
+.good-img {
+    width: 20px;
+}
+.good-cnt {
+    font-size: 15px;
+    margin-bottom: 3px;
+}

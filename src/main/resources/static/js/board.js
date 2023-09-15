@@ -118,6 +118,7 @@ $(function() {
 });
 
 var selectCfrId = null;
+var thisBoardLikes = false;
 
 function selectCfr(cfrId) {
     selectCfrId = cfrId;
@@ -137,5 +138,39 @@ function openCfrList() {
     $(".back-blur").css("display", "block");
 }
 
+function goodBtn(boardId, memberId) {
+    if(thisBoardLikes == true) {
+        alert("좋아요는 한번만 가능합니다.");
+        return false;
+    }
+    thisBoardLikes = true;
+
+    let data = {
+        memberId: memberId,
+        boardId: boardId
+    };
+
+    $.ajax({
+        url : "/likes",
+        type : "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        data : JSON.stringify(data)
+    }).done(function(res) {
+        if (res.success) {
+            $("#goodCntOuter").load(location.href + " #goodCnt");
+            alert(res.msg);
+        } else {
+            alert(res.msg);
+        }
+    }).fail(function(error) {
+        alert(error.responseJSON.msg);
+    })
+    return false;
+}
+
+function authAlam() {
+    alert("로그인이 필요합니다.");
+}
 
 
