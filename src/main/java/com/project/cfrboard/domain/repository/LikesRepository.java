@@ -13,7 +13,7 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO LIKES(member_id, board_id) VALUES (:memberId, :boardId)", nativeQuery = true)
+    @Query(value = "INSERT INTO LIKES(member_id, board_id, create_date, update_date) VALUES (:memberId, :boardId, now(), now())", nativeQuery = true)
     void saveLike(@Param("memberId") Long memberId, @Param("boardId") Long boardId);
 
     Optional<Likes> findByMember_IdAndBoard_Id(Long memberId, Long boardId);

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Table(schema = "cfrboard")
-public class Likes {
+public class Likes extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
