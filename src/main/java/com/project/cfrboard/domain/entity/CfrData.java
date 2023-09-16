@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode
 @Table(schema = "cfrboard")
 public class CfrData extends Base {
 

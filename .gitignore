@@ -41,3 +41,5 @@ out/
 src/main/resources/jasypt-encryptor-password.txt
 
 src/main/resources/static/image/haruka.png
+
+/src/main/generated
