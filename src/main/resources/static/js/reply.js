@@ -18,12 +18,12 @@ function writeReply(boardId, replyId, depth) {
             dataType:"json",
             data : JSON.stringify(data)
         }).done(function (res) {
-            console.log(res);
-            if(res.httpsCode != 200) {
-                alert("댓글 쓰기가 실패되었습니다.");
-            } else {
+            if(res.success) {
                 alert("댓글 쓰기가 완료되었습니다.");
 //                $('#replyWin').load(location.href + ' #replyBox');
+
+            } else {
+                alert("댓글 쓰기가 실패되었습니다.");
             }
         }).fail(function (error){
             console.log(error);
