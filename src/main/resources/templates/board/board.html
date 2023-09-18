@@ -151,6 +151,24 @@
                 </div>
             </div>
 
+            <form action method="get" class="form-inline search-form justify-content-end">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <select class="form-control form-control-sm" name="target">
+                            <option value="all" th:selected="true">전체</option>
+                            <option value="title_content">제목/내용</option>
+                            <option value="title">제목</option>
+                            <option value="content">내용</option>
+                            <option value="username">글쓴이</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm" name="keyword" th:value aria-labelledby="searchFormLabel">
+                    <div class="input-group-append">
+                        <button class="btn btn-cus btn-sm" type="submit">검색</button>
+                    </div>
+                </div>
+            </form>
+
             <div class="pagination-wrapper">
                 <ul class="pagination justify-content-center">
                     <th:block th:if="${boardList.totalPages == 0}">
@@ -172,7 +190,7 @@
         </div>
 
 
-        <div class="searchBox">
+<!--/*        <div class="searchBox">
             <select id="searchKeyword">
                 <option value="title">제목</option>
                 <option value="writer">작성자</option>
@@ -182,7 +200,7 @@
                 <img class="image-thumb" src="https://media.istockphoto.com/id/1167683205/ko/%EB%B2%A1%ED%84%B0/%EA%B2%80%EC%83%89-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?s=612x612&w=0&k=20&c=zFYCQOhkQmFkjFOz8B0SnZpwnDv_M_n1D2jgrfzkLfk=">
             </button>
 
-        </div>
+        </div>*/-->
 
     </section>
 

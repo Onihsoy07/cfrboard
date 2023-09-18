@@ -383,3 +383,19 @@ th, td {
     font-size: 15px;
     margin-bottom: 3px;
 }
+
+/**검색**/
+.btn-cus {
+    border-color: #dddddd;
+    margin-bottom: 10px;
+}
+.btn-cus:hover {
+    background-color: #dddddd;
+    border-color: #cccccc;
+    color: #212529;
+    text-decoration: none;
+}
+.justify-content-end {
+    -ms-flex-pack: end!important;
+    justify-content: flex-end!important;
+}
