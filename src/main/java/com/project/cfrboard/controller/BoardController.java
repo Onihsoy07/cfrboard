@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -30,6 +32,8 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CfrService cfrService;
+
+    private final List<String> TARGETLIST = Arrays.asList("all", "title_content", "title", "content", "username");
 
     @GetMapping("/form")
     public String boardForm(@ModelAttribute BoardFormDto boardFormDto,
@@ -42,6 +46,8 @@ public class BoardController {
     @GetMapping("/{boardTable}")
     public String boardMainPage(@PathVariable("boardTable") String boardTable,
                                 @PageableDefault Pageable pageable,
+                                @RequestParam(value = "target", required = false) String target,
+                                @RequestParam(value = "keyword", required = false) String keyword,
                                 Model model) {
         if (!EnumUtils.isValidEnumIgnoreCase(BoardTable.class, boardTable)) {
             return "redirect:/boards/free";
@@ -49,7 +55,20 @@ public class BoardController {
 
         model.addAttribute("boardTable", boardTable);
 
-        Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+        Page<BoardThumbDto> boardList = null;
+
+        if (target != null) {
+            if (!TARGETLIST.contains(target)) {
+                return "redirect:/boards/" + boardTable;
+            }
+
+            boardList = boardService.getSearchBoardList(boardTable, cusPageable(pageable), target, keyword);
+            model.addAttribute("target", target);
+            model.addAttribute("keyword", keyword);
+        } else {
+            boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+        }
+
         if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
             return "redirect:/boards/" + boardTable;
         }

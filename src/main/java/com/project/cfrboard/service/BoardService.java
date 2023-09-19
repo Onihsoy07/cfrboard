@@ -10,6 +10,7 @@ import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.domain.repository.BoardRepository;
 import com.project.cfrboard.domain.repository.CfrDataRepository;
+import com.project.cfrboard.domain.repository.query.BoardQueryRepository;
 import com.project.cfrboard.exception.NoBoardTableException;
 import com.project.cfrboard.exception.NotMatchMemberDataException;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final CfrDataRepository cfrDataRepository;
+    private final BoardQueryRepository boardQueryRepository;
 
     public void save(BoardFormDto boardFormDto, Member member) throws NoBoardTableException, NotMatchMemberDataException, IllegalArgumentException {
         boolean isPresentBoard = EnumUtils.isValidEnumIgnoreCase(BoardTable.class, boardFormDto.getBoardTable());
@@ -82,6 +84,12 @@ public class BoardService {
         BoardTable bt = BoardTable.valueOf(boardTable.toUpperCase());
         List<Board> boardList = boardRepository.findByBoardTable(bt, pageable);
         return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countByBoardTable(bt));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BoardThumbDto> getSearchBoardList(String boardTable, Pageable pageable, String target, String keyword) {
+        BoardTable bt = BoardTable.valueOf(boardTable.toUpperCase());
+        return boardQueryRepository.search(bt, pageable, target, keyword);
     }
 
     @Transactional(readOnly = true)
