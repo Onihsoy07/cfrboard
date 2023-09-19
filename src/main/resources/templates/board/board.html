@@ -134,7 +134,7 @@
                     </div>
                     <div class="cusHov list-body" th:each="board : ${boardList.content}">
                         <a class="list-bodyInner"
-                           th:href="|/boards/${boardTable}/${board.id}?page=${boardList.number+1}|">
+                           th:href="|/boards/${boardTable}/${board.id}?${status}|">
                             <div class="row-top">
                                 <div class="col-title" th:text="${board.title}"></div>
                             </div>
@@ -156,7 +156,7 @@
                     <div class="input-group-prepend">
                         <select class="form-control form-control-sm" name="target">
                             <option value="all" th:selected="${target} == 'all'">전체</option>
-                            <option value="title_content" th:selected="${target} == 'title_content'">제목/내용</option>
+                            <option value="title-content" th:selected="${target} == 'title_content'">제목/내용</option>
                             <option value="title" th:selected="${target} == 'title'">제목</option>
                             <option value="content" th:selected="${target} == 'content'">내용</option>
                             <option value="username" th:selected="${target} == 'username'">글쓴이</option>
@@ -173,15 +173,18 @@
                 <ul class="pagination justify-content-center">
                     <th:block th:if="${boardList.totalPages == 0}">
                         <li class="page-item active">
-                            <a class="page-link" th:href="|?page=1|" th:text="1">1</a>
+                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
+                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="1">page</a>
                         </li>
                     </th:block>
                     <th:block th:unless="${boardList.totalPages == 0}" th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
                         <li th:if="${page-1 == boardList.number}" class="page-item active">
-                            <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
                         </li>
                         <li th:unless="${page-1 == boardList.number}" class="page-item">
-                            <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
                         </li>
                     </th:block>
                 </ul>
