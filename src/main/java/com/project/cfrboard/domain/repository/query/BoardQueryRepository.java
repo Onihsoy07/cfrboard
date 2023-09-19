@@ -25,8 +25,11 @@ public class BoardQueryRepository {
     public Page<BoardThumbDto> search(BoardTable boardTable, Pageable pageable, String target, String keyword) {
         List<Board> result = query.select(board)
                 .from(board)
+                .leftJoin(board.member)
                 .where(board.boardTable.eq(boardTable), searchCondition(target, keyword))
                 .orderBy(board.createDate.asc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         Long count = query.select(board.count())
