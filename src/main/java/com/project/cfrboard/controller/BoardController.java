@@ -33,7 +33,7 @@ public class BoardController {
     private final BoardService boardService;
     private final CfrService cfrService;
 
-    private final List<String> TARGETLIST = Arrays.asList("all", "title_content", "title", "content", "username");
+    private final List<String> TARGETLIST = Arrays.asList("all", "title-content", "title", "content", "username");
 
     @GetMapping("/form")
     public String boardForm(@ModelAttribute BoardFormDto boardFormDto,
@@ -56,6 +56,7 @@ public class BoardController {
         model.addAttribute("boardTable", boardTable);
 
         Page<BoardThumbDto> boardList = null;
+        int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
 
         if (target != null) {
             if (!TARGETLIST.contains(target)) {
@@ -65,8 +66,12 @@ public class BoardController {
             boardList = boardService.getSearchBoardList(boardTable, cusPageable(pageable), target, keyword);
             model.addAttribute("target", target);
             model.addAttribute("keyword", keyword);
+            model.addAttribute("status", "target=" + target + "&keyword=" + keyword + "&page=" + page);
+            model.addAttribute("nextPage", "target=" + target + "&keyword=" + keyword);
+
         } else {
             boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+            model.addAttribute("status", "page=" + page);
         }
 
         if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
@@ -81,13 +86,34 @@ public class BoardController {
     public String boardView(@PathVariable("boardTable") String boardTable,
                             @PathVariable("boardId") Long boardId,
                             @PageableDefault Pageable pageable,
+                            @RequestParam(value = "target", required = false) String target,
+                            @RequestParam(value = "keyword", required = false) String keyword,
                             Model model,
                             HttpServletRequest request,
                             HttpServletResponse response) {
         model.addAttribute("boardTable", boardTable);
 
         boardService.viewCount(boardId, request, response);
-        Page<BoardThumbDto> boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+
+        Page<BoardThumbDto> boardList = null;
+        int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
+
+        if (target != null) {
+            if (!TARGETLIST.contains(target)) {
+                return "redirect:/boards/" + boardTable;
+            }
+
+            boardList = boardService.getSearchBoardList(boardTable, cusPageable(pageable), target, keyword);
+            model.addAttribute("target", target);
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("status", "target=" + target + "&keyword=" + keyword + "&page=" + page);
+            model.addAttribute("nextPage", "target=" + target + "&keyword=" + keyword);
+
+        } else {
+            boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+            model.addAttribute("status", "page=" + page);
+        }
+
         if (pageable.getPageNumber() >= 2 && boardList.getContent().size() <= 0) {
             return "redirect:/boards/" + boardTable;
         }
