@@ -61,61 +61,28 @@
 
                 <hr>
 
-                <div th:if="${principal} != anonymousUser" class="card">
-                    <div class="card-body"><textarea id="comment" class="form-control" rows="1"></textarea></div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-primary" id="btn-replySave111" th:onclick="writeReply([[${boardView.id}]], 0, 0)">
-                            저장
-                        </button>
-                    </div>
-                </div>
-                <div th:unless="${principal} != anonymousUser" class="card">
-                    <div class="card-footer">
-                        댓글을 작성하시려면 로그인이 필요합니다.
-                    </div>
-                </div>
-<!--/*
-                <div class="card" style="margin-top:20px;">
-                    <div class="card-header">댓글</div>
-                    <ul id="comment--box" class="list-group">
-                        <div th:each="reply : ${replyList}">
-
-                            <li id="comment--${reply.id}" class="list-group-item" depth="${reply.depth}" style="margin-left:10px">
-                                <div class="font-italic" style="font-size:3px;font-weight:bold;">
-                                    <span>작성자 : [[${reply.memberDto.username}]]</span> &nbsp;
-                                    <span th:text="${reply.createDate}"></span>
-                                </div>
-                                <div style="margin:5px 0px;" th:text="${reply.content}"></div>
-
-
-                                <div class="d-flex">
-                                    <input type="hidden" id="replyId" value="${reply.id}">
-                                    <div>
-                                        <c:if test="${reply.users.id eq principal.users.id}">
-                                            <button onclick="replyDelete(${board.id}, ${reply.id})" class="badge reply-button">삭제</button>
-                                            <button onclick="replyModifyWindow(${reply.id})" class="badge reply-button">수정</button>
-                                        </c:if>
-                                        <c:if test="${reply.depth < 4}">
-                                            <button onclick="reReplyWindow(${reply.id})" class="badge reply-button">댓글</button>
-                                        </c:if>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <div style="display:none" id="replyModifyWindow${reply.id}" class="sh">
-                                <div class="card-body"><textarea id="commentModify${reply.id}" class="form-control" rows="1">${reply.content}</textarea></div>
-                                <div style="margin:0px 0px 10px 20px;">
-                                    <button onclick="replyModify(${reply.id})" class="badge">수정</button>
-                                </div>
+                <div class="reply-wrapper">
+                    <div class="reply-outer">
+                        <div th:if="${principal} != anonymousUser" class="reply-inner">
+                            <div class="reply-info">
+                                <div class="member-info" th:text="${principal.member.username}"></div>
                             </div>
-                            <div style="display:none;margin-left:${reply.depth*30}px;" id="reReplyWindow${reply.id}" class="sh">
-                                <div class="card-body"><textarea id="comment${reply.id}" class="form-control" rows="1"></textarea></div>
-                                <div style="margin:0px 0px 10px 20px;">
-                                    <button onclick="replySummit(${board.id}, ${reply.id}, ${reply.depth+1})" class="badge">댓글</button>
+                            <div class="reply-textarea-wrapper">
+                                <textarea class="reply-textarea" id="comment" maxlength="800" required="required" style="height: 99.5px;"></textarea>
+                                <div class="reply-button-wrapper">
+                                    <button class="reply-button" type="button" th:onclick="writeReply([[${boardView.id}]], 0, 0)">작성</button>
                                 </div>
                             </div>
                         </div>
-                        */-->
+
+                        <div th:unless="${principal} != anonymousUser" class="reply-inner">
+                            <div class="reply-none">
+                                <a th:href="@{/auth/login}">댓글을 작성하시려면 로그인이 필요합니다.</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
 

@@ -399,3 +399,68 @@ th, td {
     -ms-flex-pack: end!important;
     justify-content: flex-end!important;
 }
+
+/**댓글**/
+.reply-info {
+    display: flex;
+    border: solid 1px;
+    border-bottom-style: none;
+    height: 40px;
+}
+.member-info {
+    text-align: center;
+    line-height: 40px;
+    margin-left: 10px;
+}
+.reply-textarea-wrapper {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    box-sizing: border-box;
+    position: relative;
+}
+.reply-textarea {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 100%;
+    min-height: 4em;
+    overflow: hidden;
+    resize: none;
+    height: 156.5px;
+}
+.reply-button-wrapper {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    justify-content: flex-end;
+    padding-bottom: .5em;
+    padding-right: .2em;
+    display: flex;
+    margin: 5px;
+}
+.reply-button {
+    padding: .25em 1.5em;
+    border: 1px solid;
+    border-radius: 4px;
+}
+.reply-none {
+    margin: 20px 0px;
+    background-color: #cccccc;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 5px;
+}
+.reply-none a {
+    color: black;
+
+}
