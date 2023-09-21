@@ -6,6 +6,7 @@ import com.project.cfrboard.domain.dto.BoardThumbDto;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.service.BoardService;
 import com.project.cfrboard.service.CfrService;
+import com.project.cfrboard.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
@@ -32,6 +33,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CfrService cfrService;
+    private final ReplyService replyService;
 
     private final List<String> TARGETLIST = Arrays.asList("all", "title-content", "title", "content", "username");
 
@@ -120,6 +122,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
 
         model.addAttribute("boardView", boardService.getBoardView(boardId));
+        model.addAttribute("replyList", replyService.sortReply(boardId));
 
         return "board/board";
     }
