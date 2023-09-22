@@ -10,6 +10,10 @@
 
 <div style="height:1000px;margin:15px;">
 
+    <div class="info">
+        <input th:if="${principal} != anonymousUser" type="hidden" th:value="${principal.member.username}" id="p_username" />
+    </div>
+
     <section class="content">
         <div class="container-fluid">
 
@@ -67,7 +71,7 @@
                     </div>
 
                     <div class="comment-outer" th:each="reply : ${replyList}">
-                        <div class="comment-inner" th:id="|c_${reply.replyId}|">
+                        <div class="comment-inner" th:id="|c_${reply.replyId}|" th:style="|margin-left:${reply.depth*20}px;|">
                             <div class="comment">
                                 <div class="info-row">
                                     <span class="user-info">
@@ -75,10 +79,18 @@
                                     </span>
                                     <div class="other-wrapper">
                                         <div th:text="${#temporals.format(reply.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
-                                        <span class="sep"></span>
-                                        <button>신고</button>
-                                        <span class="sep"></span>
-                                        <button class="reply-link" th:onclick="replyOpen([[${reply.replyId}]])">답글</button>
+                                        <div class="wp" th:if="${principal} != anonymousUser">
+                                            <span class="sep"></span>
+                                            <button class="btn-oreply">신고</button>
+                                            <span class="sep"></span>
+                                            <button class="reply-link btn-oreply" th:onclick="replyOpen([[${boardView.id}]], [[${reply.replyId}]], [[${reply.depth+1}]])">답글</button>
+                                            <th:block th:if="${reply.username == principal.member.username}">
+                                                <span class="sep"></span>
+                                                <button class="reply-update btn-oreply">수정</button>
+                                                <span class="sep"></span>
+                                                <button class="reply-delete btn-oreply">삭제</button>
+                                            </th:block>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="message" th:text="${reply.comment}">내용</div>
@@ -100,7 +112,7 @@
                             </div>
                         </div>
 
-                        <div th:unless="${principal} != anonymousUser" class="reply-inner">
+                        <div th:unless="${principal} != anonymousUser" class="reply-inner-none">
                             <div class="reply-none">
                                 <a th:href="@{/auth/login}">댓글을 작성하시려면 로그인이 필요합니다.</a>
                             </div>

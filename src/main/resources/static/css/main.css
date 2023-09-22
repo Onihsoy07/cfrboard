@@ -537,3 +537,6 @@ th, td {
     position: relative;
     overflow: hidden;
 }
+.btn-oreply {
+    all: initial;
+}
