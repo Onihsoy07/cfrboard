@@ -88,7 +88,7 @@
                                                 <span class="sep"></span>
                                                 <button class="reply-update btn-oreply">수정</button>
                                                 <span class="sep"></span>
-                                                <button class="reply-delete btn-oreply">삭제</button>
+                                                <button class="reply-delete btn-oreply" th:onclick="replyDelete([[${reply.replyId}]])">삭제</button>
                                             </th:block>
                                         </div>
                                     </div>

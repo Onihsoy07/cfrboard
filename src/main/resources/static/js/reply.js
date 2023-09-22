@@ -53,3 +53,20 @@ function replyOpen(boardId, replyId, depth) {
     $("#c_" + replyId).after(html);
 
 }
+
+function replyDelete(replyId) {
+    $.ajax({
+        url : "/replys/" + replyId,
+        type : "DELETE",
+        contentType: "application/json;charset=utf-8"
+    }).done(function(res){
+        if(res.success) {
+            alert("댓글 삭제가 완료되었습니다.");
+            $(".reply-wrapper").load(location.href + " .comment-outer, .reply-outer");
+        } else {
+            alert(res.msg);
+        }
+    }).fail(function(error){
+        alert(error.responseJSON.msg);
+    });
+}
