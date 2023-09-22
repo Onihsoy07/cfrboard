@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
@@ -22,4 +23,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     @Query("select new com.project.cfrboard.domain.dto.ReplyDto(r.id, pr.id, m.username, r.comment, r.depth, r.createDate) "
             + "from Reply r left join r.member m left join r.reply pr where r.board.id = :boardId order by r.reply.id desc nulls last, r.id asc")
     List<ReplyDto> findByBoard_IdOrderByReply_IdDescIdAsc(@Param("boardId") Long boardId);
+
+    Optional<Reply> findByIdAndMember_Id(Long replyId, Long memberId);
 }

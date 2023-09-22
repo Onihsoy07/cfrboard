@@ -3,6 +3,7 @@ package com.project.cfrboard.service;
 import com.project.cfrboard.domain.dto.ReplyDto;
 import com.project.cfrboard.domain.dto.ReplySaveDto;
 import com.project.cfrboard.domain.repository.ReplyRepository;
+import com.project.cfrboard.exception.NotMasterOfDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,13 @@ public class ReplyService {
         }
 
         return replyList;
+    }
+
+    public void delete(Long replyId, Long memberId) throws NotMasterOfDataException {
+        if (replyRepository.findByIdAndMember_Id(replyId, memberId).isEmpty()) {
+            throw new NotMasterOfDataException("댓글 주인이 아닙니다.");
+        }
+        replyRepository.deleteById(replyId);
     }
 
 
