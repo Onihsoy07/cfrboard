@@ -1,11 +1,13 @@
 spring:
   datasource:
-    url: ENC(8moTJdaz9PLrriwOapxf5P7QrXoxfeI0j+hzXGKeLshMOCM9MuQDtY+yAP9yd9a4)
+    url: ENC(Ut6VEtWN6/MombF/7N2owj2r4SazwMGto32gpzVsdPBgSqBSOqDS/sHnV7qLb5TyPrcm+w7gXr1OGHVYMq6M39z7e22MHtbE1QOJSxT06vJKYl0K6O8xXA==)
+#    ENC(8moTJdaz9PLrriwOapxf5P7QrXoxfeI0j+hzXGKeLshMOCM9MuQDtY+yAP9yd9a4)
     username: ENC(vZkgke8ER30sYbI2bJBn6g==)
-    password: ENC(kEJFPxxxZ7tpFzoRzZ5heQ==)
+    password: ENC(kpY4jn3RSqS6IX3TF4QSMw1gSkVeQgEm)
+#    ENC(kEJFPxxxZ7tpFzoRzZ5heQ==)
 
   jpa:
-    open-in-view: true
+#    open-in-view: true
     hibernate:
       ddl-auto: update
 
