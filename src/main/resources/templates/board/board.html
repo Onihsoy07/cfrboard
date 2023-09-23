@@ -86,14 +86,14 @@
                                             <button class="reply-link btn-oreply" th:onclick="replyOpen([[${boardView.id}]], [[${reply.replyId}]], [[${reply.depth+1}]])">답글</button>
                                             <th:block th:if="${reply.username == principal.member.username}">
                                                 <span class="sep"></span>
-                                                <button class="reply-update btn-oreply">수정</button>
+                                                <button class="reply-update btn-oreply" th:onclick="replyUpdateOpen([[${reply.replyId}]])">수정</button>
                                                 <span class="sep"></span>
                                                 <button class="reply-delete btn-oreply" th:onclick="replyDelete([[${reply.replyId}]])">삭제</button>
                                             </th:block>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="message" th:text="${reply.comment}">내용</div>
+                                <div class="message" th:id="|message_${reply.replyId}|" th:text="${reply.comment}">내용</div>
                             </div>
                         </div>
                     </div>

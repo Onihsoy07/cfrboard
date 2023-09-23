@@ -70,3 +70,55 @@ function replyDelete(replyId) {
         alert(error.responseJSON.msg);
     });
 }
+
+function replyUpdateOpen(replyId) {
+    $("div").remove(".reReply-inner");
+    $(".reply-inner").css("display", "none");
+
+    let username = $("#p_username").val();
+    let comment = $("#message_" + replyId).text();
+
+    let html = "";
+
+    html += "<div class='reReply-inner'>";
+    html += "<div class='reply-info'>";
+    html += "<div class='member-info'>" + username +  "</div>";
+    html += "</div>";
+    html += "<div class='reply-textarea-wrapper'>";
+    html += "<textarea class='reply-textarea' id='update-comment' maxlength='800' required='required' style='height: 99.5px;'>" + comment + "</textarea>";
+    html += "<div class='reply-button-wrapper'>";
+    html += "<button class='reply-button' type='button' onclick='replyUpdate(" + replyId + ")'>수정</button>";
+    html += "</div>";
+    html += "</div>";
+    html += "</div>";
+
+    $("#c_" + replyId).after(html);
+}
+
+function replyUpdate(replyId) {
+        let data = {
+            comment : $("#update-comment").val()
+        }
+
+        if(data.comment.length < 3) {
+            alert("댓글을 3자 이상 써주세요.")
+            return false;
+        }
+
+        $.ajax({
+            url : "/replys/" + replyId,
+            type : "PUT",
+            contentType: "application/json;charset=utf-8",
+            dataType:"json",
+            data : JSON.stringify(data)
+        }).done(function(res){
+            if(res.success) {
+                alert("댓글 수정이 완료되었습니다.");
+                $(".reply-wrapper").load(location.href + " .comment-outer, .reply-outer");
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error){
+            alert(error.responseJSON.msg);
+        });
+}
