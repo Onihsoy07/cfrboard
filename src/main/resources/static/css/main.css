@@ -407,12 +407,13 @@ th, td {
 
 /**댓글**/
 .reply-info {
-    display: flex;
+    display: block;
     border: solid 1px;
     border-bottom-style: none;
     height: 40px;
 }
 .member-info {
+    float: left;
     text-align: center;
     line-height: 40px;
     margin-left: 10px;
@@ -539,4 +540,13 @@ th, td {
 }
 .btn-oreply {
     all: initial;
+}
+.btn-close:hover {
+    cursor: pointer;
+}
+.btn-close:after {
+    content: "\00d7";
+    font-size: 25px;
+    float: right;
+    margin-right: 10px;
 }

@@ -41,6 +41,7 @@ function replyOpen(boardId, replyId, depth) {
     html += "<div class='reReply-inner'>";
     html += "<div class='reply-info'>";
     html += "<div class='member-info'>" + username +  "</div>";
+    html += "<div class='btn-close' onclick='replyClose()'></div>";
     html += "</div>";
     html += "<div class='reply-textarea-wrapper'>";
     html += "<textarea class='reply-textarea' id='comment' maxlength='800' required='required' style='height: 99.5px;'></textarea>";
@@ -83,6 +84,7 @@ function replyUpdateOpen(replyId) {
     html += "<div class='reReply-inner'>";
     html += "<div class='reply-info'>";
     html += "<div class='member-info'>" + username +  "</div>";
+    html += "<div class='btn-close' onclick='replyClose()'></div>";
     html += "</div>";
     html += "<div class='reply-textarea-wrapper'>";
     html += "<textarea class='reply-textarea' id='update-comment' maxlength='800' required='required' style='height: 99.5px;'>" + comment + "</textarea>";
@@ -121,4 +123,9 @@ function replyUpdate(replyId) {
         }).fail(function(error){
             alert(error.responseJSON.msg);
         });
+}
+
+function replyClose() {
+    $(".reply-inner").css("display", "block");
+    $("div").remove(".reReply-inner");
 }
