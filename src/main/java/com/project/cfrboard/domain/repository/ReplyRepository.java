@@ -25,4 +25,8 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     List<ReplyDto> findByBoard_IdOrderByReply_IdDescIdAsc(@Param("boardId") Long boardId);
 
     Optional<Reply> findByIdAndMember_Id(Long replyId, Long memberId);
+
+    @Modifying
+    @Query("update Reply r set r.comment = :comment where r.id = :replyId")
+    void updateComment(@Param("replyId") Long replyId, @Param("comment") String comment);
 }

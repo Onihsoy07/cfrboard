@@ -69,5 +69,12 @@ public class ReplyService {
         replyRepository.deleteById(replyId);
     }
 
+    public void update(String comment, Long replyId, Long memberId) throws NotMasterOfDataException {
+        if (replyRepository.findByIdAndMember_Id(replyId, memberId).isEmpty()) {
+            throw new NotMasterOfDataException("댓글 주인이 아닙니다.");
+        }
+        replyRepository.updateComment(replyId, comment);
+    }
+
 
 }

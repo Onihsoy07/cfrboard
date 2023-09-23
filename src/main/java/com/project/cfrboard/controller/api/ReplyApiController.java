@@ -2,6 +2,7 @@ package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.ReplySaveDto;
+import com.project.cfrboard.domain.dto.ReplyUpdateDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
 import com.project.cfrboard.exception.NotMasterOfDataException;
 import com.project.cfrboard.service.ReplyService;
@@ -53,6 +54,30 @@ public class ReplyApiController {
         } catch (NotMasterOfDataException e) {
             log.info("댓글의 주인이 아닙니다.", e);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "댓글 삭제 권한이 없습니다."));
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, null, "성공"));
+    }
+
+    @PutMapping("/{replyId}")
+    public ResponseEntity<ResponseDto<?>> update(@PathVariable("replyId") Long replyId,
+                                                 @RequestBody @Valid final ReplyUpdateDto replyUpdateDto,
+                                                 BindingResult bindingResult,
+                                                 @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (bindingResult.hasErrors()) {
+            ObjectError error = bindingResult.getAllErrors().get(0);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
+        }
+
+        try {
+            replyService.update(replyUpdateDto.getComment(), replyId, principal.getMember().getId());
+        } catch (NotMasterOfDataException e) {
+            log.info("댓글의 주인이 아닙니다.", e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "댓글 수정 권한이 없습니다."));
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, null, "성공"));
