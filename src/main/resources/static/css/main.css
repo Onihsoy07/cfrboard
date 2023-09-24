@@ -556,3 +556,20 @@ th, td {
     float: right;
     margin-right: 10px;
 }
+
+/*페이지*/
+.first-page:after {
+    content: "\276C \276C";
+}
+.previous-page:after {
+    content: "\276C";
+}
+.next-page:after {
+    content: "\276D";
+}
+.last-page:after {
+    content: "\276D \276D";
+}
+.page-disable {
+    pointer-events: none;
+}

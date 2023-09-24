@@ -181,14 +181,38 @@
                             <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="1">page</a>
                         </li>
                     </th:block>
-                    <th:block th:unless="${boardList.totalPages == 0}" th:each="page : ${#numbers.sequence(1, boardList.totalPages)}">
-                        <li th:if="${page-1 == boardList.number}" class="page-item active">
-                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
-                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                    <th:block th:unless="${boardList.totalPages == 0}">
+                        <li class="page-item">
+                            <a class="page-link first-page" th:href="@{?page=1}"></a>
                         </li>
-                        <li th:unless="${page-1 == boardList.number}" class="page-item">
-                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
-                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                        <li th:if="${pageInfo.isPreviousPage}" class="page-item">
+                            <a th:if="${nextPage} == null" class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                            <a th:unless="${nextPage} == null" class="page-link previous-page" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
+                        </li>
+                        <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
+                            <a th:if="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                            <a th:unless="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
+                        </li>
+                        <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
+                            <li th:if="${page-1 == boardList.number}" class="page-item active">
+                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                            </li>
+                            <li th:unless="${page-1 == boardList.number}" class="page-item">
+                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                            </li>
+                        </th:block>
+                        <li th:if="${pageInfo.isNextPage}" class="page-item">
+                            <a th:if="${nextPage} == null" class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                            <a th:unless="${nextPage} == null" class="page-link next-page" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
+                        </li>
+                        <li th:unless="${pageInfo.isNextPage}" class="page-item">
+                            <a th:if="${nextPage} == null" class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                            <a th:unless="${nextPage} == null" class="page-link next-page page-disable" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link last-page" th:href="@{|?page=${boardList.totalPages}|}"></a>
                         </li>
                     </th:block>
                 </ul>
