@@ -21,6 +21,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Slf4j
@@ -29,6 +32,9 @@ import java.util.List;
 public class CfrService {
 
     private final CfrDataRepository cfrDataRepository;
+
+    private final Long CFR_API_LIMIT = 998L;
+    private final Long USER_LIMIT = 5L;
 
     @Value("${open_api.naver.Client_ID}")
     private String X_Naver_Client_Id;
@@ -105,5 +111,21 @@ public class CfrService {
     public List<CfrDataDto> getCfrList(Long memberId) {
         return cfrDataRepository.findCfrDataDtoList(memberId);
     }
+
+    @Transactional(readOnly = true)
+    public String cfrLimitCheck(Long memberId) {
+        LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+
+        if (cfrDataRepository.countByMember_IdAndAfterMidnight(memberId, todayStartTime) >= USER_LIMIT) {
+            return "사용자의 요청 제한 5회를 넘었습니다.";
+        }
+
+        if (cfrDataRepository.countByAfterMidnight(todayStartTime) >= CFR_API_LIMIT) {
+            return "API 서버의 요청 제한을 넘어 사용이 불가합니다.";
+        }
+
+        return "가능";
+    }
+
 
 }

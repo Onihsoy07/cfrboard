@@ -32,6 +32,11 @@ public class CfrApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
         }
 
+        String cfrLimitMessage = cfrService.cfrLimitCheck(principal.getMember().getId());
+        if (!"가능".equals(cfrLimitMessage)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, cfrLimitMessage));
+        }
+
         CfrResponseDto cfrResponseDto = cfrService.getCfrResponseDto(multipartFile);
 
         try {
