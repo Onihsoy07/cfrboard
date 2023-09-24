@@ -24,7 +24,13 @@ public class CfrController {
     private final CfrService cfrService;
 
     @GetMapping("/form")
-    public String cfrForm() {
+    public String cfrForm(@AuthenticationPrincipal PrincipalDetails principal,
+                          Model model) {
+        if (principal == null) {
+            throw new AccessDeniedException("권한없음");
+        }
+
+        model.addAttribute("requestCount", cfrService.cfrRequestCount(principal.getMember().getId()));
         return "cfr/cfrForm";
     }
 

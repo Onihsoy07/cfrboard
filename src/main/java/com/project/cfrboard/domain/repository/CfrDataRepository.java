@@ -20,10 +20,10 @@ public interface CfrDataRepository extends JpaRepository<CfrData, Long> {
     List<CfrDataDto> findCfrDataDtoList(@Param("memberId") Long memberId);
 
     @Query("select count(*) from CfrData c where c.createDate > :today")
-    Long countByAfterMidnight(@Param("today") LocalDateTime today);
+    int countByAfterMidnight(@Param("today") LocalDateTime today);
 
     @Query("select count(*) from CfrData c where c.member.id = :memberId and c.createDate > :today")
-    Long countByMember_IdAndAfterMidnight(@Param("memberId") Long memberId, @Param("today") LocalDateTime today);
+    int countByMember_IdAndAfterMidnight(@Param("memberId") Long memberId, @Param("today") LocalDateTime today);
 
 }
 

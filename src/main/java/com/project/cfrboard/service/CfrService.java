@@ -8,6 +8,8 @@ import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.repository.CfrDataRepository;
 import com.project.cfrboard.exception.NotOnePeoplePhotoException;
+import com.project.cfrboard.exception.OverRequestCfrData;
+import com.project.cfrboard.exception.OverRequestMemberCfrData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -113,18 +115,23 @@ public class CfrService {
     }
 
     @Transactional(readOnly = true)
-    public String cfrLimitCheck(Long memberId) {
+    public int cfrRequestCount(Long memberId) {
+        LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
+        return cfrDataRepository.countByMember_IdAndAfterMidnight(memberId, todayStartTime);
+    }
+
+    @Transactional(readOnly = true)
+    public void cfrLimitCheck(Long memberId) throws OverRequestCfrData, OverRequestMemberCfrData {
         LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
 
-        if (cfrDataRepository.countByMember_IdAndAfterMidnight(memberId, todayStartTime) >= USER_LIMIT) {
-            return "사용자의 요청 제한 5회를 넘었습니다.";
-        }
-
         if (cfrDataRepository.countByAfterMidnight(todayStartTime) >= CFR_API_LIMIT) {
-            return "API 서버의 요청 제한을 넘어 사용이 불가합니다.";
+            throw new OverRequestCfrData("CFR API 요청 횟수를 초과하였습니다.");
         }
 
-        return "가능";
+        int userRequestCount = cfrDataRepository.countByMember_IdAndAfterMidnight(memberId, todayStartTime);
+        if (userRequestCount >= USER_LIMIT) {
+            throw new OverRequestMemberCfrData("사용자의 1일 요청 횟수를 초과하였습니다.");
+        }
     }
 
 
