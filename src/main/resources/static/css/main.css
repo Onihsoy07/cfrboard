@@ -1,3 +1,9 @@
+.notice-red {
+    text-align: center;
+    margin-bottom: 20px;
+    color: red;
+    font-size: 20px;
+}
 .form-control {
     margin-bottom: 10px;
 }
