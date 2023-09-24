@@ -3,6 +3,7 @@ package com.project.cfrboard.controller;
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.dto.BoardThumbDto;
+import com.project.cfrboard.domain.dto.PageDto;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.service.BoardService;
 import com.project.cfrboard.service.CfrService;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +82,7 @@ public class BoardController {
             return "redirect:/boards/" + boardTable;
         }
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pageInfo", getPageOffset(pageable, boardList));
 
         return "board/board";
     }
@@ -98,7 +101,7 @@ public class BoardController {
         boardService.viewCount(boardId, request, response);
 
         Page<BoardThumbDto> boardList = null;
-        int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
+        int page = pageable.getPageNumber()==0 ? 1 : pageable.getPageNumber();
 
         if (target != null) {
             if (!TARGETLIST.contains(target)) {
@@ -145,5 +148,19 @@ public class BoardController {
 
     private PageRequest cusPageable(Pageable pageable) {
         return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 15, Sort.by("createDate").descending());
+    }
+
+    private PageDto getPageOffset(Pageable pageable, Page<?> pageList) {
+        int startPage = ((pageable.getPageNumber()-1)/10)*10;
+        int endPage = pageList.getTotalPages()<=10 ? pageList.getTotalPages() : (startPage + 11);
+        Boolean isPreviousPage = startPage==0 ? false : true;
+        Boolean isNextPage = true;
+
+        if (pageList.getTotalPages() <= endPage) {
+            endPage = pageList.getTotalPages()+1;
+            isNextPage = false;
+        }
+
+        return new PageDto(startPage, endPage, isPreviousPage, isNextPage);
     }
 }
