@@ -123,6 +123,7 @@ public class BoardController {
             return "redirect:/boards/" + boardTable;
         }
         model.addAttribute("boardList", boardList);
+        model.addAttribute("pageInfo", getPageOffset(pageable, boardList));
 
         model.addAttribute("boardView", boardService.getBoardView(boardId));
         model.addAttribute("replyList", replyService.sortReply(boardId));
