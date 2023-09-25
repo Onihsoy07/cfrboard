@@ -26,7 +26,10 @@ public class Board extends Base {
     private String content;
 
     @Column(nullable = false, unique = false)
-    private Integer viewCount;
+    private Integer todayViewCount;
+
+    @Column(nullable = false, unique = false)
+    private Integer totalViewCount;
 
     @Formula("(select count(*) from likes l where l.board_id = id)")
     private Integer likesCount;
@@ -65,6 +68,7 @@ public class Board extends Base {
 
     @PrePersist
     public void prePersist() {
-        this.viewCount = 0;
+        this.todayViewCount = 0;
+        this.totalViewCount = 0;
     }
 }

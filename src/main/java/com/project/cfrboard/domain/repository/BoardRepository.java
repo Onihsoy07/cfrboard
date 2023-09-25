@@ -26,7 +26,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Optional<Board> findByIdFetchMember(@Param("id") Long id);
 
     @Modifying(clearAutomatically = true)
-    @Query("update Board b set b.viewCount = b.viewCount+1 where b.id=:id")
+    @Query("update Board b set b.todayViewCount = b.todayViewCount+1, b.totalViewCount= b.totalViewCount+1 where b.id=:id")
     void addViewCount(@Param("id") Long id);
 
 

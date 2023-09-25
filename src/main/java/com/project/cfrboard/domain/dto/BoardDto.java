@@ -26,7 +26,7 @@ public class BoardDto {
         this.title = board.getTitle();
         this.content = board.getContent();
         this.createDate = board.getCreateDate();
-        this.viewCount = board.getViewCount();
+        this.viewCount = board.getTotalViewCount();
         this.likesCount = board.getLikesCount();
         this.memberDto = new MemberDto(board.getMember());
         this.cfrDataDto = board.getCfrData()==null ? null : new CfrDataDto(board.getCfrData());

@@ -1,13 +1,11 @@
 package com.project.cfrboard.domain.dto;
 
 import com.project.cfrboard.domain.entity.Board;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +24,7 @@ public class BoardThumbDto {
         this.id = board.getId();
         this.title = board.getTitle();
         this.createDate = board.getCreateDate();
-        this.viewCount = board.getViewCount();
+        this.viewCount = board.getTotalViewCount();
         this.likesCount = board.getLikesCount();
         this.memberDto = new MemberDto(board.getMember());
     }
