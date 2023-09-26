@@ -1,8 +1,7 @@
 package com.project.cfrboard.domain.repository.query;
 
-import com.project.cfrboard.domain.dto.BoardThumbDto;
+import com.project.cfrboard.domain.dto.BoardPageDto;
 import com.project.cfrboard.domain.entity.Board;
-import com.project.cfrboard.domain.entity.QBoard;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,7 +21,7 @@ public class BoardQueryRepository {
 
     private final JPAQueryFactory query;
 
-    public Page<BoardThumbDto> search(BoardTable boardTable, Pageable pageable, String target, String keyword) {
+    public Page<BoardPageDto> search(BoardTable boardTable, Pageable pageable, String target, String keyword) {
         List<Board> result = query.select(board)
                 .from(board)
                 .leftJoin(board.member).fetchJoin()
@@ -37,7 +36,7 @@ public class BoardQueryRepository {
                 .where(board.boardTable.eq(boardTable), searchCondition(target, keyword))
                 .fetchOne();
 
-        List<BoardThumbDto> searchBoardList = BoardThumbDto.convertToDtoList(result);
+        List<BoardPageDto> searchBoardList = BoardPageDto.convertToDtoList(result);
 
         return new PageImpl<>(searchBoardList, pageable, count);
     }

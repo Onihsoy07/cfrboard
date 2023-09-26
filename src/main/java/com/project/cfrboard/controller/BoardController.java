@@ -2,7 +2,7 @@ package com.project.cfrboard.controller;
 
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.BoardFormDto;
-import com.project.cfrboard.domain.dto.BoardThumbDto;
+import com.project.cfrboard.domain.dto.BoardPageDto;
 import com.project.cfrboard.domain.dto.PageDto;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.service.BoardService;
@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +58,7 @@ public class BoardController {
 
         model.addAttribute("boardTable", boardTable);
 
-        Page<BoardThumbDto> boardList = null;
+        Page<BoardPageDto> boardList = null;
         int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
 
         if (target != null) {
@@ -100,7 +99,7 @@ public class BoardController {
 
         boardService.viewCount(boardId, request, response);
 
-        Page<BoardThumbDto> boardList = null;
+        Page<BoardPageDto> boardList = null;
         int page = pageable.getPageNumber()==0 ? 1 : pageable.getPageNumber();
 
         if (target != null) {

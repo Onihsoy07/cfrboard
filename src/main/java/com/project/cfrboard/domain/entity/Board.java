@@ -34,6 +34,9 @@ public class Board extends Base {
     @Formula("(select count(*) from likes l where l.board_id = id)")
     private Integer likesCount;
 
+    @Formula("(select count(*) from reply r where r.board_id = id)")
+    private Integer commentCount;
+
     @Column(nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
     private BoardTable boardTable;

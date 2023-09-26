@@ -1,9 +1,6 @@
 package com.project.cfrboard.service;
 
-import com.project.cfrboard.domain.dto.BoardDto;
-import com.project.cfrboard.domain.dto.BoardFormDto;
-import com.project.cfrboard.domain.dto.BoardThumbDto;
-import com.project.cfrboard.domain.dto.BoardUpdateFormDto;
+import com.project.cfrboard.domain.dto.*;
 import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
@@ -80,14 +77,14 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<BoardThumbDto> getBoardList(String boardTable, Pageable pageable) {
+    public Page<BoardPageDto> getBoardList(String boardTable, Pageable pageable) {
         BoardTable bt = BoardTable.valueOf(boardTable.toUpperCase());
         List<Board> boardList = boardRepository.findByBoardTable(bt, pageable);
-        return new PageImpl<>(BoardThumbDto.convertToDtoList(boardList), pageable, boardRepository.countByBoardTable(bt));
+        return new PageImpl<>(BoardPageDto.convertToDtoList(boardList), pageable, boardRepository.countByBoardTable(bt));
     }
 
     @Transactional(readOnly = true)
-    public Page<BoardThumbDto> getSearchBoardList(String boardTable, Pageable pageable, String target, String keyword) {
+    public Page<BoardPageDto> getSearchBoardList(String boardTable, Pageable pageable, String target, String keyword) {
         BoardTable bt = BoardTable.valueOf(boardTable.toUpperCase());
         return boardQueryRepository.search(bt, pageable, target, keyword);
     }
@@ -121,6 +118,19 @@ public class BoardService {
         boardRepository.deleteById(boardId);
     }
 
+    @Transactional(readOnly = true)
+    public List<BoardThumbDto> getCurrentBoard(BoardTable boardTable) {
+        List<Board> currentBoardList = boardRepository.findTop10ByBoardTableOrderByCreateDateDesc(boardTable);
+        return BoardThumbDto.convertToDtoList(currentBoardList);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardThumbDto> getTodayTopView() {
+        List<Board> topViewList = boardRepository.findTop10ByOrderByTodayViewCountDescCreateDateDesc();
+        return BoardThumbDto.convertToDtoList(topViewList);
+    }
+
+
     private CfrData getCfrData(Long cfrId) {
         return cfrDataRepository.findById(cfrId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("CfrData ID %d로 찾을 수 없습니다.", cfrId));
@@ -139,7 +149,8 @@ public class BoardService {
         });
     }
 
-    @Transactional
+    
+    //트랜잭션 사용안함 -> @Transactional에서 비활성화 추후 찾기
     public void viewCount(Long boardId, HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         Cookie thisCookie = null;
