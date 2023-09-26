@@ -25,5 +25,8 @@ public interface CfrDataRepository extends JpaRepository<CfrData, Long> {
     @Query("select count(*) from CfrData c where c.member.id = :memberId and c.createDate > :today")
     int countByMember_IdAndAfterMidnight(@Param("memberId") Long memberId, @Param("today") LocalDateTime today);
 
+    @Query(value = "select * from cfr_data order by confidence desc, create_date desc limit 10", nativeQuery = true)
+    List<CfrData> findTop10ByOrderByConfidenceDescCreateDateDesc();
+
 }
 

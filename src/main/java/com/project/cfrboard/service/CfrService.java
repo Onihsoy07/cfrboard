@@ -3,6 +3,7 @@ package com.project.cfrboard.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.cfrboard.domain.dto.CfrDataDto;
+import com.project.cfrboard.domain.dto.CfrDataThumbDto;
 import com.project.cfrboard.domain.dto.CfrResponseDto;
 import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
@@ -132,6 +133,12 @@ public class CfrService {
         if (userRequestCount >= USER_LIMIT) {
             throw new OverRequestMemberCfrData("사용자의 1일 요청 횟수를 초과하였습니다.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CfrDataThumbDto> getTopConfidenceCfrData() {
+        List<CfrData> topConfidenceCfrDataList = cfrDataRepository.findTop10ByOrderByConfidenceDescCreateDateDesc();
+        return CfrDataThumbDto.convertToDtoList(topConfidenceCfrDataList);
     }
 
 
