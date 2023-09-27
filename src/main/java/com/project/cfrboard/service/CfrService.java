@@ -9,8 +9,8 @@ import com.project.cfrboard.domain.entity.CfrData;
 import com.project.cfrboard.domain.entity.Member;
 import com.project.cfrboard.domain.repository.CfrDataRepository;
 import com.project.cfrboard.exception.NotOnePeoplePhotoException;
-import com.project.cfrboard.exception.OverRequestCfrData;
-import com.project.cfrboard.exception.OverRequestMemberCfrData;
+import com.project.cfrboard.exception.OverRequestCfrDataException;
+import com.project.cfrboard.exception.OverRequestMemberCfrDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,16 +122,16 @@ public class CfrService {
     }
 
     @Transactional(readOnly = true)
-    public void cfrLimitCheck(Long memberId) throws OverRequestCfrData, OverRequestMemberCfrData {
+    public void cfrLimitCheck(Long memberId) throws OverRequestCfrDataException, OverRequestMemberCfrDataException {
         LocalDateTime todayStartTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0, 0));
 
         if (cfrDataRepository.countByAfterMidnight(todayStartTime) >= CFR_API_LIMIT) {
-            throw new OverRequestCfrData("CFR API 요청 횟수를 초과하였습니다.");
+            throw new OverRequestCfrDataException("CFR API 요청 횟수를 초과하였습니다.");
         }
 
         int userRequestCount = cfrDataRepository.countByMember_IdAndAfterMidnight(memberId, todayStartTime);
         if (userRequestCount >= USER_LIMIT) {
-            throw new OverRequestMemberCfrData("사용자의 1일 요청 횟수를 초과하였습니다.");
+            throw new OverRequestMemberCfrDataException("사용자의 1일 요청 횟수를 초과하였습니다.");
         }
     }
 

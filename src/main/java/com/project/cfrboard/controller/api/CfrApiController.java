@@ -4,15 +4,14 @@ import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.domain.dto.CfrResponseDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
 import com.project.cfrboard.exception.NotOnePeoplePhotoException;
-import com.project.cfrboard.exception.OverRequestCfrData;
-import com.project.cfrboard.exception.OverRequestMemberCfrData;
+import com.project.cfrboard.exception.OverRequestCfrDataException;
+import com.project.cfrboard.exception.OverRequestMemberCfrDataException;
 import com.project.cfrboard.service.CfrService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,10 +36,10 @@ public class CfrApiController {
 
         try {
             cfrService.cfrLimitCheck(principal.getMember().getId());
-        } catch (OverRequestCfrData e) {
+        } catch (OverRequestCfrDataException e) {
             log.info("CFR API 요청 횟수 초과", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, e.getMessage()));
-        } catch (OverRequestMemberCfrData e) {
+        } catch (OverRequestMemberCfrDataException e) {
             log.info("사용자 일일 CFR API 요청 횟수 초과", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, e.getMessage()));
         }
