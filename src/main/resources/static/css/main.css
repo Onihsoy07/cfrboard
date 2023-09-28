@@ -573,3 +573,59 @@ th, td {
 .page-disable {
     pointer-events: none;
 }
+
+/*메인 페이지*/
+.current-board a {
+    display: table-cell;
+    color: black;
+    padding-right: 10px;
+    word-break: break-all;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.current-board a:hover {
+    color: #aaa;
+}
+.current-board-list {
+    margin-bottom: 0px;
+}
+.current-board-list ul {
+    border-top: solid 1px #aaa;
+    padding-left: 10px;
+    margin-bottom: 0px;
+}
+.current-board span {
+    display: table-cell;
+    position: relative;
+    font-size: 16px;
+    color: black;
+    padding-left: 18px;
+    margin-right: 5px;
+}
+.current-board span:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: url(/image/comment-icon.svg) no-repeat;
+    content: "";
+}
+.current-board {
+    display: flex;
+    vertical-align: baseline;
+    word-break: keep-all;
+}
+.board-short {
+    font-size: 30px;
+    padding-left: 10px;
+    color: black;
+}
+.board-short:hover {
+    color: #4C4C4C;
+    text-decoration: none;
+}
