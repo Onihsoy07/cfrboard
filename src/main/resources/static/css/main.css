@@ -152,6 +152,12 @@ th, td {
     height: 50px;
     margin: 40px 0px;
 }
+.title-detail {
+    word-break: break-word;
+}
+.content-detail {
+    word-break: break-word;
+}
 
 /*기존 리스트 페이지 css*/
 .content {
@@ -269,9 +275,14 @@ th, td {
 
 .col-title {
     font-size: 16px;
-    width: 100%;
+    width: 80%;
     text-align: left;
     color: black;
+    word-break: break-all;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .col-author {
