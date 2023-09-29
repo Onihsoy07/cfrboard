@@ -709,8 +709,8 @@ th, td {
      display: inline-block;
      overflow: hidden;
      font-size: 14px;
-     color: orange;
-     background: #f90;
+     color: black;
+     background: orange;
      font-weight: 700;
      text-align: center;
      line-height: 25px;
@@ -721,7 +721,7 @@ th, td {
      display: inline-block;
      overflow: hidden;
      font-size: 14px;
-     color: #222;
+     color: black;
      background: #aaaaaa;
      font-weight: 700;
      text-align: center;
