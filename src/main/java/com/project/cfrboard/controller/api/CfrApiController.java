@@ -44,9 +44,10 @@ public class CfrApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, e.getMessage()));
         }
 
-        CfrResponseDto cfrResponseDto = cfrService.getCfrResponseDto(multipartFile);
+        CfrResponseDto cfrResponseDto = null;
 
         try {
+            cfrResponseDto = cfrService.getCfrResponseDto(multipartFile);
             cfrService.save(cfrResponseDto, principal.getMember());
             httpServletResponse.setHeader("Location", "/cfrs");
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, true, null));
