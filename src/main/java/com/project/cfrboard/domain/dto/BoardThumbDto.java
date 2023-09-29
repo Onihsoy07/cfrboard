@@ -14,11 +14,13 @@ public class BoardThumbDto {
 
     private Long id;
     private String title;
+    private String boardTable;
     private int commentCount;
 
     public BoardThumbDto(Board board) {
         this.id = board.getId();
         this.title = board.getTitle();
+        this.boardTable = board.getBoardTable().getValue();
         this.commentCount = board.getCommentCount();
     }
 
