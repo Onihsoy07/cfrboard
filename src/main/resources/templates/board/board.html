@@ -223,25 +223,53 @@
             </div>
         </div>
 
-        <aside class="right-aside">
-            <div class="list-rank-wrap">
-                <dl>
-                    <dt>
-                        <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
-                    </dt>
-                    <dd>
-                        <ul>
-                            <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
-                                <i th:if="${viewRankStat.count le 3}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
-                                <i th:unless="${viewRankStat.count le 3}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
-                                <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
-                                    제목
-                                </a>
-                                <span th:text="${viewRank.commentCount}">0</span>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
+        <aside>
+            <div class="right-aside">
+                <div class="list-rank-wrap">
+                    <dl>
+                        <dt>
+                            <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
+                                    <i th:if="${viewRankStat.count le 3}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
+                                    <i th:unless="${viewRankStat.count le 3}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
+                                    <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
+                                        제목
+                                    </a>
+                                    <span th:text="${viewRank.commentCount}">0</span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="right-aside">
+                <div class="list-rank-wrap">
+                    <dl>
+                        <dt>
+                            <a class="rank-title" href="javascript:void(0)">CFR 랭킹</a>
+                        </dt>
+
+                        <dd>
+                            <ul>
+                                <li class="list-rank" th:each="cfrRank, cfrRankStat  : ${topCfr}">
+                                    <i th:if="${cfrRankStat.count le 3}" class="top-rank" th:text="${cfrRankStat.count}">Rank</i>
+                                    <i th:unless="${cfrRankStat.count le 3}" class="normal-rank" th:text="${cfrRankStat.count}">Rank</i>
+                                    <div class="cfrRank-wrap">
+                                        <div class="cfrRank-value" th:text="${cfrRank.value}"></div>
+                                        <div>&nbsp;:&nbsp;</div>
+                                        <div class="cfrRank-confidence" th:text="${#numbers.formatPercent(cfrRank.confidence,0,2)}"></div>
+                                        <div class="sep-black"></div>
+                                        <div class="cfrRank-username" th:text="${cfrRank.memberDto.username}"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </aside>
 
