@@ -36,7 +36,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     void todayViewCountReset();
 
     List<Board> findTop10ByBoardTableOrderByCreateDateDesc(BoardTable boardTable);
-    List<Board> findTop10ByOrderByTodayViewCountDescCreateDateDesc();
+    List<Board> findTop10ByTodayViewCountGreaterThanEqualOrderByTodayViewCountDescCreateDateDesc(int minView);
 
 
 }

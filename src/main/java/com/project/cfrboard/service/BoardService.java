@@ -126,7 +126,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardThumbDto> getTodayTopView() {
-        List<Board> topViewList = boardRepository.findTop10ByOrderByTodayViewCountDescCreateDateDesc();
+        List<Board> topViewList = boardRepository.findTop10ByTodayViewCountGreaterThanEqualOrderByTodayViewCountDescCreateDateDesc(1);
         return BoardThumbDto.convertToDtoList(topViewList);
     }
 

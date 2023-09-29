@@ -82,6 +82,7 @@ public class BoardController {
         }
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageInfo", getPageOffset(pageable, boardList));
+        model.addAttribute("topTodayView", boardService.getTodayTopView());
 
         return "board/board";
     }
@@ -126,6 +127,7 @@ public class BoardController {
 
         model.addAttribute("boardView", boardService.getBoardView(boardId));
         model.addAttribute("replyList", replyService.sortReply(boardId));
+        model.addAttribute("topTodayView", boardService.getTodayTopView());
 
         return "board/board";
     }
