@@ -24,6 +24,9 @@ public class Reply extends Base {
     @Column(nullable = false, unique = false)
     private Integer depth;
 
+    @Column(nullable = false, unique = false)
+    private Boolean isBlinded;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -48,5 +51,6 @@ public class Reply extends Base {
     @PrePersist
     public void prePersist() {
         this.depth = 0;
+        this.isBlinded = false;
     }
 }

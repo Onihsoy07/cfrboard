@@ -41,6 +41,9 @@ public class Board extends Base {
     @Enumerated(EnumType.STRING)
     private BoardTable boardTable;
 
+    @Column(nullable = false, unique = false)
+    private Boolean isBlinded;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -73,5 +76,6 @@ public class Board extends Base {
     public void prePersist() {
         this.todayViewCount = 0;
         this.totalViewCount = 0;
+        this.isBlinded = false;
     }
 }
