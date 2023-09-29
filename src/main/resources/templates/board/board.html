@@ -15,210 +15,235 @@
     </div>
 
     <section class="content">
-        <div class="container-fluid">
 
-            <div class="container-fluid" th:if="${boardView!=null}">
-                <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
-                <th:block th:if="${principal} != anonymousUser and ${boardView.memberDto.id} == ${principal?.member.id}">
-                    <a href="/boards/${boardView.id}/update-form"
-                       th:href="|/boards/${boardView.id}/update-form|"
-                       class="btn btn-warning">수정</a>
-                    <button id="btn-delete" class="btn btn-danger">삭제</button>
-                </th:block>
-                <br/><br/>
-                <div>
-                    <h3 class="title-detail" th:text="${boardView.title}">title</h3>
-                </div>
-                <br/>
-                <div>
-                    작성자:<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
-                    작성 일자:<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
-                    <div class="etc-info">
-                        <div class="form-group">
-                            <input id="boardId" type="hidden" th:value="${boardView.id}" />
-                        </div>
+        <div class="container-wrapper">
+            <div class="container-fluid">
 
-                        <div class="form-group">
-                            <input id="boardTable" type="hidden" th:value="${boardTable}" />
-                        </div>
+                <div class="container-fluid" th:if="${boardView!=null}">
+                    <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
+                    <th:block th:if="${principal} != anonymousUser and ${boardView.memberDto.id} == ${principal?.member.id}">
+                        <a href="/boards/${boardView.id}/update-form"
+                           th:href="|/boards/${boardView.id}/update-form|"
+                           class="btn btn-warning">수정</a>
+                        <button id="btn-delete" class="btn btn-danger">삭제</button>
+                    </th:block>
+                    <br/><br/>
+                    <div>
+                        <h3 class="title-detail" th:text="${boardView.title}">title</h3>
                     </div>
-                </div>
-                <hr>
-                <div>
-                    <div class="content-detail" th:utext="${boardView.content}">content</div>
-                </div>
-
-                <div class="good-wrapper">
-                    <span class="view-good">
-                        <button th:if="${principal} != anonymousUser" class="badge good-button" th:onclick="goodBtn([[${boardView.id}]], [[${principal?.member.id}]])">
-                            <div id="goodCntOuter">
-                                <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
+                    <br/>
+                    <div>
+                        작성자:<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
+                        작성 일자:<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                        <div class="etc-info">
+                            <div class="form-group">
+                                <input id="boardId" type="hidden" th:value="${boardView.id}" />
                             </div>
-                            <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
-                        </button>
-                        <button th:unless="${principal} != anonymousUser" class="badge good-button" th:onclick="authAlam()">
-                            <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
-                            <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
-                        </button>
-                    </span>
-                </div>
 
-
-                <div class="reply-wrapper">
-
-                    <div class="reply-title">
-                        댓글
+                            <div class="form-group">
+                                <input id="boardTable" type="hidden" th:value="${boardTable}" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="content-detail" th:utext="${boardView.content}">content</div>
                     </div>
 
-                    <div class="comment-outer" th:each="reply : ${replyList}">
-                        <div class="comment-inner" th:id="|c_${reply.replyId}|" th:style="|margin-left:${reply.depth*20}px;|">
-                            <div class="comment">
-                                <div class="info-row">
-                                    <span class="user-info">
-                                        <div th:text="${reply.username}">닉네임</div>
-                                    </span>
-                                    <div class="other-wrapper">
-                                        <div th:text="${#temporals.format(reply.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
-                                        <div class="wp" th:if="${principal} != anonymousUser">
-                                            <span class="sep"></span>
-                                            <button class="btn-oreply">신고</button>
-                                            <span class="sep"></span>
-                                            <button class="reply-link btn-oreply" th:onclick="replyOpen([[${boardView.id}]], [[${reply.replyId}]], [[${reply.depth+1}]])">답글</button>
-                                            <th:block th:if="${reply.username == principal.member.username}">
+                    <div class="good-wrapper">
+                        <span class="view-good">
+                            <button th:if="${principal} != anonymousUser" class="badge good-button" th:onclick="goodBtn([[${boardView.id}]], [[${principal?.member.id}]])">
+                                <div id="goodCntOuter">
+                                    <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
+                                </div>
+                                <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
+                            </button>
+                            <button th:unless="${principal} != anonymousUser" class="badge good-button" th:onclick="authAlam()">
+                                <div class="good-cnt" id="goodCnt" th:text="${boardView.likesCount}">0</div>
+                                <img class="good-img" src="https://cdn-icons-png.flaticon.com/512/179/179655.png">
+                            </button>
+                        </span>
+                    </div>
+
+
+                    <div class="reply-wrapper">
+
+                        <div class="reply-title">
+                            댓글
+                        </div>
+
+                        <div class="comment-outer" th:each="reply : ${replyList}">
+                            <div class="comment-inner" th:id="|c_${reply.replyId}|" th:style="|margin-left:${reply.depth*20}px;|">
+                                <div class="comment">
+                                    <div class="info-row">
+                                        <span class="user-info">
+                                            <div th:text="${reply.username}">닉네임</div>
+                                        </span>
+                                        <div class="other-wrapper">
+                                            <div th:text="${#temporals.format(reply.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                            <div class="wp" th:if="${principal} != anonymousUser">
                                                 <span class="sep"></span>
-                                                <button class="reply-update btn-oreply" th:onclick="replyUpdateOpen([[${reply.replyId}]])">수정</button>
+                                                <button class="btn-oreply">신고</button>
                                                 <span class="sep"></span>
-                                                <button class="reply-delete btn-oreply" th:onclick="replyDelete([[${reply.replyId}]])">삭제</button>
-                                            </th:block>
+                                                <button class="reply-link btn-oreply" th:onclick="replyOpen([[${boardView.id}]], [[${reply.replyId}]], [[${reply.depth+1}]])">답글</button>
+                                                <th:block th:if="${reply.username == principal.member.username}">
+                                                    <span class="sep"></span>
+                                                    <button class="reply-update btn-oreply" th:onclick="replyUpdateOpen([[${reply.replyId}]])">수정</button>
+                                                    <span class="sep"></span>
+                                                    <button class="reply-delete btn-oreply" th:onclick="replyDelete([[${reply.replyId}]])">삭제</button>
+                                                </th:block>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="message" th:id="|message_${reply.replyId}|" th:text="${reply.comment}">내용</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="reply-outer">
-                        <div th:if="${principal} != anonymousUser" class="reply-inner">
-                            <div class="reply-info">
-                                <div class="member-info" th:text="${principal.member.username}"></div>
-                            </div>
-                            <div class="reply-textarea-wrapper">
-                                <textarea class="reply-textarea" id="comment" maxlength="800" required="required" style="height: 99.5px;"></textarea>
-                                <div class="reply-button-wrapper">
-                                    <button class="reply-button" type="button" th:onclick="writeReply([[${boardView.id}]], 0, 0)">작성</button>
+                                    <div class="message" th:id="|message_${reply.replyId}|" th:text="${reply.comment}">내용</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div th:unless="${principal} != anonymousUser" class="reply-inner-none">
-                            <div class="reply-none">
-                                <a th:href="@{/auth/login}">댓글을 작성하시려면 로그인이 필요합니다.</a>
+
+                        <div class="reply-outer">
+                            <div th:if="${principal} != anonymousUser" class="reply-inner">
+                                <div class="reply-info">
+                                    <div class="member-info" th:text="${principal.member.username}"></div>
+                                </div>
+                                <div class="reply-textarea-wrapper">
+                                    <textarea class="reply-textarea" id="comment" maxlength="800" required="required" style="height: 99.5px;"></textarea>
+                                    <div class="reply-button-wrapper">
+                                        <button class="reply-button" type="button" th:onclick="writeReply([[${boardView.id}]], 0, 0)">작성</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div th:unless="${principal} != anonymousUser" class="reply-inner-none">
+                                <div class="reply-none">
+                                    <a th:href="@{/auth/login}">댓글을 작성하시려면 로그인이 필요합니다.</a>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="list_wrap">
-                <div class="list-group cus-list">
-                    <div class="list-group-item align-items-center list-head">
-                        <div class="row-top">
-                            <div class="col-title">제목</div>
-                        </div>
-                        <div class="d-flex justify-content-between row-bottom">
-                            <div class="col-author">작성자</div>
-                            <div class="col-time">작성일</div>
-                            <div class="col-view">조회수</div>
-                            <div class="col-good">추천</div>
-                        </div>
-                    </div>
-                    <div class="cusHov list-body" th:each="board : ${boardList.content}">
-                        <a class="list-bodyInner"
-                           th:href="|/boards/${boardTable}/${board.id}?${status}|">
+                <div class="list_wrap">
+                    <div class="list-group cus-list">
+                        <div class="list-group-item align-items-center list-head">
                             <div class="row-top">
-                                <div class="col-title" th:text="${board.title}"></div>
+                                <div class="col-title">제목</div>
                             </div>
-                            <div class="row-bottom">
-                                <div class="col-author" th:text="${board.memberDto.username}"></div>
-                                <div class="row-bottom-rightInner">
-                                    <div class="col-time" th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
-                                    <div class="col-view" th:text="${board.viewCount}"></div>
-                                    <div class="col-good" th:text="${board.likesCount}">0</div>
+                            <div class="d-flex justify-content-between row-bottom">
+                                <div class="col-author">작성자</div>
+                                <div class="col-time">작성일</div>
+                                <div class="col-view">조회수</div>
+                                <div class="col-good">추천</div>
+                            </div>
+                        </div>
+                        <div class="cusHov list-body" th:each="board : ${boardList.content}">
+                            <a class="list-bodyInner"
+                               th:href="|/boards/${boardTable}/${board.id}?${status}|">
+                                <div class="row-top">
+                                    <div class="col-title" th:text="${board.title}"></div>
                                 </div>
-                            </div>
-                        </a>
+                                <div class="row-bottom">
+                                    <div class="col-author" th:text="${board.memberDto.username}"></div>
+                                    <div class="row-bottom-rightInner">
+                                        <div class="col-time" th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                        <div class="col-view" th:text="${board.viewCount}"></div>
+                                        <div class="col-good" th:text="${board.likesCount}">0</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <form th:action="@{/boards/{boardTable}(boardTable=${boardTable})}" method="get" class="form-inline search-form justify-content-end">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <select class="form-control form-control-sm" name="target">
-                            <option value="all" th:selected="${target} == 'all'">전체</option>
-                            <option value="title-content" th:selected="${target} == 'title_content'">제목/내용</option>
-                            <option value="title" th:selected="${target} == 'title'">제목</option>
-                            <option value="content" th:selected="${target} == 'content'">내용</option>
-                            <option value="username" th:selected="${target} == 'username'">글쓴이</option>
-                        </select>
+                <form th:action="@{/boards/{boardTable}(boardTable=${boardTable})}" method="get" class="form-inline search-form justify-content-end">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <select class="form-control form-control-sm" name="target">
+                                <option value="all" th:selected="${target} == 'all'">전체</option>
+                                <option value="title-content" th:selected="${target} == 'title_content'">제목/내용</option>
+                                <option value="title" th:selected="${target} == 'title'">제목</option>
+                                <option value="content" th:selected="${target} == 'content'">내용</option>
+                                <option value="username" th:selected="${target} == 'username'">글쓴이</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" name="keyword" th:value="${keyword}" aria-labelledby="searchFormLabel">
+                        <div class="input-group-append">
+                            <button class="btn btn-cus btn-sm" type="submit">검색</button>
+                        </div>
                     </div>
-                    <input type="text" class="form-control form-control-sm" name="keyword" th:value="${keyword}" aria-labelledby="searchFormLabel">
-                    <div class="input-group-append">
-                        <button class="btn btn-cus btn-sm" type="submit">검색</button>
-                    </div>
-                </div>
-            </form>
+                </form>
 
-            <div class="pagination-wrapper">
-                <ul class="pagination justify-content-center">
-                    <th:block th:if="${boardList.totalPages == 0}">
-                        <li class="page-item active">
-                            <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
-                            <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="1">page</a>
-                        </li>
-                    </th:block>
-                    <th:block th:unless="${boardList.totalPages == 0}">
-                        <li class="page-item">
-                            <a class="page-link first-page" th:href="@{?page=1}"></a>
-                        </li>
-                        <li th:if="${pageInfo.isPreviousPage}" class="page-item">
-                            <a th:if="${nextPage} == null" class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
-                            <a th:unless="${nextPage} == null" class="page-link previous-page" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
-                        </li>
-                        <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
-                            <a th:if="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
-                            <a th:unless="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
-                        </li>
-                        <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
-                            <li th:if="${page-1 == boardList.number}" class="page-item active">
-                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
-                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
-                            </li>
-                            <li th:unless="${page-1 == boardList.number}" class="page-item">
-                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
-                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                <div class="pagination-wrapper">
+                    <ul class="pagination justify-content-center">
+                        <th:block th:if="${boardList.totalPages == 0}">
+                            <li class="page-item active">
+                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
+                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="1">page</a>
                             </li>
                         </th:block>
-                        <li th:if="${pageInfo.isNextPage}" class="page-item">
-                            <a th:if="${nextPage} == null" class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
-                            <a th:unless="${nextPage} == null" class="page-link next-page" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
-                        </li>
-                        <li th:unless="${pageInfo.isNextPage}" class="page-item">
-                            <a th:if="${nextPage} == null" class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
-                            <a th:unless="${nextPage} == null" class="page-link next-page page-disable" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link last-page" th:href="@{|?page=${boardList.totalPages}|}"></a>
-                        </li>
-                    </th:block>
-                </ul>
-            </div>
+                        <th:block th:unless="${boardList.totalPages == 0}">
+                            <li class="page-item">
+                                <a class="page-link first-page" th:href="@{?page=1}"></a>
+                            </li>
+                            <li th:if="${pageInfo.isPreviousPage}" class="page-item">
+                                <a th:if="${nextPage} == null" class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link previous-page" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
+                                <a th:if="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
+                                <li th:if="${page-1 == boardList.number}" class="page-item active">
+                                    <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                                </li>
+                                <li th:unless="${page-1 == boardList.number}" class="page-item">
+                                    <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
+                                </li>
+                            </th:block>
+                            <li th:if="${pageInfo.isNextPage}" class="page-item">
+                                <a th:if="${nextPage} == null" class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link next-page" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isNextPage}" class="page-item">
+                                <a th:if="${nextPage} == null" class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link next-page page-disable" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link last-page" th:href="@{|?page=${boardList.totalPages}|}"></a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
 
+            </div>
         </div>
+
+        <aside class="right-aside">
+            <div class="list-rank-wrap">
+                <dl>
+                    <dt>
+                        <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
+                                <i th:if="${viewRankStat.count le 5}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
+                                <i th:unless="${viewRankStat.count le 5}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
+                                <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
+                                    제목
+                                </a>
+                                <span th:text="${viewRank.commentCount}">0</span>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </aside>
 
     </section>
 

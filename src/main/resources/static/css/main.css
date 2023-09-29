@@ -158,27 +158,31 @@ th, td {
 .content-detail {
     word-break: break-word;
 }
+.container-fluid {
+    max-width: 1000px;
+    min-width: 400px;
+    float: right;
+}
 
 /*기존 리스트 페이지 css*/
 .content {
     overflow: auto;
     background-color: white;
     padding-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .list_wrap {
     overflow: auto;
-    margin: 10px 10px;
+    margin: 10px;
 }
 
 .main_wrap {
-  overflow: auto;
-  position: relative;
-  width: 100%;
-  margin: 29px auto 0 auto;
-  margin-bottom:20px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  margin: 10px auto;
+  display: block;
 }
 
 .pagination-wrapper {
@@ -586,6 +590,11 @@ th, td {
 }
 
 /*메인 페이지*/
+.area-wrap {
+    border: solid 1px black;
+    width: 400px;
+    height: 350px;
+}
 .current-board a {
     display: table-cell;
     color: black;
@@ -630,6 +639,7 @@ th, td {
     display: flex;
     vertical-align: baseline;
     word-break: keep-all;
+    margin: 5px 0px;
 }
 .board-short {
     font-size: 30px;
@@ -639,4 +649,99 @@ th, td {
 .board-short:hover {
     color: #4C4C4C;
     text-decoration: none;
+}
+
+/*게시글 list rank*/
+.right-aside {
+    display: table;
+    border: solid 1px #aaaaaa;
+    margin: 10px 5px;
+    max-height: 360px;
+    height: 10px;
+    overflow: auto;
+}
+.list-rank-wrap {
+    width: auto;
+    height: auto;
+    min-width: 250px;
+    margin: 10px;
+}
+.list-rank-wrap ul {
+    all: unset;
+}
+.list-rank {
+    display: flex;
+    margin: 5px 0px;
+}
+.list-rank a {
+    display: table-cell;
+    color: black;
+    padding-right: 10px;
+    word-break: break-all;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-decoration: none;
+    margin-left: 5px;
+}
+.list-rank a:hover {
+    color: #aaa;
+}
+.list-rank li {
+    display: flex;
+    vertical-align: baseline;
+    word-break: keep-all;
+}
+.rank-title {
+    cursor: default;
+    color: black;
+    font-size: 23px;
+    text-decoration: none;
+}
+.rank-title:hover {
+    color: black;
+    text-decoration: none;
+}
+.top-rank {
+     width: 25px;
+     height: 25px;
+     display: inline-block;
+     overflow: hidden;
+     font-size: 14px;
+     color: #222;
+     background: #f90;
+     font-weight: 700;
+     text-align: center;
+     line-height: 25px;
+}
+.normal-rank {
+     width: 25px;
+     height: 25px;
+     display: inline-block;
+     overflow: hidden;
+     font-size: 14px;
+     color: #222;
+     background: #aaaaaa;
+     font-weight: 700;
+     text-align: center;
+     line-height: 25px;
+}
+.list-rank span {
+    display: table-cell;
+    position: relative;
+    font-size: 16px;
+    color: black;
+    padding-left: 18px;
+    margin-right: 5px;
+}
+.list-rank span:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: url(/image/comment-icon.svg) no-repeat;
+    content: "";
 }

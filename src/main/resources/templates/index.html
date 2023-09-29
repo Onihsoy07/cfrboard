@@ -9,45 +9,70 @@
 <th:block th:replace="~{layout/nav :: nav}" />
 
 
-<div class="main_wrap">
-    <article style="height:700px;margin-left:50px;display:flex;">
-        <div style="border: solid 1px black;width: 300px;height: 295px;">
-            <div class="left-util-area">
-                <dl class="current-board-list">
-                    <dt>
-                        <a class="board-short" href="/boards/free">자유게시판</a>
-                    </dt>
-                    <dd>
-                        <ul>
-                            <li class="current-board" th:each="freeBoard : ${currentFreeBoard}">
-                                <a class="main-herf" th:href="@{|/${freeBoard.id}|}" th:text="${freeBoard.title}"></a>
-                                <span th:text="${freeBoard.commentCount}"></span>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
+<div class="content" style="margin: 15px auto;">
+    <div class="main_wrap">
+        <article style="height:600px;display:flex;float:right;">
+            <div class="area-wrap">
+                <div class="main-board-area">
+                    <dl class="current-board-list">
+                        <dt>
+                            <a class="board-short" href="/boards/free">자유게시판</a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li class="current-board" th:each="freeBoard : ${currentFreeBoard}">
+                                    <a class="main-herf" th:href="@{|/boards/${freeBoard.boardTable}/${freeBoard.id}|}" th:text="${freeBoard.title}"></a>
+                                    <span th:text="${freeBoard.commentCount}"></span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
             </div>
-        </div>
 
-        <div style="border: solid 1px black;width: 300px;height: 295px;">
-            <div class="left-util-area">
-                <dl class="current-board-list">
-                    <dt>
-                        <a class="board-short" href="/boards/cfr">CFR게시판</a>
-                    </dt>
-                    <dd>
-                        <ul>
-                            <li class="current-board" th:each="cfrBoard : ${currentCfrBoard}">
-                                <a class="main-herf" th:href="@{|/${cfrBoard.id}|}" th:text="${cfrBoard.title}"></a>
-                                <span th:text="${cfrBoard.commentCount}"></span>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
+            <div class="area-wrap">
+                <div class="main-board-area">
+                    <dl class="current-board-list">
+                        <dt>
+                            <a class="board-short" href="/boards/cfr">CFR게시판</a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li class="current-board" th:each="cfrBoard : ${currentCfrBoard}">
+                                    <a class="main-herf" th:href="@{|/boards/${cfrBoard.boardTable}/${cfrBoard.id}|}" th:text="${cfrBoard.title}"></a>
+                                    <span th:text="${cfrBoard.commentCount}"></span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
             </div>
-        </div>
 
-    </article>
+        </article>
+    </div>
+
+    <aside class="right-aside">
+        <div class="list-rank-wrap">
+            <dl>
+                <dt>
+                    <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
+                </dt>
+                <dd>
+                    <ul>
+                        <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
+                            <i th:if="${viewRankStat.count le 5}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
+                            <i th:unless="${viewRankStat.count le 5}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
+                            <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
+                                제목
+                            </a>
+                            <span th:text="${viewRank.commentCount}">0</span>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </aside>
+
 </div>
 
 
