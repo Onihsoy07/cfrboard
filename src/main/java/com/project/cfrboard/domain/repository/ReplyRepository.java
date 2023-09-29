@@ -15,8 +15,8 @@ import java.util.Optional;
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     @Modifying
-    @Query(value = "INSERT INTO reply(comment, depth, board_id, member_id, reply_id, create_date, update_date)"
-            + "VALUES (:comment, :depth, :boardId, :memberId, :replyId, now(), now())", nativeQuery = true)
+    @Query(value = "INSERT INTO reply(comment, depth, board_id, member_id, reply_id, create_date, update_date, is_blinded)"
+            + "VALUES (:comment, :depth, :boardId, :memberId, :replyId, now(), now(), 0)", nativeQuery = true)
     void replySave(@Param("comment") String comment, @Param("depth") int depth, @Param("boardId") Long boardId,
                    @Param("memberId") Long memberId, @Param("replyId") Long replyId);
 
