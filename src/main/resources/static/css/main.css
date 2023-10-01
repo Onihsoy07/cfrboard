@@ -765,3 +765,15 @@ th, td {
 }
 .cfrRank-username {
 }
+
+
+
+.select-table{
+    width: 150px;
+}
+.secret-wrap {
+    margin-left: 40px;
+}
+.result {
+    margin-right: 20px;
+}

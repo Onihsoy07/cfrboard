@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header(~{::title})}">
+    <title>문의 폼</title>
+</head>
+<body th:with="principal=${#authentication.principal}">
+
+<th:block th:replace="~{layout/nav :: nav}" />
+
+<div th:id="back-ground" style="margin:15px;">
+    <div class="container">
+
+        <div class="form-group d-flex">
+            <div>
+                <select class="select-table">
+                    <option value="blind" th:text="블라인드"></option>
+                    <option value="declaration" th:text="신고"></option>
+                    <option value="problem" th:text="문제"></option>
+                    <option value="other" th:text="기타"></option>
+                </select>
+            </div>
+
+            <div class="secret-wrap">
+                <label>비밀글</label>
+                <input type="checkbox" name="secret" value="secret" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" placeholder="" id="title" name="title">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control summernote" rows="5" id="content"></textarea>
+        </div>
+
+        <button id="btn-save" class="btn btn-primary">문의하기</button>
+
+    </div>
+</div>
+
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script type="text/javascript" th:src="@{/js/board.js}"></script>
+<script>
+  $('.summernote').summernote({
+    placeholder: 'content',
+    tabsize: 2,
+    height: 300
+  });
+</script>
+
+</body>
+</html>
