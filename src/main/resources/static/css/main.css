@@ -157,6 +157,7 @@ th, td {
 }
 .content-detail {
     word-break: break-word;
+    float: left;
 }
 .container-fluid {
     max-width: 1000px;
@@ -776,4 +777,34 @@ th, td {
 }
 .result {
     margin-right: 20px;
+}
+.board-cfr-wrap {
+    float: right;
+    border: solid 1px black;
+    width: 150px;
+    height: 200px;
+    display: grid;
+    text-align: center;
+}
+.board-cfr-wrap .middle {
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+.cfr-data-wrap {
+    display: grid;
+}
+.content-wrap {
+    display: flow-root;
+}
+.logo-image {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+}
+.value-center p {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
 }
