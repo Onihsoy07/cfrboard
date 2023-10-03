@@ -2,6 +2,7 @@ package com.project.cfrboard.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +24,9 @@ public class Reply extends Base {
 
     @Column(nullable = false, unique = false)
     private Integer depth;
+
+    @Formula("(select count(*) from reply r where r.reply_id = id)")
+    private Integer childCommentCount;
 
     @Column(nullable = false, unique = false)
     private Boolean isBlinded;
