@@ -18,6 +18,7 @@ public class BoardPageDto {
     private LocalDateTime createDate;
     private Integer viewCount;
     private Integer likesCount;
+    private Boolean isBlinded;
     private MemberDto memberDto;
 
     public BoardPageDto(Board board) {
@@ -26,6 +27,7 @@ public class BoardPageDto {
         this.createDate = board.getCreateDate();
         this.viewCount = board.getTotalViewCount();
         this.likesCount = board.getLikesCount();
+        this.isBlinded = board.getIsBlinded();
         this.memberDto = new MemberDto(board.getMember());
     }
 

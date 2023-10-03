@@ -18,6 +18,8 @@ public class BoardDto {
     private LocalDateTime createDate;
     private Integer viewCount;
     private Integer likesCount;
+    private Integer commentCount;
+    private Boolean isBlinded;
     private MemberDto memberDto;
     private CfrDataDto cfrDataDto;
 
@@ -28,6 +30,8 @@ public class BoardDto {
         this.createDate = board.getCreateDate();
         this.viewCount = board.getTotalViewCount();
         this.likesCount = board.getLikesCount();
+        this.commentCount = board.getCommentCount();
+        this.isBlinded = board.getIsBlinded();
         this.memberDto = new MemberDto(board.getMember());
         this.cfrDataDto = board.getCfrData()==null ? null : new CfrDataDto(board.getCfrData());
     }
