@@ -49,6 +49,11 @@ logging:
         #JPA SQL
         SQL: DEBUG
 
+  #slack log 연결
+  slack:
+    webhook-uri: ENC(U+fzmnjmaL8ycY1Ugk/9SnHMEe8omSMJec2heUyip9uU0FUzdmP2zwwA2gRLITGRAgAbSGQMLXmpg9R1VWatAmzb6wX75PsQ6hK9G3xHCO6tfs4xBPS3qifiArVZdYmW)
+  config: classpath:logback-spring.xml
+
 #API 필수 정보
 open_api:
   naver:
