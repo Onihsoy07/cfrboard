@@ -16,5 +16,7 @@ public class ReplyDto {
     private String username;
     private String comment;
     private Integer depth;
+    private Integer childCommentCount;
+    private Boolean isBlinded;
     private LocalDateTime createDate;
 }
