@@ -2,6 +2,7 @@ package com.project.cfrboard.service;
 
 import com.project.cfrboard.domain.dto.ReplyDto;
 import com.project.cfrboard.domain.dto.ReplySaveDto;
+import com.project.cfrboard.domain.entity.Reply;
 import com.project.cfrboard.domain.repository.ReplyRepository;
 import com.project.cfrboard.exception.NotMasterOfDataException;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +61,13 @@ public class ReplyService {
         }
 
         return replyList;
+    }
+
+    public Boolean deletableCheck(Long replyId) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Reply ID %d로 찾을 수 없습니다.", replyId));
+        });
+        return reply.getChildCommentCount() == 0;
     }
 
     public void delete(Long replyId, Long memberId) throws NotMasterOfDataException {

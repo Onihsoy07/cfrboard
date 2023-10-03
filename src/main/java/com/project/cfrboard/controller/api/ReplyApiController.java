@@ -49,6 +49,10 @@ public class ReplyApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
         }
 
+        if (!replyService.deletableCheck(replyId)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "답글이 있어 삭제가 불가능합니다."));
+        }
+
         try {
             replyService.delete(replyId, principal.getMember().getId());
         } catch (NotMasterOfDataException e) {
