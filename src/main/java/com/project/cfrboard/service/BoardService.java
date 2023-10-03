@@ -114,19 +114,23 @@ public class BoardService {
         board.update(boardUpdateFormDto.getTitle(), boardUpdateFormDto.getContent());
     }
 
+    public Boolean deletableCheck(Long boardId) {
+        return getBoard(boardId).getCommentCount() == 0;
+    }
+
     public void delete(Long boardId) {
         boardRepository.deleteById(boardId);
     }
 
     @Transactional(readOnly = true)
     public List<BoardThumbDto> getCurrentBoard(BoardTable boardTable) {
-        List<Board> currentBoardList = boardRepository.findTop10ByBoardTableOrderByCreateDateDesc(boardTable);
+        List<Board> currentBoardList = boardRepository.findTop10ByBoardTableAndIsBlindedOrderByCreateDateDesc(boardTable, false);
         return BoardThumbDto.convertToDtoList(currentBoardList);
     }
 
     @Transactional(readOnly = true)
     public List<BoardThumbDto> getTodayTopView() {
-        List<Board> topViewList = boardRepository.findTop10ByTodayViewCountGreaterThanEqualOrderByTodayViewCountDescCreateDateDesc(1);
+        List<Board> topViewList = boardRepository.findTop10ByTodayViewCountGreaterThanEqualAndIsBlindedOrderByTodayViewCountDescCreateDateDesc(1, false);
         return BoardThumbDto.convertToDtoList(topViewList);
     }
 

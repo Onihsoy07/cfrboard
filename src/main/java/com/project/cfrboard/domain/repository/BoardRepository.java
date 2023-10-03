@@ -35,8 +35,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("update Board b set b.todayViewCount = 0 where b.todayViewCount <> 0")
     void todayViewCountReset();
 
-    List<Board> findTop10ByBoardTableOrderByCreateDateDesc(BoardTable boardTable);
-    List<Board> findTop10ByTodayViewCountGreaterThanEqualOrderByTodayViewCountDescCreateDateDesc(int minView);
+    List<Board> findTop10ByBoardTableAndIsBlindedOrderByCreateDateDesc(BoardTable boardTable, Boolean isBlinded);
+    List<Board> findTop10ByTodayViewCountGreaterThanEqualAndIsBlindedOrderByTodayViewCountDescCreateDateDesc(int minView, Boolean isBlinded);
 
 
 }

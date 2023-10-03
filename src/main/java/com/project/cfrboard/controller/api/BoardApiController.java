@@ -85,6 +85,10 @@ public class BoardApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
         }
 
+        if (!boardService.deletableCheck(boardId)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "댓글이 달린 게시글 삭제가 불가능합니다."));
+        }
+
         boardService.delete(boardId);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "삭제 성공"));
     }
