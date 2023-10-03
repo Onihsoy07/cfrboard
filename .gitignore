@@ -43,3 +43,6 @@ src/main/resources/jasypt-encryptor-password.txt
 src/main/resources/static/image/haruka.png
 
 /src/main/generated
+
+### logback-spring.xml slack uri ###
+src/main/resources/logback-spring.xml
