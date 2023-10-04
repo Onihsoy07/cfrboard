@@ -26,6 +26,7 @@
                            th:href="|/boards/${boardView.id}/update-form|"
                            class="btn btn-warning">수정</a>
                         <button th:if="${boardView.commentCount eq 0}" id="btn-delete" class="btn btn-danger">삭제</button>
+                        <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}" id="btn-board-blind" class="btn btn-danger">블라</button>
                     </th:block>
                     <br/><br/>
                     <div>
@@ -169,22 +170,40 @@
                                 <div class="col-good">추천</div>
                             </div>
                         </div>
-                        <div class="cusHov list-body" th:each="board : ${boardList.content}">
-                            <a class="list-bodyInner"
-                               th:href="|/boards/${boardTable}/${board.id}?${status}|">
-                                <div class="row-top">
-                                    <div class="col-title" th:text="${board.title}"></div>
-                                </div>
-                                <div class="row-bottom">
-                                    <div class="col-author" th:text="${board.memberDto.username}"></div>
-                                    <div class="row-bottom-rightInner">
-                                        <div class="col-time" th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
-                                        <div class="col-view" th:text="${board.viewCount}"></div>
-                                        <div class="col-good" th:text="${board.likesCount}">0</div>
+                        <th:block th:each="board : ${boardList.content}">
+                            <div class="board-blind list-body" th:if="${board.isBlinded}">
+                                <a class="list-bodyInner">
+                                    <div class="row-top">
+                                        <div class="col-title">블라인드 처리가 되었습니다.</div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                    <div class="row-bottom">
+                                        <div class="col-author"></div>
+                                        <div class="row-bottom-rightInner">
+                                            <div class="col-time"></div>
+                                            <div class="col-view"></div>
+                                            <div class="col-good"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="cusHov list-body" th:unless="${board.isBlinded}">
+                                <a class="list-bodyInner"
+                                   th:href="|/boards/${boardTable}/${board.id}?${status}|">
+                                    <div class="row-top">
+                                        <div class="col-title" th:text="${board.title}"></div>
+                                    </div>
+                                    <div class="row-bottom">
+                                        <div class="col-author" th:text="${board.memberDto.username}"></div>
+                                        <div class="row-bottom-rightInner">
+                                            <div class="col-time" th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                            <div class="col-view" th:text="${board.viewCount}"></div>
+                                            <div class="col-good" th:text="${board.likesCount}">0</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
 

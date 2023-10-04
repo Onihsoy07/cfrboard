@@ -96,6 +96,27 @@ $(function() {
 
     });
 
+    $("#btn-board-blind").click(function() {
+        const boardId = $("#boardId").val();
+        const boardTable = $("#boardTable").val();
+
+        $.ajax({
+            url : "/boards/blind/" + boardId,
+            type : "PUT",
+            contentType: "application/json;charset=utf-8"
+        }).done(function(res) {
+            if (res.success) {
+                alert("블라가 완료되었습니다.");
+                location.href = "/boards/" + boardTable;
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error) {
+            alert(error.responseJSON.msg);
+        })
+
+    });
+
 
     $(".select-table").change(function() {
         const listSize = $("#list-size").val();
