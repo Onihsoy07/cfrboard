@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -26,6 +29,8 @@ import java.net.URI;
 public class BoardApiController {
 
     private final BoardService boardService;
+
+    private final List<String> MANAGER_ROLE = Arrays.asList("MANAGER", "ADMIN");
 
     @PostMapping
     public ResponseEntity<ResponseDto<?>> save(@Valid @RequestBody BoardFormDto boardFormDto,
@@ -65,6 +70,10 @@ public class BoardApiController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
         }
 
+        if (boardService.isBlinded(boardId)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "블라인드 처리 된 게시글입니다."));
+        }
+
         if (bindingResult.hasErrors()) {
             ObjectError error = bindingResult.getAllErrors().get(0);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
@@ -91,6 +100,21 @@ public class BoardApiController {
 
         boardService.delete(boardId);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "삭제 성공"));
+    }
+
+    @PutMapping("/blind/{boardId}")
+    public ResponseEntity<ResponseDto<?>> blind(@PathVariable("boardId") Long boardId,
+                                                 @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (MANAGER_ROLE.contains(principal.getMember().getRole())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        boardService.blind(boardId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "블라인드 처리 완료"));
     }
 
 

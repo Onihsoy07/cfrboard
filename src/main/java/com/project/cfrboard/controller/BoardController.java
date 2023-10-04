@@ -99,6 +99,10 @@ public class BoardController {
                             HttpServletResponse response) {
         model.addAttribute("boardTable", boardTable);
 
+        if (boardService.isBlinded(boardId)) {
+            return "redirect:/boards/" + boardTable;
+        }
+
         boardService.viewCount(boardId, request, response);
 
         Page<BoardPageDto> boardList = null;
@@ -142,6 +146,9 @@ public class BoardController {
             return "redirect:/";
         }
         if (!boardService.isBoardMaster(principal.getMember().getId(), boardId)) {
+            return "redirect:/";
+        }
+        if (boardService.isBlinded(boardId)) {
             return "redirect:/";
         }
 

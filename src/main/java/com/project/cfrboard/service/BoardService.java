@@ -11,6 +11,7 @@ import com.project.cfrboard.domain.repository.query.BoardQueryRepository;
 import com.project.cfrboard.exception.NoBoardTableException;
 import com.project.cfrboard.exception.NotMatchMemberDataException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.data.domain.Page;
@@ -132,6 +133,15 @@ public class BoardService {
     public List<BoardThumbDto> getTodayTopView() {
         List<Board> topViewList = boardRepository.findTop10ByTodayViewCountGreaterThanEqualAndIsBlindedOrderByTodayViewCountDescCreateDateDesc(1, false);
         return BoardThumbDto.convertToDtoList(topViewList);
+    }
+
+    public void blind(Long boardId) {
+        boardRepository.boardBlind(boardId);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isBlinded(Long boardId) {
+        return getBoard(boardId).getIsBlinded();
     }
 
 

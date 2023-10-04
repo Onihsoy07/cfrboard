@@ -30,6 +30,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("update Board b set b.todayViewCount = b.todayViewCount+1, b.totalViewCount= b.totalViewCount+1 where b.id=:id")
     void addViewCount(@Param("id") Long id);
 
+    @Modifying(clearAutomatically = true)
+    @Query("update Board b set b.isBlinded = 1 where b.id=:id")
+    void boardBlind(@Param("id") Long id);
+
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("update Board b set b.todayViewCount = 0 where b.todayViewCount <> 0")
