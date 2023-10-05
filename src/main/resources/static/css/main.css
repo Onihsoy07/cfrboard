@@ -291,6 +291,7 @@ th, td {
 .col-title {
     font-size: 16px;
     width: 80%;
+    padding-right: 40px;
     text-align: left;
     color: black;
     word-break: break-all;
@@ -298,6 +299,10 @@ th, td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.detail {
+    width: auto;
+    padding-right: 10px;
 }
 
 .col-author {
@@ -329,6 +334,7 @@ th, td {
 }
 
 .row-top {
+    display: flex;
     width: 45%;
 }
 
@@ -628,7 +634,7 @@ th, td {
     padding-left: 10px;
     margin-bottom: 0px;
 }
-.current-board span {
+.comment-img {
     display: table-cell;
     position: relative;
     font-size: 16px;
@@ -636,7 +642,7 @@ th, td {
     padding-left: 18px;
     margin-right: 5px;
 }
-.current-board span:before {
+.comment-img:before {
     position: absolute;
     left: 0;
     top: 50%;

@@ -22,7 +22,7 @@
                             <ul>
                                 <li class="current-board" th:each="freeBoard : ${currentFreeBoard}">
                                     <a class="main-href" th:href="@{|/boards/${freeBoard.boardTable}/${freeBoard.id}|}" th:text="${freeBoard.title}"></a>
-                                    <span th:text="${freeBoard.commentCount}"></span>
+                                    <span class="comment-img" th:text="${freeBoard.commentCount}"></span>
                                 </li>
                             </ul>
                         </dd>
@@ -40,7 +40,7 @@
                             <ul>
                                 <li class="current-board" th:each="cfrBoard : ${currentCfrBoard}">
                                     <a class="main-href" th:href="@{|/boards/${cfrBoard.boardTable}/${cfrBoard.id}|}" th:text="${cfrBoard.title}"></a>
-                                    <span th:text="${cfrBoard.commentCount}"></span>
+                                    <span class="comment-img" th:text="${cfrBoard.commentCount}"></span>
                                 </li>
                             </ul>
                         </dd>
@@ -66,7 +66,7 @@
                                 <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
                                     제목
                                 </a>
-                                <span th:text="${viewRank.commentCount}">0</span>
+                                <span class="comment-img" th:text="${viewRank.commentCount}">0</span>
                             </li>
                         </ul>
                     </dd>

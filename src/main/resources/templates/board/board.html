@@ -181,17 +181,7 @@
                         <th:block th:each="board : ${boardList.content}">
                             <div class="board-blind list-body" th:if="${board.isBlinded}">
                                 <a class="list-bodyInner">
-                                    <div class="row-top">
-                                        <div class="col-title">블라인드 처리가 되었습니다.</div>
-                                    </div>
-                                    <div class="row-bottom">
-                                        <div class="col-author"></div>
-                                        <div class="row-bottom-rightInner">
-                                            <div class="col-time"></div>
-                                            <div class="col-view"></div>
-                                            <div class="col-good"></div>
-                                        </div>
-                                    </div>
+                                    <div class="col-title">블라인드 처리가 되었습니다.</div>
                                 </a>
                             </div>
 
@@ -199,7 +189,8 @@
                                 <a class="list-bodyInner"
                                    th:href="|/boards/${boardTable}/${board.id}?${status}|">
                                     <div class="row-top">
-                                        <div class="col-title" th:text="${board.title}"></div>
+                                        <div class="col-title detail" th:text="${board.title}"></div>
+                                        <span class="comment-img" th:text="${board.commentCount}"></span>
                                     </div>
                                     <div class="row-bottom">
                                         <div class="col-author" th:text="${board.memberDto.username}"></div>
