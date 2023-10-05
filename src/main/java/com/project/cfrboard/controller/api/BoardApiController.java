@@ -1,6 +1,7 @@
 package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.auth.PrincipalDetails;
+import com.project.cfrboard.domain.constant.MyConstant;
 import com.project.cfrboard.domain.dto.BoardFormDto;
 import com.project.cfrboard.domain.dto.BoardUpdateFormDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.project.cfrboard.domain.constant.MyConstant.*;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +32,6 @@ import java.util.List;
 public class BoardApiController {
 
     private final BoardService boardService;
-
-    private final List<String> MANAGER_ROLE = Arrays.asList("MANAGER", "ADMIN");
 
     @PostMapping
     public ResponseEntity<ResponseDto<?>> save(@Valid @RequestBody BoardFormDto boardFormDto,
