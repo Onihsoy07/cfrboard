@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.project.cfrboard.domain.constant.MyConstant.MANAGER_ROLE;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -72,6 +74,10 @@ public class ReplyApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
         }
 
+        if (replyService.isBlinded(replyId)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "블라인드 처리 된 댓글입니다."));
+        }
+
         if (bindingResult.hasErrors()) {
             ObjectError error = bindingResult.getAllErrors().get(0);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
@@ -87,4 +93,18 @@ public class ReplyApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, null, "성공"));
     }
 
+    @PutMapping("/blind/{replyId}")
+    public ResponseEntity<ResponseDto<?>> blind(@PathVariable("replyId") Long replyId,
+                                                @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (MANAGER_ROLE.contains(principal.getMember().getRole())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        replyService.blind(replyId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "블라인드 처리 완료"));
+    }
 }

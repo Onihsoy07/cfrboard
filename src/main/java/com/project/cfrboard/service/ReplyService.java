@@ -84,5 +84,21 @@ public class ReplyService {
         replyRepository.updateComment(replyId, comment);
     }
 
+    public void blind(Long replyId) {
+        replyRepository.replyBlind(replyId);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean isBlinded(Long replyId) {
+        return getReply(replyId).getIsBlinded();
+    }
+
+    @Transactional(readOnly = true)
+    private Reply getReply(Long replyId) {
+        return replyRepository.findById(replyId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("Reply ID %d로 찾을 수 없습니다.", replyId));
+        });
+    }
+
 
 }

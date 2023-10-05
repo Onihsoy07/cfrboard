@@ -26,6 +26,10 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     Optional<Reply> findByIdAndMember_Id(Long replyId, Long memberId);
 
+    @Modifying(clearAutomatically = true)
+    @Query("update Reply r set r.isBlinded = 1 where r.id=:id")
+    void replyBlind(@Param("id") Long id);
+
     @Modifying
     @Query("update Reply r set r.comment = :comment where r.id = :replyId")
     void updateComment(@Param("replyId") Long replyId, @Param("comment") String comment);
