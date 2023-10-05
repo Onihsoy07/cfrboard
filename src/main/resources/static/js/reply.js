@@ -72,6 +72,23 @@ function replyDelete(replyId) {
     });
 }
 
+function replyBlind(replyId) {
+    $.ajax({
+        url : "/replys/blind/" + replyId,
+        type : "PUT",
+        contentType: "application/json;charset=utf-8"
+    }).done(function(res){
+        if(res.success) {
+            alert("블라가 완료되었습니다.");
+            $(".reply-wrapper").load(location.href + " .comment-outer, .reply-outer");
+        } else {
+            alert(res.msg);
+        }
+    }).fail(function(error){
+        alert(error.responseJSON.msg);
+    });
+}
+
 function replyUpdateOpen(replyId) {
     $("div").remove(".reReply-inner");
     $(".reply-inner").css("display", "none");
