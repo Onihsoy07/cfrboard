@@ -7,6 +7,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Slf4j
 @ControllerAdvice
@@ -17,6 +18,18 @@ public class ExControllerAdvice {
     public ResponseEntity<String> accessExHandler(AccessDeniedException e) {
         log.error("[exceptionHandler] AccessDeniedException", e);
         return new ResponseEntity<>("권한 없음", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler
+    public String illegalArgumentExceptionHandler (IllegalArgumentException e) {
+        log.error("[exceptionHandler] IllegalArgumentException", e);
+        return "error/404";
+    }
+
+    @ExceptionHandler
+    public String methodArgumentTypeMismatchExceptionHandler (MethodArgumentTypeMismatchException e) {
+        log.error("[exceptionHandler] MethodArgumentTypeMismatchException", e);
+        return "error/404";
     }
     
     @ExceptionHandler

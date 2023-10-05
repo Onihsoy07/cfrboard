@@ -46,6 +46,11 @@ public class BoardController {
         return "board/form";
     }
 
+    @GetMapping
+    public String notBoardTableRequest() {
+        return "redirect:/boards/free";
+    }
+
     @GetMapping("/{boardTable}")
     public String boardMainPage(@PathVariable("boardTable") String boardTable,
                                 @PageableDefault Pageable pageable,
