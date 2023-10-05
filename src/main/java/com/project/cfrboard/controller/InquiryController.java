@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/inquiry")
 public class InquiryController {
 
-    @GetMapping
+    @GetMapping("/form")
     public String inquiryForm() {
         return "inquiry/writeForm";
     }
