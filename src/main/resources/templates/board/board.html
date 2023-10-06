@@ -21,11 +21,13 @@
 
                 <div class="container-fluid" th:if="${boardView!=null}">
                     <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
-                    <th:block th:if="${principal} != anonymousUser and ${boardView.memberDto.id} == ${principal?.member.id}">
-                        <a href="/boards/${boardView.id}/update-form"
-                           th:href="|/boards/${boardView.id}/update-form|"
-                           class="btn btn-warning">수정</a>
-                        <button th:if="${boardView.commentCount eq 0}" id="btn-delete" class="btn btn-danger">삭제</button>
+                    <th:block th:if="${principal} != anonymousUser">
+                        <th:block th:if="${boardView.memberDto.id} == ${principal?.member.id}">
+                            <a href="/boards/${boardView.id}/update-form"
+                               th:href="|/boards/${boardView.id}/update-form|"
+                               class="btn btn-warning">수정</a>
+                            <button th:if="${boardView.commentCount eq 0}" id="btn-delete" class="btn btn-danger">삭제</button>
+                        </th:block>
                         <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}" id="btn-board-blind" class="btn btn-danger">블라</button>
                     </th:block>
                     <br/><br/>
