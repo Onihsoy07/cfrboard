@@ -2,6 +2,7 @@ package com.project.cfrboard.domain.entity;
 
 import com.project.cfrboard.domain.entity.enumeration.InquiryTarget;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +37,12 @@ public class Inquiry extends Base {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public Inquiry(String title, String content, Boolean isSecret, InquiryTarget target, Member member) {
+        this.title = title;
+        this.content = content;
+        this.isSecret = isSecret;
+        this.target = target;
+        this.member = member;
+    }
 }
