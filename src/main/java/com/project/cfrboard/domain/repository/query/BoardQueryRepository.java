@@ -33,7 +33,7 @@ public class BoardQueryRepository {
 
         Long count = query.select(board.count())
                 .from(board)
-                .where(board.boardTable.eq(boardTable), searchCondition(target, keyword))
+                .where(board.boardTable.eq(boardTable), searchCondition(target, keyword), board.isBlinded.eq(false))
                 .fetchOne();
 
         List<BoardPageDto> searchBoardList = BoardPageDto.convertToDtoList(result);
