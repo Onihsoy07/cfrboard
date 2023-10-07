@@ -8,7 +8,7 @@
 
 <th:block th:replace="~{layout/nav :: nav}" />
 
-<div style="height:1000px;margin:15px;">
+<div style="height:700px;margin:15px;">
     <div class="container">
         <h1>로그인</h1>
         <form action="#" th:action="@{/loginProc}" th:object="${memberLoginDto}" method="post">
@@ -25,6 +25,9 @@
         </form>
     </div>
 </div>
+
+<th:block th:replace="~{layout/footer :: footer}" />
+
 
 </body>
 </html>

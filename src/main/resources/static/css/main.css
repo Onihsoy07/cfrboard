@@ -348,6 +348,17 @@ th, td {
     display: flex;
 }
 
+.cus-footer {
+    padding: 20px 2rem;
+}
+
+.cus-footer a {
+    color: black;
+    text-decoration: none;
+}
+.cus-footer a:hover   { text-decoration:none;color:#808080; }
+.cus-footer a:active  { text-decoration:none;color:#808080; }
+
 /*cfr 게시글 쓰기*/
 .back-blur {
     all: unset;
