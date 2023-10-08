@@ -7,6 +7,7 @@ import com.project.cfrboard.domain.dto.PageDto;
 import com.project.cfrboard.domain.entity.enumeration.BoardTable;
 import com.project.cfrboard.service.BoardService;
 import com.project.cfrboard.service.CfrService;
+import com.project.cfrboard.service.PageService;
 import com.project.cfrboard.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class BoardController {
     private final BoardService boardService;
     private final CfrService cfrService;
     private final ReplyService replyService;
+    private final PageService pageService;
 
     private final List<String> TARGETLIST = Arrays.asList("all", "title-content", "title", "content", "username");
 
@@ -71,14 +73,14 @@ public class BoardController {
                 return "redirect:/boards/" + boardTable;
             }
 
-            boardList = boardService.getSearchBoardList(boardTable, cusPageable(pageable), target, keyword);
+            boardList = boardService.getSearchBoardList(boardTable, pageService.cusPageable(pageable), target, keyword);
             model.addAttribute("target", target);
             model.addAttribute("keyword", keyword);
             model.addAttribute("status", "target=" + target + "&keyword=" + keyword + "&page=" + page);
             model.addAttribute("nextPage", "target=" + target + "&keyword=" + keyword);
 
         } else {
-            boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+            boardList = boardService.getBoardList(boardTable, pageService.cusPageable(pageable));
             model.addAttribute("status", "page=" + page);
         }
 
@@ -86,7 +88,7 @@ public class BoardController {
             return "redirect:/boards/" + boardTable;
         }
         model.addAttribute("boardList", boardList);
-        model.addAttribute("pageInfo", getPageOffset(pageable, boardList));
+        model.addAttribute("pageInfo", pageService.getPageOffset(pageable, boardList));
         model.addAttribute("topTodayView", boardService.getTodayTopView());
         model.addAttribute("topCfr", cfrService.getTopConfidenceCfrData());
 
@@ -118,14 +120,14 @@ public class BoardController {
                 return "redirect:/boards/" + boardTable;
             }
 
-            boardList = boardService.getSearchBoardList(boardTable, cusPageable(pageable), target, keyword);
+            boardList = boardService.getSearchBoardList(boardTable, pageService.cusPageable(pageable), target, keyword);
             model.addAttribute("target", target);
             model.addAttribute("keyword", keyword);
             model.addAttribute("status", "target=" + target + "&keyword=" + keyword + "&page=" + page);
             model.addAttribute("nextPage", "target=" + target + "&keyword=" + keyword);
 
         } else {
-            boardList = boardService.getBoardList(boardTable, cusPageable(pageable));
+            boardList = boardService.getBoardList(boardTable, pageService.cusPageable(pageable));
             model.addAttribute("status", "page=" + page);
         }
 
@@ -133,7 +135,7 @@ public class BoardController {
             return "redirect:/boards/" + boardTable;
         }
         model.addAttribute("boardList", boardList);
-        model.addAttribute("pageInfo", getPageOffset(pageable, boardList));
+        model.addAttribute("pageInfo", pageService.getPageOffset(pageable, boardList));
 
         model.addAttribute("boardView", boardService.getBoardView(boardId));
         model.addAttribute("replyList", replyService.sortReply(boardId));
@@ -162,21 +164,4 @@ public class BoardController {
         return "board/updateForm";
     }
 
-    private PageRequest cusPageable(Pageable pageable) {
-        return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 15, Sort.by("createDate").descending());
-    }
-
-    private PageDto getPageOffset(Pageable pageable, Page<?> pageList) {
-        int startPage = ((pageable.getPageNumber()-1)/10)*10;
-        int endPage = pageList.getTotalPages()<=10 ? pageList.getTotalPages() : (startPage + 11);
-        Boolean isPreviousPage = startPage==0 ? false : true;
-        Boolean isNextPage = true;
-
-        if (pageList.getTotalPages() <= endPage) {
-            endPage = pageList.getTotalPages()+1;
-            isNextPage = false;
-        }
-
-        return new PageDto(startPage, endPage, isPreviousPage, isNextPage);
-    }
 }

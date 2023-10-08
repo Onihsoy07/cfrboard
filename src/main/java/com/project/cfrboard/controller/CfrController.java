@@ -2,6 +2,7 @@ package com.project.cfrboard.controller;
 
 import com.project.cfrboard.auth.PrincipalDetails;
 import com.project.cfrboard.service.CfrService;
+import com.project.cfrboard.service.PageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CfrController {
 
     private final CfrService cfrService;
+    private final PageService pageService;
 
     @GetMapping("/form")
     public String cfrForm(@AuthenticationPrincipal PrincipalDetails principal,
@@ -41,13 +43,8 @@ public class CfrController {
         if (principal == null) {
             throw new AccessDeniedException("권한없음");
         }
-        model.addAttribute("cfrDataList", cfrService.getCfrList(principal.getMember().getId(), cusPageable(pageable)));
+        model.addAttribute("cfrDataList", cfrService.getCfrList(principal.getMember().getId(), pageService.cusPageable(pageable)));
         return "cfr/list";
-    }
-
-    private PageRequest cusPageable(Pageable pageable) {
-        System.out.println(pageable.getPageSize());
-        return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 15, Sort.by("createDate").descending());
     }
 
 }
