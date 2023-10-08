@@ -30,6 +30,9 @@ public class Inquiry extends Base {
     private Boolean isSecret;
 
     @Column(nullable = false, unique = false)
+    private Boolean isCompleted;
+
+    @Column(nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
     private InquiryTarget target;
 
@@ -45,4 +48,10 @@ public class Inquiry extends Base {
         this.target = target;
         this.member = member;
     }
+
+    @PrePersist
+    public void prePersist() {
+        this.isCompleted = false;
+    }
+
 }
