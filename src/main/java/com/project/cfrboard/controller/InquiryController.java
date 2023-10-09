@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -29,6 +30,26 @@ public class InquiryController {
     @GetMapping
     public String list(Model model,
                        @PageableDefault Pageable pageable) {
+        int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
+        Page<InquiryPageDto> inquiryList = inquiryService.getInquiryList(pageService.cusPageable(pageable));
+
+        if (pageable.getPageNumber() >= 2 && inquiryList.getContent().size() <= 0) {
+            return "redirect:/inquirys";
+        }
+        model.addAttribute("inquiryList", inquiryList);
+        model.addAttribute("pageInfo", pageService.getPageOffset(pageable, inquiryList));
+        model.addAttribute("topTodayView", boardService.getTodayTopView());
+        model.addAttribute("topCfr", cfrService.getTopConfidenceCfrData());
+
+        return "inquiry/list";
+    }
+
+    @GetMapping("/{inquiryId}")
+    public String inquiryDetail(@PathVariable("inquiryId") Long inquiryId,
+                                Model model,
+                                @PageableDefault Pageable pageable) {
+        model.addAttribute("inquiryView", inquiryService.getInquiryDetail(inquiryId));
+
         int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
         Page<InquiryPageDto> inquiryList = inquiryService.getInquiryList(pageService.cusPageable(pageable));
 
