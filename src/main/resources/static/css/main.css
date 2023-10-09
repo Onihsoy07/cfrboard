@@ -844,19 +844,17 @@ th, td {
 }
 
 .category-tab-area {
-    border-collapse: collapse;
-    display: table;
     font-size: 0;
     padding: 0;
     margin: 5px 0;
-    height: 20px;
+    height: 40px;
     overflow: hidden;
     width: 100%;
 }
 .category-tab-area a {
     color: black;
-    height: 20px;
-    line-height: 20px;
+    height: 35px;
+    line-height: 35px;
     display: table-cell;
     width: 70px;
     font-size: 13px;
@@ -875,4 +873,14 @@ th, td {
 }
 .category-tab-area button {
     float: right;
+}
+.category-tap-wrap {
+    border-collapse: collapse;
+    display: table;
+    width: 75%;
+    max-width: 400px;
+    height: 40px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    float: left;
 }

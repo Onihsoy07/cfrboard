@@ -19,13 +19,48 @@
         <div class="container-wrapper">
             <div class="container-fluid">
 
+                <div class="container-fluid" th:if="${inquiryView!=null}">
+                    <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
+                    <th:block th:if="${principal} != anonymousUser">
+                        <th:block th:if="${inquiryView.memberDto.id} == ${principal?.member.id}
+                                        and ${!inquiryView.isCompleted}">
+                            <a href="/inquirys/${inquiryView.id}/update-form"
+                               th:href="|/inquirys/${inquiryView.id}/update-form|"
+                               class="btn btn-warning">수정</a>
+                            <button th:if="${!inquiryView.isCompleted}" id="btn-delete" class="btn btn-danger">삭제</button>
+                        </th:block>
+                    </th:block>
+                    <br/><br/>
+                    <div>
+                        <h3 class="title-detail" th:text="${inquiryView.title}">title</h3>
+                    </div>
+                    <br/>
+                    <div>
+                        작성자&nbsp;:&nbsp;<span><i th:text="${inquiryView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
+                        작성 일자&nbsp;:&nbsp;<span><i th:text="${#temporals.format(inquiryView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                        <div class="etc-info">
+                            <div class="form-group">
+                                <input id="boardId" type="hidden" th:value="${inquiryView.id}" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="content-wrap" style="margin-bottom: 20px;">
+                        <div class="content-detail" th:utext="${inquiryView.content}">content</div>
+                    </div>
+                    <hr>
+                </div>
+
+
                 <div class="list_wrap">
                     <div class="category-tab-area">
-                        <a th:href="@{?target=all}">전체</a>
-                        <a th:href="@{?target=blind}">블라인드</a>
-                        <a th:href="@{?target=declaration}">신고</a>
-                        <a th:href="@{?target=problem}">문제</a>
-                        <a th:href="@{?target=other}">기타</a>
+                        <div class="category-tap-wrap">
+                            <a th:href="@{?target=all}">전체</a>
+                            <a th:href="@{?target=blind}">블라인드</a>
+                            <a th:href="@{?target=declaration}">신고</a>
+                            <a th:href="@{?target=problem}">문제</a>
+                            <a th:href="@{?target=other}">기타</a>
+                        </div>
                         <button class="btn btn-secondary" th:onclick="location.href='/inquirys/form'">글쓰기</button>
                     </div>
 
