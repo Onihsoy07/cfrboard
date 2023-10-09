@@ -11,13 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+
+import static com.project.cfrboard.domain.constant.MyConstant.MANAGER_ROLE;
 
 @Slf4j
 @RestController
@@ -43,5 +42,20 @@ public class InquiryApiController {
 
         inquiryService.save(inquiryFormDto, principal.getMember());
         return ResponseEntity.created(URI.create("/")).body(new ResponseDto<>(true, null, "저장 성공"));
+    }
+
+    @PutMapping("/complete/{inquiryId}")
+    public ResponseEntity<ResponseDto<?>> blind(@PathVariable("inquiryId") Long inquiryId,
+                                                @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (MANAGER_ROLE.contains(principal.getMember().getRole())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        inquiryService.complete(inquiryId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "문의 완료 처리 완료"));
     }
 }

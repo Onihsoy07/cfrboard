@@ -47,6 +47,10 @@ public class InquiryService {
         return new InquiryDto(getInquiry(inquiryId));
     }
 
+    public void complete(Long inquiryId) {
+        inquiryRepository.inquiryComplete(inquiryId);
+    }
+
     @Transactional(readOnly = true)
     private Inquiry getInquiry(Long inquiryId) {
         return inquiryRepository.findById(inquiryId).orElseThrow(() -> {
