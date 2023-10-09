@@ -333,6 +333,13 @@ th, td {
     color: black;
 }
 
+.col-category {
+    font-size: 14px;
+    width: 25%;
+    text-align: center;
+    color: black;
+}
+
 .row-top {
     display: flex;
     width: 45%;
@@ -834,4 +841,38 @@ th, td {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+}
+
+.category-tab-area {
+    border-collapse: collapse;
+    display: table;
+    font-size: 0;
+    padding: 0;
+    margin: 5px 0;
+    height: 20px;
+    overflow: hidden;
+    width: 100%;
+}
+.category-tab-area a {
+    color: black;
+    height: 20px;
+    line-height: 20px;
+    display: table-cell;
+    width: 70px;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+    background: white;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    border: 1px solid #aaaaaa;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.category-tab-area a:hover {
+    background: #aaaaaa;
+}
+.category-tab-area button {
+    float: right;
 }

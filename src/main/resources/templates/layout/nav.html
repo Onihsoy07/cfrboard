@@ -30,6 +30,7 @@
       </div>
       <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
       <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
+      <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
     </th:block>
 
     <th:block th:if="${principal} != anonymousUser">
@@ -58,7 +59,7 @@
         </div>
       </div>
 
-      <a href="/inquiry/form" th:href="@{/inquiry/form}">문의</a>
+      <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
     </th:block>
 
   </div>

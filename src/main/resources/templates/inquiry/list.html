@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="kr"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header :: header(~{::title})}">
+    <title>게시판</title>
+</head>
+<body th:with="principal=${#authentication.principal}">
+
+<th:block th:replace="~{layout/nav :: nav}" />
+
+<div style="min-height:700px;margin:15px;">
+
+    <div class="info">
+        <input th:if="${principal} != anonymousUser" type="hidden" th:value="${principal.member.username}" id="p_username" />
+    </div>
+
+    <section class="content">
+
+        <div class="container-wrapper">
+            <div class="container-fluid">
+
+                <div class="list_wrap">
+                    <div class="category-tab-area">
+                        <a th:href="@{?target=all}">전체</a>
+                        <a th:href="@{?target=blind}">블라인드</a>
+                        <a th:href="@{?target=declaration}">신고</a>
+                        <a th:href="@{?target=problem}">문제</a>
+                        <a th:href="@{?target=other}">기타</a>
+                        <button class="btn btn-secondary" th:onclick="location.href='/inquirys/form'">글쓰기</button>
+                    </div>
+
+                    <div class="list-group cus-list">
+                        <div class="list-group-item align-items-center list-head">
+                            <div class="row-top">
+                                <div class="col-title">제목</div>
+                            </div>
+                            <div class="d-flex justify-content-between row-bottom">
+                                <div class="col-author">작성자</div>
+                                <div class="col-time">작성일</div>
+                                <div class="col-category">카테고리</div>
+                            </div>
+                        </div>
+                        <th:block th:each="inquiry : ${inquiryList.content}">
+                            <th:block th:if="${inquiry.isSecret}">
+                                <div class="cusHov list-body" th:if="${principal} != anonymousUser
+                                and ${#strings.equals(principal.member.role, 'ADMIN')
+                                or #strings.equals(principal.member.role, 'MANAGER')}">
+                                    <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
+                                        <div class="row-top">
+                                            <div class="col-title detail" th:text="${inquiry.title}"></div>
+                                        </div>
+                                        <div class="row-bottom justify-content-between">
+                                            <div class="col-author" th:text="${inquiry.memberDto.username}"></div>
+                                            <div class="row-bottom-rightInner" style="width:auto;">
+                                                <div class="col-time" style="width:auto;" th:text="${#temporals.format(inquiry.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                            </div>
+                                            <div class="col-category" th:text="${inquiry.target}"></div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="board-blind list-body" th:unless="${principal} != anonymousUser
+                                and ${#strings.equals(principal.member.role, 'ADMIN')
+                                or #strings.equals(principal.member.role, 'MANAGER')}">
+                                    <a class="list-bodyInner">
+                                        <div class="col-title">비밀글입니다.</div>
+                                    </a>
+                                </div>
+                            </th:block>
+
+                            <div class="cusHov list-body" th:unless="${inquiry.isSecret}">
+                                <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
+                                    <div class="row-top">
+                                        <div class="col-title detail" th:text="${inquiry.title}"></div>
+                                    </div>
+                                    <div class="row-bottom justify-content-between">
+                                        <div class="col-author" th:text="${inquiry.memberDto.username}"></div>
+                                        <div class="row-bottom-rightInner" style="width:auto;">
+                                            <div class="col-time" style="width:auto;" th:text="${#temporals.format(inquiry.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                        </div>
+                                        <div class="col-category" th:text="${inquiry.target}"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="pagination-wrapper">
+                    <ul class="pagination justify-content-center">
+                        <th:block th:if="${inquiryList.totalPages == 0}">
+                            <li class="page-item active">
+                                <a class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
+                            </li>
+                        </th:block>
+                        <th:block th:unless="${inquiryList.totalPages == 0}">
+                            <li class="page-item">
+                                <a class="page-link first-page" th:href="@{?page=1}"></a>
+                            </li>
+                            <li th:if="${pageInfo.isPreviousPage}" class="page-item">
+                                <a class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
+                                <a class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
+                                <li th:if="${page-1 == inquiryList.number}" class="page-item active">
+                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                </li>
+                                <li th:unless="${page-1 == inquiryList.number}" class="page-item">
+                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                </li>
+                            </th:block>
+                            <li th:if="${pageInfo.isNextPage}" class="page-item">
+                                <a class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isNextPage}" class="page-item">
+                                <a class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link last-page" th:href="@{|?page=${inquiryList.totalPages}|}"></a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <aside>
+            <div class="right-aside">
+                <div class="list-rank-wrap">
+                    <dl>
+                        <dt>
+                            <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
+                                    <i th:if="${viewRankStat.count le 3}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
+                                    <i th:unless="${viewRankStat.count le 3}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
+                                    <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
+                                        제목
+                                    </a>
+                                    <span th:text="${viewRank.commentCount}">0</span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="right-aside">
+                <div class="list-rank-wrap">
+                    <dl>
+                        <dt>
+                            <a class="rank-title" href="javascript:void(0)">CFR 랭킹</a>
+                        </dt>
+
+                        <dd>
+                            <ul>
+                                <li class="list-rank" th:each="cfrRank, cfrRankStat  : ${topCfr}">
+                                    <i th:if="${cfrRankStat.count le 3}" class="top-rank" th:text="${cfrRankStat.count}">Rank</i>
+                                    <i th:unless="${cfrRankStat.count le 3}" class="normal-rank" th:text="${cfrRankStat.count}">Rank</i>
+                                    <div class="cfrRank-wrap">
+                                        <div class="cfrRank-value" th:text="${cfrRank.value}"></div>
+                                        <div>&nbsp;:&nbsp;</div>
+                                        <div class="cfrRank-confidence" th:text="${#numbers.formatPercent(cfrRank.confidence,0,2)}"></div>
+                                        <div class="sep-black"></div>
+                                        <div class="cfrRank-username" th:text="${cfrRank.memberDto.username}"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </aside>
+
+    </section>
+
+</div>
+
+<th:block th:replace="~{layout/footer :: footer}" />
+
+
+<script type="text/javascript" th:src="@{/js/inquiry.js}"></script>
+
+</body>
+</html>
