@@ -28,7 +28,8 @@
                                class="btn btn-warning">수정</a>
                             <button th:if="${boardView.commentCount eq 0}" id="btn-delete" class="btn btn-danger">삭제</button>
                         </th:block>
-                        <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}" id="btn-board-blind" class="btn btn-danger">블라</button>
+                        <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}"
+                                id="btn-board-blind" class="btn btn-danger">블라</button>
                     </th:block>
                     <br/><br/>
                     <div>

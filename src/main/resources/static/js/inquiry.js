@@ -28,4 +28,24 @@ $(function() {
 
     });
 
+    $("#btn-inquiry-complete").click(function() {
+        const inquiryId = $("#inquiryId").val();
+
+        $.ajax({
+            url : "/inquirys/complete/" + inquiryId,
+            type : "PUT",
+            contentType: "application/json;charset=utf-8"
+        }).done(function(res) {
+            if (res.success) {
+                alert("완료되었습니다.");
+                location.href = "/inquirys";
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error) {
+            alert(error.responseJSON.msg);
+        })
+
+    });
+
 });

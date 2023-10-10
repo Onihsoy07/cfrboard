@@ -885,3 +885,7 @@ th, td {
     white-space: nowrap;
     float: left;
 }
+.inquiry-complete {
+    color: #6e6e6e;
+    text-decoration: line-through;
+}

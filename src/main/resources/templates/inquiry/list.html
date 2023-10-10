@@ -23,16 +23,19 @@
                     <button class="btn btn-secondary" th:onclick="location.href='./'">목록</button>
                     <th:block th:if="${principal} != anonymousUser">
                         <th:block th:if="${inquiryView.memberDto.id} == ${principal?.member.id}
-                                        and ${!inquiryView.isCompleted}">
+                                         and ${!inquiryView.isCompleted}">
                             <a href="/inquirys/${inquiryView.id}/update-form"
                                th:href="|/inquirys/${inquiryView.id}/update-form|"
                                class="btn btn-warning">수정</a>
                             <button th:if="${!inquiryView.isCompleted}" id="btn-delete" class="btn btn-danger">삭제</button>
                         </th:block>
+                        <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}
+                                       and ${!inquiryView.isCompleted}" id="btn-inquiry-complete" class="btn btn-danger">완료</button>
                     </th:block>
                     <br/><br/>
                     <div>
-                        <h3 class="title-detail" th:text="${inquiryView.title}">title</h3>
+                        <h3 th:unless="${inquiryView.isCompleted}" class="title-detail" th:text="${inquiryView.title}">title</h3>
+                        <h3 th:if="${inquiryView.isCompleted}" class="title-detail inquiry-complete" th:text="${inquiryView.title}">title</h3>
                     </div>
                     <br/>
                     <div>
@@ -40,13 +43,14 @@
                         작성 일자&nbsp;:&nbsp;<span><i th:text="${#temporals.format(inquiryView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
                         <div class="etc-info">
                             <div class="form-group">
-                                <input id="boardId" type="hidden" th:value="${inquiryView.id}" />
+                                <input id="inquiryId" type="hidden" th:value="${inquiryView.id}" />
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="content-wrap" style="margin-bottom: 20px;">
-                        <div class="content-detail" th:utext="${inquiryView.content}">content</div>
+                        <div th:unless="${inquiryView.isCompleted}" class="content-detail" th:utext="${inquiryView.content}">content</div>
+                        <div th:if="${inquiryView.isCompleted}" class="content-detail inquiry-complete" th:utext="${inquiryView.content}">content</div>
                     </div>
                     <hr>
                 </div>
@@ -82,7 +86,8 @@
                                 or #strings.equals(principal.member.role, 'MANAGER')}">
                                     <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
                                         <div class="row-top">
-                                            <div class="col-title detail" th:text="${inquiry.title}"></div>
+                                            <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
+                                            <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
                                         </div>
                                         <div class="row-bottom justify-content-between">
                                             <div class="col-author" th:text="${inquiry.memberDto.username}"></div>
@@ -106,7 +111,8 @@
                             <div class="cusHov list-body" th:unless="${inquiry.isSecret}">
                                 <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
                                     <div class="row-top">
-                                        <div class="col-title detail" th:text="${inquiry.title}"></div>
+                                        <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
+                                        <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
                                     </div>
                                     <div class="row-bottom justify-content-between">
                                         <div class="col-author" th:text="${inquiry.memberDto.username}"></div>
