@@ -24,7 +24,6 @@ public class MemberController {
 
     @GetMapping("/{memberId}/confirm")
     public String confirm(@PathVariable Long memberId,
-                          @ModelAttribute MemberPasswordCheckDto passwordCheckDto,
                           Model model) {
         model.addAttribute("memberId", memberId);
         return "member/confirm";

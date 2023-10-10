@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URI;
 
 @Slf4j
 @RestController
@@ -46,9 +47,7 @@ public class MemberApiController {
             } else {
                 memberService.passwordCheckComplete(principal.getUsername());
 
-                //Location 동작 안함???
-                httpServletResponse.setHeader("Location", "/members/"+memberId+"/edit");
-                return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto<>(true, null, "사용자 확인 완료"));
+                return ResponseEntity.created(URI.create("/members/"+memberId+"/edit")).body(new ResponseDto<>(true, null, "사용자 확인 완료"));
             }
         }
 

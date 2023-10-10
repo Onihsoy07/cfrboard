@@ -11,13 +11,13 @@
 <div style="height:700px;margin:15px;">
     <div class="container">
         <h1>비밀번호 확인</h1>
-        <form action="#" th:action th:object="${memberPasswordCheckDto}">
+        <div>
             <input type="hidden" id="memberId" th:value="${memberId}" />
             <div>
-                <input type="password" id="password" th:field="*{password}" class="form-control">
+                <input type="password" id="password" class="form-control">
             </div>
             <button id="password_check" type="button" class="btn btn-primary" style="margin-top:10px;">확인</button>
-        </form>
+        </div>
     </div>
 </div>
 
