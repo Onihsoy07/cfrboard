@@ -168,12 +168,12 @@
             </div>
         </div>
 
-        <aside>
+        <aside class="aside-wrap">
             <div class="right-aside">
                 <div class="list-rank-wrap">
                     <dl>
                         <dt>
-                            <a class="rank-title" href="javascript:void(0)" style="cursor: default">오늘의 베스트</a>
+                            <a class="rank-title" href="javascript:void(0)">오늘의 베스트</a>
                         </dt>
                         <dd>
                             <ul>
@@ -183,7 +183,7 @@
                                     <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
                                         제목
                                     </a>
-                                    <span th:text="${viewRank.commentCount}">0</span>
+                                    <span class="comment-img" th:text="${viewRank.commentCount}">0</span>
                                 </li>
                             </ul>
                         </dd>

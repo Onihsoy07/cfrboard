@@ -889,3 +889,41 @@ th, td {
     color: #6e6e6e;
     text-decoration: line-through;
 }
+
+.main-outer {
+    display: flex;
+    float: right;
+}
+
+
+
+
+/*모바일 반응*/
+@media (max-width: 1150px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  .aside-wrap {
+    display: flex;
+    margin: 0 auto;
+  }
+}
+
+
+@media (max-width: 850px) {
+  .main-outer {
+    display: block;
+  }
+  .aside-wrap {
+    display: block;
+  }
+  .area-wrap {
+
+  }
+}
+
+@media (max-width: 440px) {
+  .area-wrap {
+    width: 320px;
+  }
+}
