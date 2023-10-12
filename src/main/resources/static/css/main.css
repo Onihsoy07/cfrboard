@@ -626,6 +626,7 @@ th, td {
 
 /*메인 페이지*/
 .area-wrap {
+    margin: 10px 5px;
     border: solid 1px black;
     width: 400px;
     height: 350px;
@@ -897,6 +898,34 @@ th, td {
 
 
 
+.navbar-toggler {
+    display: none;
+    float: right;
+    margin: 6px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    border-color: rgba(255,255,255,.1);
+    cursor: pointer;
+}
+.navbar-toggler-icon {
+    font-family: inherit;
+    text-transform: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: rgba(255,255,255,.5);
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 
 /*모바일 반응*/
 @media (max-width: 1150px) {
@@ -917,13 +946,27 @@ th, td {
   .aside-wrap {
     display: block;
   }
-  .area-wrap {
+}
 
-  }
+/*메뉴바*/
+@media (max-width: 575px) {
+    .cus_navbar{
+        display: grid;
+    }
+    .nav-wrap {
+        display: none;
+    }
+    .navbar-toggler {
+        display: block;
+    }
+    .dropbtn {
+        width: 100%;
+    }
+
 }
 
 @media (max-width: 440px) {
-  .area-wrap {
-    width: 320px;
-  }
+    .area-wrap {
+        width: 350px;
+    }
 }

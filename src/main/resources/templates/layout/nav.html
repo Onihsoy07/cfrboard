@@ -16,51 +16,61 @@
   </div>
 
   <div class="cus_navbar">
-    <a href="/" th:href="@{/}">Home</a>
+    <div>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a href="/" th:href="@{/}">Home</a>
+    </div>
 
-    <th:block th:if="${principal} == anonymousUser">
-      <div class="dropdown">
-        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
-          <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
+
+    <div class="nav-wrap">
+
+      <th:block th:if="${principal} == anonymousUser">
+        <div class="dropdown">
+          <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
+            <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
+          </div>
         </div>
-      </div>
-      <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
-      <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
-      <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
-    </th:block>
+        <a href="/auth/login" th:href="@{/auth/login}">로그인</a>
+        <a href="/auth/register" th:href="@{/auth/register}">회원가입</a>
+        <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
+      </th:block>
 
-    <th:block th:if="${principal} != anonymousUser">
+      <th:block th:if="${principal} != anonymousUser">
 
-      <div class="dropdown">
-        <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
-          <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
+        <div class="dropdown">
+          <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="/boards/free" th:href="@{/boards/free}">자유게시판</a>
+            <a href="/boards/cfr" th:href="@{/boards/cfr}">CFR게시판</a>
+          </div>
         </div>
-      </div>
 
-      <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
-      <a href="/boards/form" th:href="@{/boards/form}">글쓰기</a>
+        <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
+        <a href="/boards/form" th:href="@{/boards/form}">글쓰기</a>
 
-      <div class="dropdown">
-        <button class="dropbtn" th:text="${principal.member.username}" th:onclick="|location.href='@{/members/{userId}/confirm(userId=${principal.member.id})}'|">
-          <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="#" th:href="@{/members/{userId}/confirm(userId=${principal.member.id})}">회원정보수정</a>
-          <a href="/cfrs" th:href="@{/cfrs}">CFR 리스트</a>
-          <a href="/logout" th:href="@{/logout}">로그아웃</a>
+        <div class="dropdown">
+          <button class="dropbtn" th:text="${principal.member.username}" th:onclick="|location.href='@{/members/{userId}/confirm(userId=${principal.member.id})}'|">
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#" th:href="@{/members/{userId}/confirm(userId=${principal.member.id})}">회원정보수정</a>
+            <a href="/cfrs" th:href="@{/cfrs}">CFR 리스트</a>
+            <a href="/logout" th:href="@{/logout}">로그아웃</a>
+          </div>
         </div>
-      </div>
 
-      <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
-    </th:block>
+        <a href="/inquiry/form" th:href="@{/inquirys}">문의</a>
+      </th:block>
+
+    </div>
 
   </div>
 
