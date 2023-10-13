@@ -27,8 +27,8 @@
     <div class="nav-wrap">
 
       <th:block th:if="${principal} == anonymousUser">
-        <div class="dropdown">
-          <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
+        <div class="dropdown board-toggle">
+          <button class="dropbtn btn-board" th:text="게시판" th:onclick="movPage('/boards/free')">
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
@@ -43,8 +43,8 @@
 
       <th:block th:if="${principal} != anonymousUser">
 
-        <div class="dropdown">
-          <button class="dropbtn" th:text="게시판" th:onclick="|location.href='@{/boards/free}'|">
+        <div class="dropdown board-toggle">
+          <button class="dropbtn btn-board" th:text="게시판" th:onclick="movPage('/boards/free')">
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">
@@ -56,8 +56,8 @@
         <a href="/cfrs/form" th:href="@{/cfrs/form}">CFR</a>
         <a href="/boards/form" th:href="@{/boards/form}">글쓰기</a>
 
-        <div class="dropdown">
-          <button class="dropbtn" th:text="${principal.member.username}" th:onclick="|location.href='@{/members/{userId}/confirm(userId=${principal.member.id})}'|">
+        <div class="dropdown member-toggle">
+          <button class="dropbtn btn-member" th:text="${principal.member.username}" th:onclick="|movPage('/members/${principal.member.id}/confirm')|">
             <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-content">

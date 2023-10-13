@@ -959,7 +959,17 @@ th, td {
     .navbar-toggler {
         display: block;
     }
+    .dropdown {
+        height: 52px;
+        transition: all 0.3s;
+        overflow: hidden;
+    }
     .dropbtn {
+        width: 100%;
+    }
+    .dropdown-content {
+        display: block;
+        position: unset;
         width: 100%;
     }
 

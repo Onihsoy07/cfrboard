@@ -22,6 +22,7 @@ $(function() {
     });
 
     $(".navbar-toggler").click(function() {
+        closeDropDown();
         if($(".nav-wrap").attr("open") == "open") {
             $(".nav-wrap").css("display", "none");
             $(".nav-wrap").attr("open", false);
@@ -31,14 +32,41 @@ $(function() {
         }
     });
 
-    $(".dropbtn").click(function() {
-        if($(".dropbtn").attr("mov") == "true") {
-            alert("안녕");
-        } else {
-            return false;
+    $(".btn-board").click(function() {
+        if($(".btn-board").attr("mov") == "true") {
+            dropDownFunc(".board-toggle", 148);
         }
     });
 
-
+    $(".btn-member").click(function() {
+        if($(".btn-member").attr("mov") == "true") {
+            dropDownFunc(".member-toggle", 196);
+        }
+    });
 
 });
+
+function movPage(url) {
+    if($(".dropbtn").attr("mov") == "true") {
+        return false;
+    } else {
+        location.href = url;
+    }
+}
+
+function closeDropDown() {
+    $(".dropdown").css("height", "52");
+    $(".dropdown").attr("open", false);
+}
+
+function dropDownFunc(className, openHeight) {
+    if($(className).attr("open") == "open") {
+        $(className).css("height", "52");
+        $(className).attr("open", false);
+    } else {
+        closeDropDown();
+
+        $(className).css("height", openHeight);
+        $(className).attr("open", true);
+    }
+}
