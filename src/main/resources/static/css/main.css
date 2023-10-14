@@ -162,7 +162,10 @@ th, td {
 .container-fluid {
     max-width: 1000px;
     min-width: 400px;
-    float: right;
+}
+.board-detail-wrap {
+    max-width: 1000px;
+    min-width: 400px;
 }
 
 /*기존 리스트 페이지 css*/
@@ -659,7 +662,7 @@ th, td {
     font-size: 16px;
     color: black;
     padding-left: 18px;
-    margin-right: 5px;
+    margin-right: 20px;
 }
 .comment-img:before {
     position: absolute;
@@ -896,6 +899,11 @@ th, td {
     float: right;
 }
 
+.board-wrap {
+    min-height: 700px;
+    margin: 15px;
+}
+
 
 
 .navbar-toggler {
@@ -938,7 +946,6 @@ th, td {
   }
 }
 
-
 @media (max-width: 850px) {
   .main-outer {
     display: block;
@@ -946,6 +953,58 @@ th, td {
   .aside-wrap {
     display: block;
   }
+}
+
+@media (max-width: 770px) {
+    .list-head {
+        display: none;
+    }
+    .list-bodyInner {
+        display: block;
+        padding: 5px;
+    }
+    .row-top {
+        width: 320px;
+    }
+    .row-bottom {
+        display: block;
+        height: 21px;
+        width: 100%;
+    }
+    .col-author {
+        float: left;
+        width: 100px;
+    }
+    .col-time {
+        width: 150px;
+    }
+    .col-view::before {
+        content: "조회";
+        margin-right: 5px;
+    }
+    .col-view {
+        width: 50px;
+    }
+    .col-good::before {
+        content: "추천";
+        margin-right: 5px;
+    }
+    .col-good {
+        width: 50px;
+    }
+    .row-bottom-rightInner {
+        display: flex;
+        float: right;
+        width: auto;
+    }
+    .title-blind {
+        height: 45px;
+        line-height: 45px;
+    }
+    .container-fluid {
+        min-width: 320px;
+    }
+
 }
 
 /*메뉴바*/
@@ -973,10 +1032,29 @@ th, td {
         width: 100%;
     }
 
+
+    .board-wrap {
+        margin: 0px;
+    }
+    .container-fluid {
+        margin: 0px;
+        padding: 0px;
+    }
+    .list_wrap {
+        margin: 10px 0px;
+    }
+    .board-search-form {
+        width: 95%;
+        margin: 0 auto;
+    }
+
 }
 
 @media (max-width: 440px) {
     .area-wrap {
         width: 350px;
+    }
+    .row-top {
+        width: 280px;
     }
 }
