@@ -43,7 +43,16 @@ public class BoardController {
     @GetMapping("/form")
     public String boardForm(@ModelAttribute BoardFormDto boardFormDto,
                             Model model,
+                            @RequestParam(value = "cfrid", required = false) Long cfrId,
                             @AuthenticationPrincipal PrincipalDetails principal) {
+        if (cfrId != null) {
+            if (!cfrService.isMaster(cfrId, principal.getMember().getId())) {
+                return "redirect:/boards/form";
+            } else {
+                model.addAttribute("cfrData", cfrService.getCfrData(cfrId));
+            }
+        }
+
         model.addAttribute("cfrList", cfrService.getCfrList(principal.getMember().getId()));
         return "board/form";
     }

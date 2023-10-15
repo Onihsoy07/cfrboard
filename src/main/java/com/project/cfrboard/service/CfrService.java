@@ -141,5 +141,19 @@ public class CfrService {
         return CfrDataThumbDto.convertToDtoList(topConfidenceCfrDataList);
     }
 
+    @Transactional(readOnly = true)
+    public Boolean isMaster(Long cfrId, Long memberId) {
+        return cfrDataRepository.findByIdAndMember_Id(cfrId, memberId).isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public CfrDataDto getCfrData(Long cfrId) {
+        CfrData cfrData = cfrDataRepository.findById(cfrId).orElseThrow(() -> {
+            throw new IllegalArgumentException(String.format("CFRDATA ID %d로 찾을 수 없습니다.", cfrId));
+        });
+
+        return new CfrDataDto(cfrData);
+    }
+
 
 }

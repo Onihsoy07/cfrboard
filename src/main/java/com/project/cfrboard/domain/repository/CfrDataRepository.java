@@ -1,6 +1,7 @@
 package com.project.cfrboard.domain.repository;
 
 import com.project.cfrboard.domain.dto.CfrDataDto;
+import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.CfrData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface CfrDataRepository extends JpaRepository<CfrData, Long> {
 
@@ -27,6 +29,8 @@ public interface CfrDataRepository extends JpaRepository<CfrData, Long> {
 
     @Query(value = "select * from cfr_data order by confidence desc, create_date desc limit 10", nativeQuery = true)
     List<CfrData> findTop10ByOrderByConfidenceDescCreateDateDesc();
+
+    Optional<CfrData> findByIdAndMember_Id(Long cfrId, Long memberId);
 
 }
 
