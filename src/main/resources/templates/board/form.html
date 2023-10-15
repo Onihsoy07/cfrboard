@@ -41,7 +41,7 @@
                 <th:block th:if="${cfrData}">
                     <div id="cfrid" class="result" style="display:none;" th:text="${cfrData.id}"></div>
                     <div class="result-value" th:text="${cfrData.value}"></div>
-                    <div class="result" th:text="${cfrData.confidence}"></div>
+                    <div class="result" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}"></div>
                     <div class="result" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
                 </th:block>
             </div>
