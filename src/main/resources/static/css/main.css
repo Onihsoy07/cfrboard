@@ -215,6 +215,10 @@ th, td {
     background-color: #dee2e6;
     border-color: #dee2e6;
 }
+.page-item {
+    float: left;
+    margin: 2px 0;
+}
 
 .searchBox {
     justify-content: center;
@@ -1090,6 +1094,16 @@ th, td {
     }
     .board-cfr-wrap {
         float: unset;
+        margin: 0 auto;
+    }
+
+    .pagination-wrapper {
+        max-width: 95%;
+        margin: 0 auto;
+    }
+    .pagination-wrapper .pagination {
+        display: block;
+        width: fit-content;
         margin: 0 auto;
     }
 }

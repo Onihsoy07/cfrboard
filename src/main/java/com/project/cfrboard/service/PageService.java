@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class PageService {
 
     public PageRequest cusPageable(Pageable pageable) {
-        return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 15, Sort.by("createDate").descending());
+        return PageRequest.of((pageable.getPageNumber()==0)?0:pageable.getPageNumber()-1, 1, Sort.by("createDate").descending());
     }
 
     public PageDto getPageOffset(Pageable pageable, Page<?> pageList) {
