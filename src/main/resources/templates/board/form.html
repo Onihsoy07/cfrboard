@@ -29,15 +29,21 @@
             <div>
                 <select class="select-table">
                     <option value="free" th:text="자유게시판"></option>
-                    <option value="cfr" th:text="CFR게시판"></option>
+                    <option value="cfr" th:text="CFR게시판" th:selected="${cfrData}"></option>
                 </select>
 
-                <button class="btn-cfr-list" type="button" onclick="openCfrList();">변경</button>
+                <button th:if="${cfrData}" class="btn-cfr-list" type="button" onclick="openCfrList();" style="visibility:visible;">변경</button>
+                <button th:unless="${cfrData}" class="btn-cfr-list" type="button" onclick="openCfrList();">변경</button>
             </div>
 
 
             <div th:class="cfr-result">
-
+                <th:block th:if="${cfrData}">
+                    <div id="cfrid" class="result" style="display:none;" th:text="${cfrData.id}"></div>
+                    <div class="result-value" th:text="${cfrData.value}"></div>
+                    <div class="result" th:text="${cfrData.confidence}"></div>
+                    <div class="result" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                </th:block>
             </div>
         </div>
 

@@ -7,8 +7,11 @@ $(function() {
             title : $("#title").val(),
             content : $("#content").val(),
             boardTable : target,
-            cfrId : selectCfrId
+            cfrId : $("#cfrid").text()
         }
+
+        console.log(data);
+        console.log("aaaaaaaaaa");
 
         if(data.title.length < 5) {
             alert("제목을 5글자 이상 써주세요.");
@@ -138,17 +141,16 @@ $(function() {
 
 });
 
-var selectCfrId = null;
 var thisBoardLikes = false;
 
 function selectCfr(cfrId) {
-    selectCfrId = cfrId;
     $("div").remove(".result");
     $("div").remove(".result-value");
     $("body").css("overflow", "auto");
     $(".b-cfrlist-outer").css("display", "none");
     $(".back-blur").css("display", "none");
     $(".cfr-result").css("visibility", "visible");
+    $(".cfr-result").append("<div id='cfrid' class='result' style='display:none;'>" + cfrId + "</div>");
     $(".cfr-result").append("<div class='result-value'>" + $("#cfr-value" + cfrId).text() + "</div>");
     $(".cfr-result").append("<div class='result'>" + $("#cfr-confidence" + cfrId).text() + "</div>");
     $(".cfr-result").append("<div class='result'>" + $("#cfr-createDate" + cfrId).text() + "</div>");

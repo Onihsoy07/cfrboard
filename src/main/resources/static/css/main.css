@@ -440,7 +440,7 @@ th, td {
 }
 .cfr-result {
     display: flex;
-    visibility: hidden;
+    visibility: visible;
     height: 25px;
 }
 .btn-cfr-list {
