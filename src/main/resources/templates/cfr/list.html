@@ -16,22 +16,23 @@
 
                 <div class="list_wrap">
                     <div class="list-group cus-list">
-                        <div class="list-group-item align-items-center list-head">
+                        <div class="list-group-item align-items-center list-head cfr-list">
                             <div class="d-flex justify-content-between" style="width:100%;">
-                                <div class="col-value">value</div>
-                                <div class="col-confidence">confidence</div>
-                                <div class="col-createDate">createDate</div>
+                                <div class="col-value">결과</div>
+                                <div class="col-confidence">일치율</div>
+                                <div class="col-createDate">생성일자</div>
                                 <div class="col-write"></div>
                             </div>
                         </div>
                         <div class="list-body" th:each="cfrData : ${cfrDataList.content}">
                             <div class="list-group-item align-items-center">
                                 <div class="d-flex justify-content-between">
-                                    <div class="col-value" th:text="${cfrData.value}"></div>
-                                    <div class="col-confidence" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}"></div>
-                                    <div class="col-createDate" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
-                                    <div class="col-write">
-                                        <a th:href="@{#}">글쓰기</a>
+                                    <div th:if="${#strings.length(cfrData.value) gt 3}" class="col-value-list" th:text="${cfrData.value}" style="line-height:unset;word-break:keep-all;"></div>
+                                    <div th:unless="${#strings.length(cfrData.value) gt 3}" class="col-value-list" th:text="${cfrData.value}"></div>
+                                    <div class="col-confidence-list" th:text="${#numbers.formatPercent(cfrData.confidence,0,2)}"></div>
+                                    <div class="col-createDate-list" th:text="${#temporals.format(cfrData.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
+                                    <div class="col-write-list">
+                                        <a th:href="@{|/boards/form?cfrid=${cfrData.id}|}">글쓰기</a>
                                     </div>
                                 </div>
                             </div>
@@ -39,18 +40,39 @@
                     </div>
                 </div>
 
-                <div class="pagination-wrapper" style="margin-top:20px;">
+                <div class="pagination-wrapper">
                     <ul class="pagination justify-content-center">
-                        <th:block th:each="page : ${#numbers.sequence(1, cfrDataList.totalPages)}">
-                            <li th:if="${cfrDataList.number == page-1}" class="page-item active">
-                                <a class="page-link"
-                                   th:href="|/cfrs?page=${page}|"
-                                   th:text="${page}">page</a>
+                        <th:block th:if="${cfrDataList.totalPages == 0}">
+                            <li class="page-item active">
+                                <a class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
                             </li>
-                            <li th:unless="${cfrDataList.number == page-1}" class="page-item">
-                                <a class="page-link"
-                                   th:href="|/cfrs?page=${page}|"
-                                   th:text="${page}">page</a>
+                        </th:block>
+                        <th:block th:unless="${cfrDataList.totalPages == 0}">
+                            <li class="page-item">
+                                <a class="page-link first-page" th:href="@{?page=1}"></a>
+                            </li>
+                            <li th:if="${pageInfo.isPreviousPage}" class="page-item">
+                                <a class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
+                                <a class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                            </li>
+                            <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
+                                <li th:if="${page-1 == cfrDataList.number}" class="page-item active">
+                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                </li>
+                                <li th:unless="${page-1 == cfrDataList.number}" class="page-item">
+                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                </li>
+                            </th:block>
+                            <li th:if="${pageInfo.isNextPage}" class="page-item">
+                                <a class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li th:unless="${pageInfo.isNextPage}" class="page-item">
+                                <a class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link last-page" th:href="@{|?page=${cfrDataList.totalPages}|}"></a>
                             </li>
                         </th:block>
                     </ul>

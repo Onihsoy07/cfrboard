@@ -135,7 +135,23 @@ th, td {
     text-align: center;
 }
 .col-write{
+    width: 48px;
+    text-align: center;
+}
+.col-value-list{
     width: 10%;
+    text-align: center;
+}
+.col-confidence-list{
+    width: 10%;
+    text-align: center;
+}
+.col-createDate-list{
+    width: 25%;
+    text-align: center;
+}
+.col-write-list{
+    width: 48px;
     text-align: center;
 }
 
@@ -945,6 +961,10 @@ th, td {
     display: flex;
 }
 
+.cfr-list {
+    display: flex!important;
+}
+
 
 /*모바일 반응*/
 @media (max-width: 1150px) {
@@ -1014,6 +1034,46 @@ th, td {
     }
     .container-fluid {
         min-width: 320px;
+    }
+    .container {
+        max-width: unset;
+    }
+
+    /*CFR LIST*/
+    .cfr-list {
+        padding: 15px 10px;
+    }
+    .align-items-center {
+        padding: 15px 10px;
+    }
+    .col-value-list {
+        width: 50px;
+        height: 48px;
+        line-height: 48px;
+    }
+    .col-confidence-list {
+        width: 60px;
+        height: 48px;
+        line-height: 48px;
+    }
+    .col-createDate-list {
+        width: 80px;
+        height: 48px;
+    }
+    .col-write-list {
+        height: 48px;
+        line-height: 48px;
+    }
+    .col-value {
+        width: 50px;
+    }
+    .col-confidence {
+        width: 60px;
+    }
+    .col-createDate {
+        width: 80px;
+    }
+    .col-write {
     }
 
 }
@@ -1097,6 +1157,7 @@ th, td {
         margin: 0 auto;
     }
 
+    /*pagination*/
     .pagination-wrapper {
         max-width: 95%;
         margin: 0 auto;
