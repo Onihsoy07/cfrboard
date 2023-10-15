@@ -1,10 +1,12 @@
 package com.project.cfrboard.controller;
 
 import com.project.cfrboard.auth.PrincipalDetails;
+import com.project.cfrboard.domain.dto.CfrDataDto;
 import com.project.cfrboard.service.CfrService;
 import com.project.cfrboard.service.PageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -43,7 +45,10 @@ public class CfrController {
         if (principal == null) {
             throw new AccessDeniedException("권한없음");
         }
-        model.addAttribute("cfrDataList", cfrService.getCfrList(principal.getMember().getId(), pageService.cusPageable(pageable)));
+        Page<CfrDataDto> cfrList = cfrService.getCfrList(principal.getMember().getId(), pageService.cusPageable(pageable));
+
+        model.addAttribute("cfrDataList", cfrList);
+        model.addAttribute("pageInfo", pageService.getPageOffset(pageable, cfrList));
         return "cfr/list";
     }
 
