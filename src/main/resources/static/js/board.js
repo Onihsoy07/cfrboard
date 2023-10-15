@@ -144,11 +144,12 @@ var thisBoardLikes = false;
 function selectCfr(cfrId) {
     selectCfrId = cfrId;
     $("div").remove(".result");
+    $("div").remove(".result-value");
     $("body").css("overflow", "auto");
     $(".b-cfrlist-outer").css("display", "none");
     $(".back-blur").css("display", "none");
     $(".cfr-result").css("visibility", "visible");
-    $(".cfr-result").append("<div class='result'>" + $("#cfr-value" + cfrId).text() + "</div>");
+    $(".cfr-result").append("<div class='result-value'>" + $("#cfr-value" + cfrId).text() + "</div>");
     $(".cfr-result").append("<div class='result'>" + $("#cfr-confidence" + cfrId).text() + "</div>");
     $(".cfr-result").append("<div class='result'>" + $("#cfr-createDate" + cfrId).text() + "</div>");
 }

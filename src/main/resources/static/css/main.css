@@ -816,6 +816,9 @@ th, td {
 .result {
     margin-right: 20px;
 }
+.result-value {
+    margin-right: 20px;
+}
 .board-cfr-wrap {
     float: right;
     border: solid 1px black;
@@ -1011,6 +1014,16 @@ th, td {
 
 }
 
+@media (max-width: 640px) {
+    .b-cfrlist-outer {
+        width: 95%;
+        left: 2.5%;
+    }
+    .b-cfrlist-createDate {
+        width: 45%;
+    }
+}
+
 /*메뉴바*/
 @media (max-width: 575px) {
     .cus_navbar{
@@ -1090,5 +1103,18 @@ th, td {
     }
     .board-info-wrap {
         display: block;
+    }
+    .b-cfrlist-wrapper {
+        font-size: .85rem;
+    }
+    .b-cfrlist-createDate {
+        width: 40%;
+    }
+    .cfr-result {
+        display: block;
+        height: auto;
+    }
+    .result-value {
+        float: left;
     }
 }
