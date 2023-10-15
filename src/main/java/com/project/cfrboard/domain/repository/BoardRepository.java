@@ -23,8 +23,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from Board b left join fetch b.member left join fetch b.cfrData where b.id = :id")
     Optional<Board> findByIdFetchMemberAndCfrdata(@Param("id") Long id);
 
-    @Query("select b from Board b left join fetch b.member where b.id = :id")
-    Optional<Board> findByIdFetchMember(@Param("id") Long id);
+
+    Optional<Board> findByIdAndMember_Id(Long boardId, Long memberId);
 
     @Modifying(clearAutomatically = true)
     @Query("update Board b set b.todayViewCount = b.todayViewCount+1, b.totalViewCount= b.totalViewCount+1 where b.id=:id")

@@ -104,9 +104,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public Boolean isBoardMaster(Long memberId, Long boardId) {
-        return boardRepository.findByIdFetchMember(boardId).orElseThrow(() -> {
-            throw new IllegalArgumentException(String.format("Board ID %d로 찾을 수 없습니다.", boardId));
-        }).getMember().getId().equals(memberId);
+        return boardRepository.findByIdAndMember_Id(boardId, memberId).isPresent();
     }
 
     public void update(BoardUpdateFormDto boardUpdateFormDto,
