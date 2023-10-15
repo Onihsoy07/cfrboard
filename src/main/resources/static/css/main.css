@@ -934,6 +934,10 @@ th, td {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
+.board-info-wrap {
+    display: flex;
+}
+
 
 /*모바일 반응*/
 @media (max-width: 1150px) {
@@ -973,10 +977,10 @@ th, td {
     }
     .col-author {
         float: left;
-        width: 100px;
+        width: 80px;
     }
     .col-time {
-        width: 150px;
+        width: 135px;
     }
     .col-view::before {
         content: "조회";
@@ -1047,7 +1051,34 @@ th, td {
         width: 95%;
         margin: 0 auto;
     }
+    .board-detail-wrap {
+        min-width: 280px;
+        margin: 0 5px;
+    }
+    .user-info {
+        font-size: .8rem;
+        margin-right: 15px;
+        float: left;
+    }
+    .other-wrapper {
+        font-size: .8rem;
+        float: right;
+    }
+    .btn-oreply {
+        font-size: .8rem;
+    }
+    .info-row {
+        display: block;
+    }
 
+    .content-detail {
+        float: unset;
+        margin-bottom: 50px;
+    }
+    .board-cfr-wrap {
+        float: unset;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 440px) {
@@ -1056,5 +1087,8 @@ th, td {
     }
     .row-top {
         width: 280px;
+    }
+    .board-info-wrap {
+        display: block;
     }
 }

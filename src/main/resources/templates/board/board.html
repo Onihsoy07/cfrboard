@@ -36,9 +36,13 @@
                         <h3 class="title-detail" th:text="${boardView.title}">title</h3>
                     </div>
                     <br/>
-                    <div>
-                        작성자&nbsp;:&nbsp;<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
-                        작성 일자&nbsp;:&nbsp;<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                    <div class="board-info-wrap">
+                        <div class="info-user">
+                            작성자&nbsp;:&nbsp;<span><i th:text="${boardView.memberDto.username}">username</i>&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                        <div class="info-cdate">
+                            작성 일자&nbsp;:&nbsp;<span><i th:text="${#temporals.format(boardView.createDate, 'yyyy.MM.dd HH:mm:ss')}">createDate</i></span>
+                        </div>
                         <div class="etc-info">
                             <div class="form-group">
                                 <input id="boardId" type="hidden" th:value="${boardView.id}" />
