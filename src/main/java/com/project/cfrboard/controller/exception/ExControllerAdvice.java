@@ -32,9 +32,9 @@ public class ExControllerAdvice {
         return "error/404";
     }
     
-    @ExceptionHandler
-    public ResponseEntity<String> exHandler(Exception e) {
-        log.error("[exceptionHandler] Exception", e);
-        return new ResponseEntity<>("서버오류", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler
+//    public ResponseEntity<String> exHandler(Exception e) {
+//        log.error("[exceptionHandler] Exception", e);
+//        return new ResponseEntity<>("서버오류", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

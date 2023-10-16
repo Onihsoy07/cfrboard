@@ -196,6 +196,7 @@ th, td {
 }
 
 .list_wrap {
+    display: grid;
     overflow: auto;
     margin: 10px;
 }
@@ -904,7 +905,7 @@ th, td {
 }
 .category-tap-wrap {
     border-collapse: collapse;
-    width: 80%;
+    width: calc(100% - 90px);
     max-width: 600px;
     height: 40px;
     overflow-x: auto;
@@ -1076,6 +1077,12 @@ th, td {
     .col-write {
     }
 
+    /*문의*/
+    .col-category {
+        float: right;
+        width: 70px;
+    }
+
 }
 
 @media (max-width: 640px) {
@@ -1166,6 +1173,14 @@ th, td {
         display: block;
         width: fit-content;
         margin: 0 auto;
+    }
+
+    /*문의*/
+    .category-tab-area {
+        padding: 0px 8px;
+    }
+    .category-tab-area a {
+        min-width: 80px;
     }
 }
 
