@@ -1,5 +1,6 @@
 package com.project.cfrboard.service;
 
+import com.project.cfrboard.domain.dto.BoardPageDto;
 import com.project.cfrboard.domain.dto.InquiryDto;
 import com.project.cfrboard.domain.dto.InquiryFormDto;
 import com.project.cfrboard.domain.dto.InquiryPageDto;
@@ -49,6 +50,18 @@ public class InquiryService {
 
     public void complete(Long inquiryId) {
         inquiryRepository.inquiryComplete(inquiryId);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<InquiryPageDto> getMyInquiryList(Pageable pageable, String username) {
+        List<Inquiry> searchInquiryList = inquiryRepository.findByMember_Username(username);
+        return new PageImpl<>(InquiryPageDto.convertToDtoList(searchInquiryList), pageable, inquiryRepository.countByMember_Username(username));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<InquiryPageDto> getTargetInquiryList(Pageable pageable, String target) {
+        List<Inquiry> searchInquiryList = inquiryRepository.findByTarget(InquiryTarget.valueOf(target.toUpperCase()));
+        return new PageImpl<>(InquiryPageDto.convertToDtoList(searchInquiryList), pageable, inquiryRepository.countByTarget(InquiryTarget.valueOf(target.toUpperCase())));
     }
 
     @Transactional(readOnly = true)
