@@ -54,13 +54,13 @@ public class InquiryService {
 
     @Transactional(readOnly = true)
     public Page<InquiryPageDto> getMyInquiryList(Pageable pageable, String username) {
-        List<Inquiry> searchInquiryList = inquiryRepository.findByMember_Username(username);
+        List<Inquiry> searchInquiryList = inquiryRepository.findByMember_Username(username, pageable);
         return new PageImpl<>(InquiryPageDto.convertToDtoList(searchInquiryList), pageable, inquiryRepository.countByMember_Username(username));
     }
 
     @Transactional(readOnly = true)
     public Page<InquiryPageDto> getTargetInquiryList(Pageable pageable, String target) {
-        List<Inquiry> searchInquiryList = inquiryRepository.findByTarget(InquiryTarget.valueOf(target.toUpperCase()));
+        List<Inquiry> searchInquiryList = inquiryRepository.findByTarget(InquiryTarget.valueOf(target.toUpperCase()), pageable);
         return new PageImpl<>(InquiryPageDto.convertToDtoList(searchInquiryList), pageable, inquiryRepository.countByTarget(InquiryTarget.valueOf(target.toUpperCase())));
     }
 

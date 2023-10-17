@@ -23,12 +23,12 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
     void inquiryComplete(@Param("id") Long id);
 
     @Query("select distinct i from Inquiry i left join fetch i.member where i.member.username = :username order by i.createDate desc")
-    List<Inquiry> findByMember_Username(@Param("username") String username);
+    List<Inquiry> findByMember_Username(@Param("username") String username, Pageable pageable);
 
     Long countByMember_Username(String username);
 
     @Query("select distinct i from Inquiry i left join fetch i.member where i.target = :target order by i.createDate desc")
-    List<Inquiry> findByTarget(@Param("target") InquiryTarget target);
+    List<Inquiry> findByTarget(@Param("target") InquiryTarget target, Pageable pageable);
 
     Long countByTarget(InquiryTarget target);
 

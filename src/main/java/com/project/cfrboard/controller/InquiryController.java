@@ -88,14 +88,19 @@ public class InquiryController {
             if (target.equals("my")) {
                 if ((principal != null) && principal.getUsername().equals(value)) {
                     inquiryList = inquiryService.getMyInquiryList(pageService.cusPageable(pageable), value);
+                    model.addAttribute("status", "target=" + target + "&value=" + value + "&page=" + page);
+                    model.addAttribute("nextPage", "target=" + target + "&value=" + value);
                 } else {
                     return "redirect:/inquirys";
                 }
             } else {
                 inquiryList = inquiryService.getTargetInquiryList(pageService.cusPageable(pageable), target);
+                model.addAttribute("status", "target=" + target + "&page=" + page);
+                model.addAttribute("nextPage", "target=" + target);
             }
         } else {
             inquiryList = inquiryService.getInquiryList(pageService.cusPageable(pageable));
+            model.addAttribute("status", "page=" + page);
         }
 
         if (pageable.getPageNumber() >= 2 && inquiryList.getContent().size() <= 0) {
