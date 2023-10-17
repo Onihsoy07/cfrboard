@@ -59,11 +59,12 @@
                 <div class="list_wrap">
                     <div class="category-tab-area">
                         <div class="category-tap-wrap">
-                            <a th:href="@{?target=all}">전체</a>
-                            <a th:href="@{?target=blind}">블라인드</a>
-                            <a th:href="@{?target=declaration}">신고</a>
-                            <a th:href="@{?target=problem}">문제</a>
-                            <a th:href="@{?target=other}">기타</a>
+                            <a th:href="@{/inquirys?target=all}">전체</a>
+                            <a th:if="${principal} != anonymousUser" th:href="@{|/inquirys?target=my&value=${principal.username}|}">내 문의</a>
+                            <a th:href="@{/inquirys?target=blind}">블라인드</a>
+                            <a th:href="@{/inquirys?target=declaration}">신고</a>
+                            <a th:href="@{/inquirys?target=problem}">문제</a>
+                            <a th:href="@{/inquirys?target=other}">기타</a>
                         </div>
                         <button class="btn btn-secondary" th:onclick="location.href='/inquirys/form'">글쓰기</button>
                     </div>
@@ -84,7 +85,7 @@
                                 <div class="cusHov list-body" th:if="${principal} != anonymousUser
                                 and ${#strings.equals(principal.member.role, 'ADMIN')
                                 or #strings.equals(principal.member.role, 'MANAGER')}">
-                                    <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
+                                    <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}?${status}|">
                                         <div class="row-top">
                                             <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
                                             <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
@@ -109,7 +110,7 @@
                             </th:block>
 
                             <div class="cusHov list-body" th:unless="${inquiry.isSecret}">
-                                <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}|">
+                                <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}?${status}|">
                                     <div class="row-top">
                                         <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
                                         <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
@@ -127,39 +128,86 @@
                     </div>
                 </div>
 
+<!--                <div class="pagination-wrapper">-->
+<!--                    <ul class="pagination justify-content-center">-->
+<!--                        <th:block th:if="${inquiryList.totalPages == 0}">-->
+<!--                            <li class="page-item active">-->
+<!--                                <a class="page-link" th:href="|?page=${page}|" th:text="1">page</a>-->
+<!--                            </li>-->
+<!--                        </th:block>-->
+<!--                        <th:block th:unless="${inquiryList.totalPages == 0}">-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link first-page" th:href="@{?page=1}"></a>-->
+<!--                            </li>-->
+<!--                            <li th:if="${pageInfo.isPreviousPage}" class="page-item">-->
+<!--                                <a class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>-->
+<!--                            </li>-->
+<!--                            <li th:unless="${pageInfo.isPreviousPage}" class="page-item">-->
+<!--                                <a class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>-->
+<!--                            </li>-->
+<!--                            <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">-->
+<!--                                <li th:if="${page-1 == inquiryList.number}" class="page-item active">-->
+<!--                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>-->
+<!--                                </li>-->
+<!--                                <li th:unless="${page-1 == inquiryList.number}" class="page-item">-->
+<!--                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>-->
+<!--                                </li>-->
+<!--                            </th:block>-->
+<!--                            <li th:if="${pageInfo.isNextPage}" class="page-item">-->
+<!--                                <a class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>-->
+<!--                            </li>-->
+<!--                            <li th:unless="${pageInfo.isNextPage}" class="page-item">-->
+<!--                                <a class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link last-page" th:href="@{|?page=${inquiryList.totalPages}|}"></a>-->
+<!--                            </li>-->
+<!--                        </th:block>-->
+<!--                    </ul>-->
+<!--                </div>-->
+
                 <div class="pagination-wrapper">
                     <ul class="pagination justify-content-center">
                         <th:block th:if="${inquiryList.totalPages == 0}">
                             <li class="page-item active">
-                                <a class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
+                                <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="1">page</a>
+                                <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="1">page</a>
                             </li>
                         </th:block>
                         <th:block th:unless="${inquiryList.totalPages == 0}">
                             <li class="page-item">
-                                <a class="page-link first-page" th:href="@{?page=1}"></a>
+                                <a th:if="${nextPage} == null" class="page-link first-page" th:href="|?page=1|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link first-page" th:href="|?${nextPage}&page=1|"></a>
                             </li>
                             <li th:if="${pageInfo.isPreviousPage}" class="page-item">
-                                <a class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:if="${nextPage} == null" class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link previous-page" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
                             </li>
                             <li th:unless="${pageInfo.isPreviousPage}" class="page-item">
-                                <a class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:if="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?page=${pageInfo.startPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link previous-page page-disable" th:href="|?${nextPage}&page=${pageInfo.startPage}|"></a>
                             </li>
                             <th:block th:each="page : ${#numbers.sequence(pageInfo.startPage+1, pageInfo.endPage-1)}">
                                 <li th:if="${page-1 == inquiryList.number}" class="page-item active">
-                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
                                 </li>
                                 <li th:unless="${page-1 == inquiryList.number}" class="page-item">
-                                    <a class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:if="${nextPage} == null" class="page-link" th:href="|?page=${page}|" th:text="${page}">page</a>
+                                    <a th:unless="${nextPage} == null" class="page-link" th:href="|?${nextPage}&page=${page}|" th:text="${page}">page</a>
                                 </li>
                             </th:block>
                             <li th:if="${pageInfo.isNextPage}" class="page-item">
-                                <a class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:if="${nextPage} == null" class="page-link next-page" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link next-page" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
                             </li>
                             <li th:unless="${pageInfo.isNextPage}" class="page-item">
-                                <a class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:if="${nextPage} == null" class="page-link next-page page-disable" th:href="|?page=${pageInfo.endPage}|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link next-page page-disable" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link last-page" th:href="@{|?page=${inquiryList.totalPages}|}"></a>
+                                <a th:if="${nextPage} == null" class="page-link last-page" th:href="@{|?page=${inquiryList.totalPages}|}"></a>
+                                <a th:unless="${nextPage} == null" class="page-link last-page" th:href="@{|?${nextPage}&page=${inquiryList.totalPages}|}"></a>
                             </li>
                         </th:block>
                     </ul>

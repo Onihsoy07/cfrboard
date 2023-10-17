@@ -241,7 +241,8 @@
                         </th:block>
                         <th:block th:unless="${boardList.totalPages == 0}">
                             <li class="page-item">
-                                <a class="page-link first-page" th:href="@{?page=1}"></a>
+                                <a th:if="${nextPage} == null" class="page-link first-page" th:href="|?page=1|"></a>
+                                <a th:unless="${nextPage} == null" class="page-link first-page" th:href="|?${nextPage}&page=1|"></a>
                             </li>
                             <li th:if="${pageInfo.isPreviousPage}" class="page-item">
                                 <a th:if="${nextPage} == null" class="page-link previous-page" th:href="|?page=${pageInfo.startPage}|"></a>
@@ -270,7 +271,8 @@
                                 <a th:unless="${nextPage} == null" class="page-link next-page page-disable" th:href="|?${nextPage}&page=${pageInfo.endPage}|"></a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link last-page" th:href="@{|?page=${boardList.totalPages}|}"></a>
+                                <a th:if="${nextPage} == null" class="page-link last-page" th:href="@{|?page=${boardList.totalPages}|}"></a>
+                                <a th:unless="${nextPage} == null" class="page-link last-page" th:href="@{|?${nextPage}&page=${boardList.totalPages}|}"></a>
                             </li>
                         </th:block>
                     </ul>

@@ -906,7 +906,7 @@ th, td {
 .category-tap-wrap {
     border-collapse: collapse;
     width: calc(100% - 90px);
-    max-width: 600px;
+    max-width: 620px;
     height: 40px;
     overflow-x: auto;
     overflow-y: clip;
