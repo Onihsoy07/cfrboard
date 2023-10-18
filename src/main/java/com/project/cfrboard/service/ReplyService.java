@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -27,7 +29,8 @@ public class ReplyService {
             replySaveDto.setReplyId(null);
         }
 
-        replyRepository.replySave(replySaveDto.getComment(), replySaveDto.getDepth(), replySaveDto.getBoardId(), memberId, replySaveDto.getReplyId());
+        replyRepository.replySave(replySaveDto.getComment(), replySaveDto.getDepth(), replySaveDto.getBoardId(), memberId, replySaveDto.getReplyId(),
+                LocalDateTime.now());
     }
 
     @Transactional(readOnly = true)
@@ -81,7 +84,7 @@ public class ReplyService {
         if (replyRepository.findByIdAndMember_Id(replyId, memberId).isEmpty()) {
             throw new NotMasterOfDataException("댓글 주인이 아닙니다.");
         }
-        replyRepository.updateComment(replyId, comment);
+        replyRepository.updateComment(replyId, comment, LocalDateTime.now());
     }
 
     public void blind(Long replyId) {

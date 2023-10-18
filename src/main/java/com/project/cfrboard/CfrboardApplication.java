@@ -16,7 +16,7 @@ public class CfrboardApplication {
 	}
 
 	@PostConstruct
-	void started() {
+	public void started() {
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
 		Locale.setDefault(Locale.KOREA);
 	}
