@@ -24,9 +24,6 @@
                     <th:block th:if="${principal} != anonymousUser">
                         <th:block th:if="${inquiryView.memberDto.id} == ${principal?.member.id}
                                          and ${!inquiryView.isCompleted}">
-                            <a href="/inquirys/${inquiryView.id}/update-form"
-                               th:href="|/inquirys/${inquiryView.id}/update-form|"
-                               class="btn btn-warning">수정</a>
                             <button th:if="${!inquiryView.isCompleted}" id="btn-delete" class="btn btn-danger">삭제</button>
                         </th:block>
                         <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}

@@ -48,4 +48,22 @@ $(function() {
 
     });
 
+    $("#btn-delete").click(function() {
+        $.ajax({
+            url : "/inquirys/" + $("#inquiryId").val(),
+            type : "DELETE",
+            contentType: "application/json;charset=utf-8"
+        }).done(function(res) {
+            if (res.success) {
+                alert("삭제가 완료되었습니다.");
+                location.href = "/inquirys";
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error) {
+            alert(error.responseJSON.msg);
+        })
+
+    });
+
 });
