@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
@@ -31,5 +32,7 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
     List<Inquiry> findByTarget(@Param("target") InquiryTarget target, Pageable pageable);
 
     Long countByTarget(InquiryTarget target);
+
+    Optional<Inquiry> findByIdAndMember_Id(Long inquiryId, Long memberId);
 
 }

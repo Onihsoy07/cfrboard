@@ -58,4 +58,23 @@ public class InquiryApiController {
         inquiryService.complete(inquiryId);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "문의 완료 처리 완료"));
     }
+
+    @DeleteMapping("/{inquiryId}")
+    public ResponseEntity<ResponseDto<?>> delete(@PathVariable("inquiryId") Long inquiryId,
+                                                 @AuthenticationPrincipal PrincipalDetails principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (!inquiryService.isBoardMaster(principal.getMember().getId(), inquiryId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseDto<>(false, null, "권한 없음"));
+        }
+
+        if (!inquiryService.deletableCheck(inquiryId)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "완료된 문의글 삭제가 불가능합니다."));
+        }
+
+        inquiryService.delete(inquiryId);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, null, "삭제 성공"));
+    }
 }

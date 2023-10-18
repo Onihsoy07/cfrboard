@@ -113,6 +113,7 @@ public class BoardService {
         board.update(boardUpdateFormDto.getTitle(), boardUpdateFormDto.getContent());
     }
 
+    @Transactional(readOnly = true)
     public Boolean deletableCheck(Long boardId) {
         return getBoard(boardId).getCommentCount() == 0;
     }

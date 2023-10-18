@@ -65,6 +65,21 @@ public class InquiryService {
     }
 
     @Transactional(readOnly = true)
+    public Boolean isBoardMaster(Long memberId, Long inquiryId) {
+        return inquiryRepository.findByIdAndMember_Id(inquiryId, memberId).isPresent();
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean deletableCheck(Long inquiryId) {
+        return !getInquiry(inquiryId).getIsCompleted();
+    }
+
+    public void delete(Long inquiryId) {
+        inquiryRepository.deleteById(inquiryId);
+    }
+
+
+    @Transactional(readOnly = true)
     private Inquiry getInquiry(Long inquiryId) {
         return inquiryRepository.findById(inquiryId).orElseThrow(() -> {
             throw new IllegalArgumentException(String.format("Inquiry ID %d로 찾을 수 없습니다.", inquiryId));
