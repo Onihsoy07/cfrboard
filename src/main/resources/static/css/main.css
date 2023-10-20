@@ -187,7 +187,6 @@ th, td {
 
 /*기존 리스트 페이지 css*/
 .content {
-    overflow: auto;
     background-color: white;
     padding-top: 5px;
     display: grid;
@@ -717,7 +716,7 @@ th, td {
     display: table;
     border: solid 1px #aaaaaa;
     margin: 10px 5px;
-    min-width: 290px;
+    min-width: 300px;
     max-height: 360px;
     height: 10px;
     overflow: auto;

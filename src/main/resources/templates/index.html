@@ -21,7 +21,7 @@
                         <dd>
                             <ul>
                                 <li class="current-board" th:each="freeBoard : ${currentFreeBoard}">
-                                    <a class="main-href" th:href="@{|/boards/${freeBoard.boardTable}/${freeBoard.id}|}" th:text="${freeBoard.title}"></a>
+                                    <a class="main-href" th:href="@{|/boards/${freeBoard.boardTable}/${freeBoard.id}|}" th:utext="${freeBoard.title}"></a>
                                     <span class="comment-img" th:text="${freeBoard.commentCount}"></span>
                                 </li>
                             </ul>
@@ -39,7 +39,7 @@
                         <dd>
                             <ul>
                                 <li class="current-board" th:each="cfrBoard : ${currentCfrBoard}">
-                                    <a class="main-href" th:href="@{|/boards/${cfrBoard.boardTable}/${cfrBoard.id}|}" th:text="${cfrBoard.title}"></a>
+                                    <a class="main-href" th:href="@{|/boards/${cfrBoard.boardTable}/${cfrBoard.id}|}" th:utext="${cfrBoard.title}"></a>
                                     <span class="comment-img" th:text="${cfrBoard.commentCount}"></span>
                                 </li>
                             </ul>
@@ -63,7 +63,7 @@
                             <li class="list-rank" th:each="viewRank, viewRankStat  : ${topTodayView}">
                                 <i th:if="${viewRankStat.count le 3}" class="top-rank" th:text="${viewRankStat.count}">Rank</i>
                                 <i th:unless="${viewRankStat.count le 3}" class="normal-rank" th:text="${viewRankStat.count}">Rank</i>
-                                <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:text="${viewRank.title}">
+                                <a th:href="@{|/boards/${viewRank.boardTable}/${viewRank.id}|}" th:utext="${viewRank.title}">
                                     제목
                                 </a>
                                 <span class="comment-img" th:text="${viewRank.commentCount}">0</span>
