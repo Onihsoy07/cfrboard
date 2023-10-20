@@ -44,25 +44,5 @@ public class AuthController {
         return "auth/joinForm";
     }
 
-    @PostMapping("/register")
-    public String join(@Valid @ModelAttribute MemberJoinDto memberJoinDto,
-                       BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            for (ObjectError error : bindingResult.getAllErrors()) {
-                log.info("LoginForm Binding Error {} = {}", error.getObjectName(), error.getDefaultMessage());
-            }
-            return "auth/joinForm";
-        }
-
-        if (!memberJoinDto.getPassword().equals(memberJoinDto.getPasswordCheck())) {
-            bindingResult.addError(new ObjectError("memberJoinDto", "비밀번호가 다릅니다."));
-            for (ObjectError error : bindingResult.getAllErrors()) {
-                log.info("LoginForm Binding Error {} = {}", error.getObjectName(), error.getDefaultMessage());
-            }
-            return "auth/joinForm";
-        }
-        memberService.join(memberJoinDto);
-        return "redirect:/";
-    }
 
 }
