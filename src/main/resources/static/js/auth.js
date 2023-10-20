@@ -21,27 +21,48 @@ $(function() {
                     $("#loginId").attr("disabled", true);
                     $("#mainId").attr("value", username);
                 }
-            }).fail(function() {
+            }).fail(function(error) {
                 alert(error.responseJSON.msg);
             })
         }
     });
 
     $("#register").click(function() {
-        let password = $("#password").val();
-        let passwordCheck = $("#passwordCheck").val();
+        let data = {
+            username : $("#mainId").val(),
+            password : $("#password").val(),
+            passwordCheck : $("#passwordCheck").val()
+        }
 
         if(isIdChecked == false) {
             alert("id 중복체크를 해주세요");
-        } else if(password == "") {
+            return false;
+        } else if(data.password == "") {
             alert("비밀번호를 입력하세요.");
-        } else if(passwordCheck == "") {
+            return false;
+        } else if(data.passwordCheck == "") {
             alert("비밀번호 확인을 입력하세요.");
-        } else if(password != passwordCheck) {
+            return false;
+        } else if(data.password != data.passwordCheck) {
             alert("비밀번호가 다릅니다.");
-        } else {
-            $("form").submit();
+            return false;
         }
+
+        $.ajax({
+            url : "/auth/register",
+            type : "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data : JSON.stringify(data)
+        }).done(function(res) {
+            if (res.success) {
+                location.href = "/";
+            } else {
+                alert(res.msg);
+            }
+        }).fail(function(error) {
+            alert(error.responseJSON.msg);
+        })
     });
 
 });
