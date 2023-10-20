@@ -17,28 +17,24 @@ public class ExControllerAdvice {
 
     @ExceptionHandler
     public ResponseEntity<String> accessExHandler(AccessDeniedException e, HttpServletRequest request) {
-        log.error("error URL = {}", request.getRequestURL().toString());
         log.error("[exceptionHandler] AccessDeniedException", e);
         return new ResponseEntity<>("권한 없음", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler
     public String illegalArgumentExceptionHandler (IllegalArgumentException e, HttpServletRequest request) {
-        log.error("error URL = {}", request.getRequestURL().toString());
         log.error("[exceptionHandler] IllegalArgumentException", e);
         return "error/404";
     }
 
     @ExceptionHandler
     public String methodArgumentTypeMismatchExceptionHandler (MethodArgumentTypeMismatchException e, HttpServletRequest request) {
-        log.error("error URL = {}", request.getRequestURL().toString());
         log.error("[exceptionHandler] MethodArgumentTypeMismatchException", e);
         return "error/404";
     }
     
     @ExceptionHandler
     public ResponseEntity<String> exHandler(Exception e, HttpServletRequest request) {
-        log.error("error URL = {}", request.getRequestURL().toString());
         log.error("[exceptionHandler] Exception", e);
         return new ResponseEntity<>("서버오류", HttpStatus.INTERNAL_SERVER_ERROR);
     }
