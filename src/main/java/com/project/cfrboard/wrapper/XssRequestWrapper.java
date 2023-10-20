@@ -4,71 +4,19 @@ import com.project.cfrboard.domain.constant.CusSafelist;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ReadListener;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.Part;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class XssRequestWrapper extends HttpServletRequestWrapper {
-
-////    private byte[] rawData;
-//    private HttpServletRequest request;
-//    private ResettableServletInputStream servletStream;
-//
-//    public void resetInputStream(byte[] data) {
-//        servletStream.stream = new ByteArrayInputStream(data);
-//    }
-//
-////    @Override
-////    public ServletInputStream getInputStream() throws IOException {
-////        if (rawData == null) {
-////            rawData = IOUtils.toByteArray(this.request.getReader());
-////            servletStream.stream = new ByteArrayInputStream(rawData);
-////        }
-////        return servletStream;
-////    }
-//
-////    @Override
-////    public BufferedReader getReader() throws IOException {
-////        if (rawData == null) {
-////            rawData = IOUtils.toByteArray(this.request.getReader());
-////            servletStream.stream = new ByteArrayInputStream(rawData);
-////        }
-////        return new BufferedReader(new InputStreamReader(servletStream));
-////    }
-//
-//
-//    private class ResettableServletInputStream extends ServletInputStream {
-//
-//        private InputStream stream;
-//
-//        @Override
-//        public int read() throws IOException {
-//            return stream.read();
-//        }
-//
-//        @Override
-//        public boolean isFinished() {
-//            return false;
-//        }
-//
-//        @Override
-//        public boolean isReady() {
-//            return false;
-//        }
-//
-//        @Override
-//        public void setReadListener(ReadListener listener) {
-//
-//        }
-//    }
-
 
     /**
      * Constructs a request object wrapping the given request.
@@ -78,13 +26,10 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
      */
     public XssRequestWrapper(HttpServletRequest request) {
         super(request);
-//        this.request = request;
-//        this.servletStream = new ResettableServletInputStream();
     }
 
     @Override
     public String[] getParameterValues(String name) {
-//        return super.getParameterValues(name);
         String[] values = super.getParameterValues(name);
         if (values == null) {
             return null;
@@ -98,24 +43,45 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
     }
 
     @Override
+    public Map<String, String[]> getParameterMap() {
+        Map<String, String[]> params = super.getParameterMap();
+        if(params != null) {
+            params.forEach((key, value) -> {
+                for(int i=0; i<value.length; i++) {
+                    value[i] = Jsoup.clean(value[i], Safelist.basic());
+                }
+            });
+        }
+        return params;
+    }
+
+    @Override
     public String getParameter(String name) {
         String parameter = super.getParameter(name);
         if (parameter == null) {
             return null;
         }
-        return Jsoup.clean(parameter, Safelist.basic());
+        return Jsoup.clean(parameter, Safelist.none());
+    }
+
+    @Override
+    public String getQueryString() {
+        String queryString = super.getQueryString();
+        if (queryString == null) {
+            return null;
+        }
+        return Jsoup.clean(queryString, Safelist.none());
     }
 
     @Override
     public Enumeration<String> getHeaders(String name) {
-//        return super.getHeaders(name);
         List result = new ArrayList<>();
         Enumeration headers = super.getHeaders(name);
         while (headers.hasMoreElements()) {
             String header = headers.nextElement().toString();
             String[] tokens = header.split(",");
             for (String token : tokens) {
-                result.add(Jsoup.clean(token, Safelist.basic()));
+                result.add(Jsoup.clean(token, Safelist.none()));
             }
         }
         return Collections.enumeration(result);
@@ -127,6 +93,37 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
         if (header == null) {
             return null;
         }
-        return Jsoup.clean(header, Safelist.basic());
+        return Jsoup.clean(header, Safelist.none());
+    }
+
+    @Override
+    public Part getPart(String name) throws IOException, ServletException {
+//        Part part = super.getPart(name);
+//        System.out.println("aaaa  :  " + part.getContentType());
+//        System.out.println("aaaa  :  " + part.getName());
+//        System.out.println("aaaa  :  " + part.getSubmittedFileName());
+//        System.out.println("aaaa  :  " + part.getHeaderNames());
+//        System.out.println("aaaa  :  " + part.getHeader());
+//        System.out.println("aaaa  :  " + part.getHeaders());
+        return super.getPart(name);
+    }
+
+    @Override
+    public Collection<Part> getParts() throws IOException, ServletException {
+//        Collection<Part> parts = super.getParts();
+//        for (Part part : parts) {
+//            String contentType = part.getContentType();
+//            String name = part.getName();
+//            System.out.println("aaaa  :  " + name);
+//            String submittedFileName = part.getSubmittedFileName();
+//            System.out.println("aaaa  :  " + submittedFileName);
+//            Collection<String> headerNames = part.getHeaderNames();
+//            System.out.println("aaaa  :  " + headerNames);
+//            InputStream inputStream = part.getInputStream();
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//            String collect = bufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+//            System.out.println("collect = " + collect);
+//        }
+        return super.getParts();
     }
 }
