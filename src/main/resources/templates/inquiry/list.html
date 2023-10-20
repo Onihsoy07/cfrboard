@@ -31,8 +31,8 @@
                     </th:block>
                     <br/><br/>
                     <div>
-                        <h3 th:unless="${inquiryView.isCompleted}" class="title-detail" th:text="${inquiryView.title}">title</h3>
-                        <h3 th:if="${inquiryView.isCompleted}" class="title-detail inquiry-complete" th:text="${inquiryView.title}">title</h3>
+                        <h3 th:unless="${inquiryView.isCompleted}" class="title-detail" th:utext="${inquiryView.title}">title</h3>
+                        <h3 th:if="${inquiryView.isCompleted}" class="title-detail inquiry-complete" th:utext="${inquiryView.title}">title</h3>
                     </div>
                     <br/>
                     <div>
@@ -84,8 +84,8 @@
                                 or #strings.equals(principal.member.role, 'MANAGER')}">
                                     <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}?${status}|">
                                         <div class="row-top">
-                                            <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
-                                            <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
+                                            <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:utext="${inquiry.title}"></div>
+                                            <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:utext="${inquiry.title}"></div>
                                         </div>
                                         <div class="row-bottom justify-content-between">
                                             <div class="col-author" th:text="${inquiry.memberDto.username}"></div>
@@ -109,8 +109,8 @@
                             <div class="cusHov list-body" th:unless="${inquiry.isSecret}">
                                 <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}?${status}|">
                                     <div class="row-top">
-                                        <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:text="${inquiry.title}"></div>
-                                        <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:text="${inquiry.title}"></div>
+                                        <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:utext="${inquiry.title}"></div>
+                                        <div th:if="${inquiry.isCompleted}" class="col-title detail inquiry-complete" th:utext="${inquiry.title}"></div>
                                     </div>
                                     <div class="row-bottom justify-content-between">
                                         <div class="col-author" th:text="${inquiry.memberDto.username}"></div>

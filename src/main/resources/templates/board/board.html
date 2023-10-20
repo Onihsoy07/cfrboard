@@ -33,7 +33,7 @@
                     </th:block>
                     <br/><br/>
                     <div>
-                        <h3 class="title-detail" th:text="${boardView.title}">title</h3>
+                        <h3 class="title-detail" th:utext="${boardView.title}">title</h3>
                     </div>
                     <br/>
                     <div class="board-info-wrap">
@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                     <div th:if="${reply.isBlinded}" class="message" th:id="|message_${reply.replyId}|">블라인드 처리가 되었습니다.</div>
-                                    <div th:unless="${reply.isBlinded}" class="message" th:id="|message_${reply.replyId}|" th:text="${reply.comment}">내용</div>
+                                    <div th:unless="${reply.isBlinded}" class="message" th:id="|message_${reply.replyId}|" th:utext="${reply.comment}">내용</div>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <a class="list-bodyInner"
                                    th:href="|/boards/${boardTable}/${board.id}?${status}|">
                                     <div class="row-top">
-                                        <div class="col-title detail" th:text="${board.title}"></div>
+                                        <div class="col-title detail" th:utext="${board.title}"></div>
                                         <span class="comment-img" th:text="${board.commentCount}"></span>
                                     </div>
                                     <div class="row-bottom">
