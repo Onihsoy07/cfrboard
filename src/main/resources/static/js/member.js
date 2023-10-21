@@ -54,7 +54,7 @@ $(function() {
                     alert(res.msg);
                     return false;
                 }
-            }).fail(function(err) {
+            }).fail(function(error) {
                 alert(error.responseJSON.msg);
             });
         }
@@ -75,7 +75,7 @@ $(function() {
             } else {
                 alert("회원 탈퇴 실패하였습니다.");
             }
-        }).fail(function(err) {
+        }).fail(function(error) {
             alert(error.responseJSON.msg);
         });
     });
