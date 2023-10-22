@@ -7,9 +7,16 @@ $(function() {
         if(username == "") {
             alert("아이디를 입력하세요.");
         } else {
+            let data = {
+                username : username
+            }
+
             $.ajax({
-                url : "/auth/duplicate-check?username="+username,
-                type : "GET"
+                url : "/auth/duplicate-check",
+                type : "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data : JSON.stringify(data)
             }).done(function(res) {
                 if(res.data) {
                     idMsg.innerHTML = "중복 아이디가 존재합니다.";
