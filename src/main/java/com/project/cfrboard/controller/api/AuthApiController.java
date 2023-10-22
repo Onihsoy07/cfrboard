@@ -1,6 +1,7 @@
 package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.domain.dto.MemberJoinDto;
+import com.project.cfrboard.domain.dto.MemberUsernameDuplicationCheckDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
 import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,15 @@ public class AuthApiController {
 
     private final MemberService memberService;
 
-    @GetMapping("/duplicate-check")
-    public ResponseEntity<ResponseDto<Boolean>> usernameDuplicateCheck(@RequestParam String username) {
-        if (!username.matches("^(?=.*[a-zA-Z])(?=.*[0-9]).{0,999}$")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "아이디는 영어와 숫자의 조합을 사용해주세요."));
+    @PostMapping("/duplicate-check")
+    public ResponseEntity<ResponseDto<Boolean>> usernameDuplicateCheck(@Valid @RequestBody MemberUsernameDuplicationCheckDto memberUsernameDto,
+                                                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ObjectError error = bindingResult.getAllErrors().get(0);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
         }
-        if (!(4 <= username.length() && username.length() <= 10)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "아이디는 4~10자리로 해주세요."));
-        }
-        Boolean isDuplicate = memberService.usernameDuplicateCheck(username);
+
+        Boolean isDuplicate = memberService.usernameDuplicateCheck(memberUsernameDto.getUsername());
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto<>(true, isDuplicate, null));
     }
 
