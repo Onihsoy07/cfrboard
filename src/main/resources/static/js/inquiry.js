@@ -18,7 +18,7 @@ $(function() {
         }).done(function(res) {
             if (res.success) {
                 alert("작성이 완료되었습니다.");
-                location.href = "/";
+                location.href = "/inquirys";
             } else {
                 alert(res.msg);
             }

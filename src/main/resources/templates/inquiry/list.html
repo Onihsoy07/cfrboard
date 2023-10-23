@@ -63,7 +63,7 @@
                             <a th:href="@{/inquirys?target=problem}">문제</a>
                             <a th:href="@{/inquirys?target=other}">기타</a>
                         </div>
-                        <button class="btn btn-secondary" th:onclick="location.href='/inquirys/form'">글쓰기</button>
+                        <button th:if="${principal} != anonymousUser" class="btn btn-secondary" th:onclick="location.href='/inquirys/form'">글쓰기</button>
                     </div>
 
                     <div class="list-group cus-list">
@@ -81,7 +81,8 @@
                             <th:block th:if="${inquiry.isSecret}">
                                 <div class="cusHov list-body" th:if="${principal} != anonymousUser
                                 and ${#strings.equals(principal.member.role, 'ADMIN')
-                                or #strings.equals(principal.member.role, 'MANAGER')}">
+                                or #strings.equals(principal.member.role, 'MANAGER')
+                                or inquiry.memberDto.username eq principal.username}">
                                     <a class="list-bodyInner" th:href="|/inquirys/${inquiry.id}?${status}|">
                                         <div class="row-top">
                                             <div th:unless="${inquiry.isCompleted}" class="col-title detail" th:utext="${inquiry.title}"></div>
@@ -99,7 +100,8 @@
 
                                 <div class="board-blind list-body" th:unless="${principal} != anonymousUser
                                 and ${#strings.equals(principal.member.role, 'ADMIN')
-                                or #strings.equals(principal.member.role, 'MANAGER')}">
+                                or #strings.equals(principal.member.role, 'MANAGER')
+                                or inquiry.memberDto.username eq principal.username}">
                                     <a class="list-bodyInner">
                                         <div class="col-title title-blind">비밀글입니다.</div>
                                     </a>
