@@ -33,8 +33,6 @@ public class AuthController {
             session.setAttribute("prePage", referer);
         }
 
-        log.info("session prePage = {}", session.getAttribute("prePage").toString());
-
         return "auth/loginForm";
     }
 

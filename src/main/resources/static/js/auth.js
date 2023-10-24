@@ -1,4 +1,10 @@
 $(function() {
+    const urlParams = new URL(location.href).searchParams;
+
+    if(urlParams.has("result")) {
+        alert("아이디 또는 비밀번호가 다릅니다.");
+    }
+
     let isIdChecked = false;
 
     $("#btn-duplicateCheck").click(function() {
@@ -73,4 +79,5 @@ $(function() {
     });
 
 });
+
 
