@@ -6,13 +6,10 @@ import com.project.cfrboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -29,12 +26,14 @@ public class AuthController {
         String referer = request.getHeader("Referer");
         String host = request.getHeader("Host");
 
-        if (session.getAttribute("prePage") == null) {
-            if (referer == null || referer.contains("/auth") || !referer.contains(host)) {
-                referer = "/";
-            }
+        if (referer == null || !referer.contains(host)) {
+            referer = "/";
+            session.setAttribute("prePage", referer);
+        } else if (!referer.contains("/auth")) {
             session.setAttribute("prePage", referer);
         }
+
+        log.info("session prePage = {}", session.getAttribute("prePage").toString());
 
         return "auth/loginForm";
     }
