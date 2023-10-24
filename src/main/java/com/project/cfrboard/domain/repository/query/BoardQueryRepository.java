@@ -26,7 +26,7 @@ public class BoardQueryRepository {
                 .from(board)
                 .leftJoin(board.member).fetchJoin()
                 .where(board.boardTable.eq(boardTable), searchCondition(target, keyword), board.isBlinded.eq(false))
-                .orderBy(board.createDate.asc())
+                .orderBy(board.createDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
