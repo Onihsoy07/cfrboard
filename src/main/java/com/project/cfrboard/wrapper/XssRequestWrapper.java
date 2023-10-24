@@ -1,20 +1,14 @@
 package com.project.cfrboard.wrapper;
 
-import com.project.cfrboard.domain.constant.CusSafelist;
-import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
-import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ReadListener;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.Part;
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class XssRequestWrapper extends HttpServletRequestWrapper {
 
@@ -89,7 +83,7 @@ public class XssRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String getHeader(String name) {
-        String header = super.getParameter(name);
+        String header = super.getHeader(name);
         if (header == null) {
             return null;
         }
