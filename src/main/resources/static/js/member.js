@@ -1,4 +1,7 @@
 $(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
+
     $("#password_check").click(function() {
         let password = $("#password").val();
         let memberId = $("#memberId").val();
@@ -14,7 +17,10 @@ $(function() {
                 type : "PUT",
                 data : formData,
                 processData: false,
-                contentType: false
+                contentType: false,
+                beforeSend : function(xhr) {
+                   xhr.setRequestHeader(header, token);
+                }
             }).done(function(res){
                 if(res.success) {
                     location.href = "/members/" + memberId + "/edit";
@@ -45,7 +51,10 @@ $(function() {
                 url : "/members/" + memberId,
                 type : "PUT",
                 contentType: "application/json;charset=utf-8",
-                data : JSON.stringify(data)
+                data : JSON.stringify(data),
+                beforeSend : function(xhr) {
+                   xhr.setRequestHeader(header, token);
+                }
             }).done(function(res) {
                 if(res.success) {
                     alert("비밀번호 수정이 완료되었습니다.");
@@ -66,8 +75,11 @@ $(function() {
         $.ajax({
             url : "/members/" + memberId,
             type : "DELETE",
-            contentType: "application/json;charset=utf-8"
+            contentType: "application/json;charset=utf-8",
 //            data : JSON.stringify(data)
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if(res.success) {
                 alert("회원 탈퇴 완료되었습니다.");

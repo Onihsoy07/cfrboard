@@ -1,3 +1,8 @@
+$(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
+});
+
 function writeReply(boardId, replyId, depth) {
         let data = {
             comment : $("#comment").val(),
@@ -16,7 +21,10 @@ function writeReply(boardId, replyId, depth) {
             type : "POST",
             contentType: "application/json;charset=utf-8",
             dataType:"json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function (res) {
             if(res.success) {
                 alert("댓글 쓰기가 완료되었습니다.");
@@ -59,7 +67,10 @@ function replyDelete(replyId) {
     $.ajax({
         url : "/replys/" + replyId,
         type : "DELETE",
-        contentType: "application/json;charset=utf-8"
+        contentType: "application/json;charset=utf-8",
+        beforeSend : function(xhr) {
+           xhr.setRequestHeader(header, token);
+        }
     }).done(function(res){
         if(res.success) {
             alert("댓글 삭제가 완료되었습니다.");
@@ -76,7 +87,10 @@ function replyBlind(replyId) {
     $.ajax({
         url : "/replys/blind/" + replyId,
         type : "PUT",
-        contentType: "application/json;charset=utf-8"
+        contentType: "application/json;charset=utf-8",
+        beforeSend : function(xhr) {
+           xhr.setRequestHeader(header, token);
+        }
     }).done(function(res){
         if(res.success) {
             alert("블라가 완료되었습니다.");
@@ -129,7 +143,10 @@ function replyUpdate(replyId) {
             type : "PUT",
             contentType: "application/json;charset=utf-8",
             dataType:"json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res){
             if(res.success) {
                 alert("댓글 수정이 완료되었습니다.");

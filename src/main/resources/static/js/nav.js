@@ -1,3 +1,6 @@
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
+
 $(function() {
     $(window).resize(function() {
         if($(window).width() < 575) {
@@ -69,4 +72,19 @@ function dropDownFunc(className, openHeight) {
         $(className).css("height", openHeight);
         $(className).attr("open", true);
     }
+}
+
+function logout() {
+        $.ajax({
+            url : "/logout",
+            type : "POST",
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+            }
+        }).done(function (res) {
+            location.href="/";
+        }).fail(function (error){
+            alert("로그아웃이 실패하였습니다.");
+        });
 }

@@ -1,4 +1,7 @@
 $(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
+
     $("#btn-save").click(function() {
         let target = $(".select-table option:selected").val();
 
@@ -14,7 +17,10 @@ $(function() {
             type : "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 alert("작성이 완료되었습니다.");
@@ -34,7 +40,10 @@ $(function() {
         $.ajax({
             url : "/inquirys/complete/" + inquiryId,
             type : "PUT",
-            contentType: "application/json;charset=utf-8"
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 alert("완료되었습니다.");
@@ -52,7 +61,10 @@ $(function() {
         $.ajax({
             url : "/inquirys/" + $("#inquiryId").val(),
             type : "DELETE",
-            contentType: "application/json;charset=utf-8"
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 alert("삭제가 완료되었습니다.");

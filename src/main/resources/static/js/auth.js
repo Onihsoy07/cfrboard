@@ -1,4 +1,6 @@
 $(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
     const urlParams = new URL(location.href).searchParams;
 
     if(urlParams.has("result")) {
@@ -22,7 +24,10 @@ $(function() {
                 type : "POST",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
-                data : JSON.stringify(data)
+                data : JSON.stringify(data),
+                beforeSend : function(xhr) {
+                   xhr.setRequestHeader(header, token);
+                }
             }).done(function(res) {
                 if(res.data) {
                     idMsg.innerHTML = "중복 아이디가 존재합니다.";
@@ -66,7 +71,10 @@ $(function() {
             type : "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 location.href = "/";

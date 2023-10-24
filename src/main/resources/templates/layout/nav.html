@@ -63,7 +63,7 @@
           <div class="dropdown-content">
             <a href="#" th:href="@{/members/{userId}/confirm(userId=${principal.member.id})}">회원정보수정</a>
             <a href="/cfrs" th:href="@{/cfrs}">CFR 리스트</a>
-            <a href="/logout" th:href="@{/logout}">로그아웃</a>
+            <a href="/logout" th:onclick="logout()">로그아웃</a>
           </div>
         </div>
 

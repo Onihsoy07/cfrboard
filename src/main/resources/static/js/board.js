@@ -1,4 +1,7 @@
 $(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
+
     $("#btn-save").click(function() {
 
         let target = $(".select-table option:selected").val();
@@ -9,9 +12,6 @@ $(function() {
             boardTable : target,
             cfrId : $("#cfrid").text()
         }
-
-        console.log(data);
-        console.log("aaaaaaaaaa");
 
         if(data.title.length < 5) {
             alert("제목을 5글자 이상 써주세요.");
@@ -28,7 +28,10 @@ $(function() {
             type : "POST",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 location.href = "/boards/" + data.boardTable;
@@ -65,7 +68,10 @@ $(function() {
             type : "PUT",
             contentType: "application/json;charset=utf-8",
             dataType: "json",
-            data : JSON.stringify(data)
+            data : JSON.stringify(data),
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 location.href = "/boards/" + boardTable + "/" + boardId;
@@ -85,7 +91,10 @@ $(function() {
         $.ajax({
             url : "/boards/" + boardId,
             type : "DELETE",
-            contentType: "application/json;charset=utf-8"
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 alert("삭제가 완료되었습니다.");
@@ -106,7 +115,10 @@ $(function() {
         $.ajax({
             url : "/boards/blind/" + boardId,
             type : "PUT",
-            contentType: "application/json;charset=utf-8"
+            contentType: "application/json;charset=utf-8",
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res) {
             if (res.success) {
                 alert("블라가 완료되었습니다.");
@@ -179,7 +191,10 @@ function goodBtn(boardId, memberId) {
         type : "POST",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
-        data : JSON.stringify(data)
+        data : JSON.stringify(data),
+        beforeSend : function(xhr) {
+           xhr.setRequestHeader(header, token);
+        }
     }).done(function(res) {
         if (res.success) {
             $("#goodCntOuter").load(location.href + " #goodCnt");

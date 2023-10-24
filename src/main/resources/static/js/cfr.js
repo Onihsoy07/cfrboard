@@ -1,4 +1,7 @@
 $(function() {
+    const token = $("meta[name='_csrf']").attr("content")
+    const header = $("meta[name='_csrf_header']").attr("content");
+
     $("#upload_btn").click(function() {
 //        $("#cfr_form").preventDefault(); // 폼의 자체 서브밋 동작을 비활성
 
@@ -10,7 +13,10 @@ $(function() {
             type : "POST",
             data : formData,
             processData: false, //프로세스 데이터 설정 : false 값을 해야 form data로 인식합니다
-            contentType: false //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
+            contentType: false, //헤더의 Content-Type을 설정 : false 값을 해야 form data로 인식합니다
+            beforeSend : function(xhr) {
+               xhr.setRequestHeader(header, token);
+            }
         }).done(function(res){
             if(res.success) {
                 location.href = "/cfrs";
