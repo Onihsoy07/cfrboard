@@ -3,7 +3,7 @@ const header = $("meta[name='_csrf_header']").attr("content");
 
 $(function() {
     $(window).resize(function() {
-        if($(window).width() < 575) {
+        if($(window).width() <= 558) {
             $(".navbar-toggler").addClass("toggle");
             $(".dropbtn").attr("mov", true);
             $(".dropbtn").onclick = null;
@@ -14,7 +14,7 @@ $(function() {
 
     });
     $(document).ready(function() {
-        if($(window).width() < 575) {
+        if($(window).width() <= 558) {
             $(".navbar-toggler").addClass("toggle");
             $(".dropbtn").attr("mov", true);
             $(".dropbtn").onclick = null;
