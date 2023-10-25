@@ -110,7 +110,10 @@ public class WebSecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("https://www.cfr-board.site"));
+        config.setAllowedOrigins(List.of("https://www.cfr-board.site",
+                                         "http://www.cfr-board.site",
+                                         "https://cfr-board.site",
+                                         "http://cfr-board.site"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("*"));
