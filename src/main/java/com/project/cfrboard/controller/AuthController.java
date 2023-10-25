@@ -31,6 +31,9 @@ public class AuthController {
             session.setAttribute("prePage", referer);
         } else if (!referer.contains("/auth")) {
             session.setAttribute("prePage", referer);
+        } else {
+            referer = "/";
+            session.setAttribute("prePage", referer);
         }
 
         return "auth/loginForm";
