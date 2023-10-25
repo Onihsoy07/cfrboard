@@ -55,7 +55,8 @@
                     </div>
                     <hr>
                     <div class="content-wrap">
-                        <div class="content-detail" th:utext="${boardView.content}">content</div>
+                        <div th:if="${#strings.contains(#httpServletRequest.requestURI, 'cfr')}" class="content-detail-cfr" th:utext="${boardView.content}">content</div>
+                        <div th:unless="${#strings.contains(#httpServletRequest.requestURI, 'cfr')}" class="content-detail" th:utext="${boardView.content}">content</div>
                         <div th:if="${boardView.cfrDataDto != null}" class="board-cfr-wrap">
                             <div class="cfr-data-wrap">
                                 <div class="value-center">

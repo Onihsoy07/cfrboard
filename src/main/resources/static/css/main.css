@@ -57,6 +57,10 @@ th, td {
     display: flex;
     justify-content: center;
 }
+.preview_box img {
+    max-width: 100%;
+    height: auto;
+}
 .preview_image {
     height: 400px;
 }
@@ -174,7 +178,19 @@ th, td {
 .content-detail {
     word-break: break-word;
     float: left;
+}
+.content-detail-cfr {
+    word-break: break-word;
+    float: left;
     max-width: calc(100% - 180px);
+}
+.content-detail img {
+    max-width: 100%;
+    height: auto;
+}
+.content-detail-cfr img {
+    max-width: 100%;
+    height: auto;
 }
 .container-fluid {
     max-width: 1000px;
@@ -617,6 +633,10 @@ th, td {
     padding: .5rem;
     position: relative;
     overflow: hidden;
+}
+.message img {
+    max-width: 100%;
+    height: auto;
 }
 .btn-oreply {
     all: initial;
@@ -1097,6 +1117,9 @@ th, td {
     .b-cfrlist-createDate {
         width: 45%;
     }
+    .preview_box {
+        margin: 40px 0;
+    }
 }
 
 /*메뉴바*/
@@ -1161,8 +1184,12 @@ th, td {
 
     .content-detail {
         float: unset;
-        max-width: 100%;
         margin-bottom: 50px;
+    }
+    .content-detail-cfr {
+        float: unset;
+        margin-bottom: 50px;
+        max-width: 100%;
     }
     .board-cfr-wrap {
         float: unset;
