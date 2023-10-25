@@ -274,7 +274,7 @@ th, td {
 
 .list-head {
     display: flex;
-    background-color: #ddd;
+    background-color: #aaaaaa;
     padding: 15px 20px;
     border-bottom: 1px solid;
     border-color: #bbb;
@@ -898,7 +898,7 @@ th, td {
     text-decoration: none;
 }
 .category-tab-area a:hover {
-    background: #aaaaaa;
+    background: #DCDCDC;
 }
 .category-tab-area button {
     float: right;
@@ -964,6 +964,10 @@ th, td {
 
 .cfr-list {
     display: flex!important;
+}
+
+.current-view {
+    background-color: #DCDCDC;
 }
 
 
