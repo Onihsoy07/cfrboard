@@ -163,3 +163,22 @@ function replyClose() {
     $(".reply-inner").css("display", "block");
     $("div").remove(".reReply-inner");
 }
+
+function replyDeclaration(replyId) {
+     $.ajax({
+         url : "/reply/declaration/" + replyId,
+         type : "POST",
+         contentType: "application/json;charset=utf-8",
+         beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+         }
+     }).done(function(res) {
+         if (res.success) {
+             alert("신고되었습니다.");
+         } else {
+             alert(res.msg);
+         }
+     }).fail(function(error) {
+         alert(error.responseJSON.msg);
+     })
+}
