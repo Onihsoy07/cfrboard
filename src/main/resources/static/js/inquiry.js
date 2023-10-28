@@ -3,13 +3,13 @@ $(function() {
     const header = $("meta[name='_csrf_header']").attr("content");
 
     $("#btn-save").click(function() {
-        let target = $(".select-table option:selected").val();
+        let category = $(".select-table option:selected").val();
 
         let data = {
             title : $("#title").val(),
             content : $("#content").val(),
             isSecret : $("#inquiry-secret").is(":checked"),
-            target : target
+            category : category
         }
 
         $.ajax({
@@ -79,3 +79,33 @@ $(function() {
     });
 
 });
+
+function declarationReply(replyId) {
+    let data = {
+        title : "declaration",
+        content : "declaration",
+        isSecret : true,
+        category : "declaration",
+        target : "reply",
+        targetId : replyId
+    }
+
+    $.ajax({
+        url : "/inquirys",
+        type : "POST",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        data : JSON.stringify(data),
+        beforeSend : function(xhr) {
+           xhr.setRequestHeader(header, token);
+        }
+    }).done(function(res) {
+        if (res.success) {
+            alert("신고되었습니다.");
+        } else {
+            alert(res.msg);
+        }
+    }).fail(function(error) {
+        alert(error.responseJSON.msg);
+    })
+}
