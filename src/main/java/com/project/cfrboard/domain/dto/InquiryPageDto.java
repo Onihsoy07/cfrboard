@@ -1,14 +1,9 @@
 package com.project.cfrboard.domain.dto;
 
-import com.project.cfrboard.domain.constant.MyConstant;
-import com.project.cfrboard.domain.entity.Board;
 import com.project.cfrboard.domain.entity.Inquiry;
-import com.project.cfrboard.domain.entity.Member;
-import com.project.cfrboard.domain.entity.enumeration.InquiryTarget;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +26,7 @@ public class InquiryPageDto {
     public InquiryPageDto(Inquiry inquiry) {
         this.id = inquiry.getId();
         this.title = inquiry.getTitle();
-        this.target = INQUIRY_TARGET_TO_KOREAN.get(inquiry.getTarget().toString().toLowerCase());
+        this.target = INQUIRY_CATEGORY_TO_KOREAN.get(inquiry.getTarget().toString().toLowerCase());
         this.isSecret = inquiry.getIsSecret();
         this.isCompleted = inquiry.getIsCompleted();
         this.memberDto = new MemberDto(inquiry.getMember());

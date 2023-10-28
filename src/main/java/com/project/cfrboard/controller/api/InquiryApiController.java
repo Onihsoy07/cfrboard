@@ -1,6 +1,7 @@
 package com.project.cfrboard.controller.api;
 
 import com.project.cfrboard.auth.PrincipalDetails;
+import com.project.cfrboard.domain.constant.MyConstant;
 import com.project.cfrboard.domain.dto.InquiryFormDto;
 import com.project.cfrboard.domain.dto.ResponseDto;
 import com.project.cfrboard.service.InquiryService;
@@ -13,9 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 
+import static com.project.cfrboard.domain.constant.MyConstant.DECLARATION_TARGET;
 import static com.project.cfrboard.domain.constant.MyConstant.MANAGER_ROLE;
 
 @Slf4j
@@ -27,8 +30,9 @@ public class InquiryApiController {
     private final InquiryService inquiryService;
 
     @PostMapping
-    public ResponseEntity<ResponseDto<?>> save(@Valid @RequestBody final InquiryFormDto inquiryFormDto,
+    public ResponseEntity<ResponseDto<?>> save(@Valid @RequestBody InquiryFormDto inquiryFormDto,
                                                BindingResult bindingResult,
+                                               HttpServletRequest request,
                                                @AuthenticationPrincipal PrincipalDetails principal) {
         log.info("InquiryFormDto = {}", inquiryFormDto);
         if (principal == null) {
@@ -40,7 +44,16 @@ public class InquiryApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, error.getDefaultMessage()));
         }
 
-        inquiryService.save(inquiryFormDto, principal.getMember());
+        if (inquiryFormDto.getTarget() == null) {
+            inquiryService.save(inquiryFormDto, principal.getMember());
+        } else {
+            if (DECLARATION_TARGET.contains(inquiryFormDto.getTarget())) {
+                inquiryService.save(inquiryFormDto, principal.getMember(), request.getHeader("Referer"));
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDto<>(false, null, "신고 대상이 적절하지 않습니다."));
+            }
+        }
+
         return ResponseEntity.created(URI.create("/")).body(new ResponseDto<>(true, null, "저장 성공"));
     }
 

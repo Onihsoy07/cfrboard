@@ -1,7 +1,6 @@
 package com.project.cfrboard.controller;
 
 import com.project.cfrboard.auth.PrincipalDetails;
-import com.project.cfrboard.domain.constant.MyConstant;
 import com.project.cfrboard.domain.dto.InquiryPageDto;
 import com.project.cfrboard.service.BoardService;
 import com.project.cfrboard.service.CfrService;
@@ -42,7 +41,7 @@ public class InquiryController {
         int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
         Page<InquiryPageDto> inquiryList;
 
-        if (INQUIRY_TARGET.contains(target)) {
+        if (INQUIRY_CATEGORY.contains(target)) {
             if (target.equals("my")) {
                 if ((principal != null) && principal.getUsername().equals(value)) {
                     inquiryList = inquiryService.getMyInquiryList(pageService.cusPageable(pageable), value);
@@ -84,7 +83,7 @@ public class InquiryController {
         int page = pageable.getPageNumber()==0?1:pageable.getPageNumber();
         Page<InquiryPageDto> inquiryList;
 
-        if (INQUIRY_TARGET.contains(target)) {
+        if (INQUIRY_CATEGORY.contains(target)) {
             if (target.equals("my")) {
                 if ((principal != null) && principal.getUsername().equals(value)) {
                     inquiryList = inquiryService.getMyInquiryList(pageService.cusPageable(pageable), value);

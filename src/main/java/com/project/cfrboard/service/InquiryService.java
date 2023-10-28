@@ -1,6 +1,5 @@
 package com.project.cfrboard.service;
 
-import com.project.cfrboard.domain.dto.BoardPageDto;
 import com.project.cfrboard.domain.dto.InquiryDto;
 import com.project.cfrboard.domain.dto.InquiryFormDto;
 import com.project.cfrboard.domain.dto.InquiryPageDto;
@@ -31,11 +30,32 @@ public class InquiryService {
                 .title(inquiryFormDto.getTitle())
                 .content(inquiryFormDto.getContent())
                 .isSecret(inquiryFormDto.getIsSecret())
-                .target(InquiryTarget.valueOf(inquiryFormDto.getTarget().toUpperCase()))
+                .target(InquiryTarget.valueOf(inquiryFormDto.getCategory().toUpperCase()))
                 .member(member)
                 .build();
 
         inquiryRepository.save(inquiry);
+    }
+
+    public void save(InquiryFormDto inquiryFormDto, Member member, String referer) {
+        Inquiry inquiry = getDeclarationForm(inquiryFormDto, member, referer);
+
+        inquiryRepository.save(inquiry);
+    }
+
+    private Inquiry getDeclarationForm(InquiryFormDto inquiryFormDto, Member member, String referer) {
+        String declarationContent = getDeclarationContent(inquiryFormDto, referer);
+        return Inquiry.builder()
+                .title(inquiryFormDto.getTitle())
+                .content(declarationContent)
+                .isSecret(true)
+                .target(InquiryTarget.valueOf(inquiryFormDto.getCategory().toUpperCase()))
+                .member(member)
+                .build();
+    }
+
+    private String getDeclarationContent(InquiryFormDto inquiryFormDto, String referer) {
+        return "<a href=" + referer + " target='_blank'>" + referer + "</a><br>" + inquiryFormDto.getTarget() + "Id = " + inquiryFormDto.getTargetId();
     }
 
     @Transactional(readOnly = true)
