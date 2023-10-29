@@ -567,13 +567,16 @@ th, td {
 }
 
 
+.comment-declaration {
+    border: solid 3px yellow;
+}
 .reply-title {
     font-size: 30px;
     margin: 20px 0px;
     border-bottom: solid 1px #cccccc;
     border-top: solid 1px #cccccc;
 }
-.comment-inner {
+.comment-outer {
     margin-bottom: 10px;
 }
 .comment {
