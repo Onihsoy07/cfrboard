@@ -80,14 +80,14 @@ $(function() {
 
 });
 
-function declarationReply(replyId) {
+function declaration(target, targetId) {
     let data = {
         title : "declaration",
         content : "declaration",
         isSecret : true,
         category : "declaration",
-        target : "reply",
-        targetId : replyId
+        target : target,
+        targetId : targetId
     }
 
     $.ajax({

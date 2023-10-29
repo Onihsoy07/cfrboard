@@ -30,6 +30,7 @@
                         </th:block>
                         <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}"
                                 id="btn-board-blind" class="btn btn-danger">블라</button>
+                        <button th:onclick="declaration('board', [[${boardView.id}]])" id="btn-declaration-board" class="btn btn-danger">신고</button>
                     </th:block>
                     <br/><br/>
                     <div>
@@ -123,7 +124,7 @@
                                             <div th:text="${#temporals.format(reply.createDate, 'yyyy.MM.dd HH:mm:ss')}"></div>
                                             <div class="wp" th:unless="${principal} == anonymousUser or ${reply.isBlinded}">
                                                 <span class="sep"></span>
-                                                <button class="btn-oreply" th:onclick="declarationReply([[${reply.replyId}]])">신고</button>
+                                                <button class="btn-oreply" th:onclick="declaration('reply', [[${reply.replyId}]])">신고</button>
                                                 <span class="sep"></span>
                                                 <button class="reply-link btn-oreply" th:onclick="replyOpen([[${boardView.id}]], [[${reply.replyId}]], [[${reply.depth+1}]])">답글</button>
                                                 <th:block th:if="${reply.username == principal.member.username && reply.childCommentCount == 0}">
