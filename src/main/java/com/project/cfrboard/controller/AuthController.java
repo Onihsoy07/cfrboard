@@ -29,10 +29,12 @@ public class AuthController {
         if (referer == null || !referer.contains(host)) {
             referer = "/";
             session.setAttribute("prePage", referer);
-        } else if (!referer.contains("/auth")) {
-            session.setAttribute("prePage", referer);
+        } else if (referer.contains("/auth")) {
+            if (session.getAttribute("prePage") == null) {
+                referer = "/";
+                session.setAttribute("prePage", referer);
+            }
         } else {
-            referer = "/";
             session.setAttribute("prePage", referer);
         }
 
