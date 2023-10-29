@@ -55,6 +55,14 @@ public class InquiryService {
     }
 
     private String getDeclarationContent(InquiryFormDto inquiryFormDto, String referer) {
+        if (referer.contains("?")) {
+            referer = referer.substring(0, referer.indexOf("?"));
+        }
+
+        if ("reply".equals(inquiryFormDto.getTarget())) {
+            referer = referer + "?declaration=" + inquiryFormDto.getTargetId();
+        }
+
         return "<a href=" + referer + " target='_blank'>" + referer + "</a><br>" + inquiryFormDto.getTarget() + "Id = " + inquiryFormDto.getTargetId();
     }
 
