@@ -46,7 +46,7 @@ function replyOpen(boardId, replyId, depth) {
 
     let html = "";
 
-    html += "<div class='reReply-inner'>";
+    html += "<div class='reReply-inner' style='padding-top:10px;'>";
     html += "<div class='reply-info'>";
     html += "<div class='member-info'>" + username +  "</div>";
     html += "<div class='btn-close' onclick='replyClose()'></div>";
@@ -112,7 +112,7 @@ function replyUpdateOpen(replyId) {
 
     let html = "";
 
-    html += "<div class='reReply-inner'>";
+    html += "<div class='reReply-inner' style='padding-top:10px;'>";
     html += "<div class='reply-info'>";
     html += "<div class='member-info'>" + username +  "</div>";
     html += "<div class='btn-close' onclick='replyClose()'></div>";

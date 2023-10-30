@@ -60,6 +60,7 @@ th, td {
 .preview_box img {
     max-width: 100%;
     height: auto;
+    max-height: 400px;
 }
 .preview_image {
     height: 400px;
