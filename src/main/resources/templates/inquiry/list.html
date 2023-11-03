@@ -24,7 +24,7 @@
                     <th:block th:if="${principal} != anonymousUser">
                         <th:block th:if="${inquiryView.memberDto.id} == ${principal?.member.id}
                                          and ${!inquiryView.isCompleted}">
-                            <button th:if="${!inquiryView.isCompleted}" id="btn-delete" class="btn btn-danger">삭제</button>
+                            <button th:if="${!inquiryView.isCompleted}" id="btn-inquiry-delete" class="btn btn-danger">삭제</button>
                         </th:block>
                         <button th:if="${#strings.equals(principal.member.role, 'ADMIN') or #strings.equals(principal.member.role, 'MANAGER')}
                                        and ${!inquiryView.isCompleted}" id="btn-inquiry-complete" class="btn btn-danger">완료</button>

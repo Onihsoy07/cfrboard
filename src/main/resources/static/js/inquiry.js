@@ -2,7 +2,7 @@ $(function() {
     const token = $("meta[name='_csrf']").attr("content")
     const header = $("meta[name='_csrf_header']").attr("content");
 
-    $("#btn-save").click(function() {
+    $("#btn-inquiry-save").click(function() {
         let category = $(".select-table option:selected").val();
 
         let data = {
@@ -57,7 +57,7 @@ $(function() {
 
     });
 
-    $("#btn-delete").click(function() {
+    $("#btn-inquiry-delete").click(function() {
         $.ajax({
             url : "/inquirys/" + $("#inquiryId").val(),
             type : "DELETE",
