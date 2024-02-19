@@ -43,3 +43,7 @@ public void create (Text text) {
 - 내용1
 - 내용2
 </details>
+
+
+
+<img src="https://github.com/Onihsoy07/cfrboard/assets/84126411/a25c4e7e-6189-4485-814a-f79b02cf78e9" width="50%" height="50%" />
