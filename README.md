@@ -11,7 +11,7 @@
 - java 11
 - IDE : IntelliJ IDEA Community Edition 2023.2.1
 - Framework : Spring Boot 2.7.13
-- Database : MySQL
+- Database : MySQL 8.0.32
 
 # 주요 기능
 로그인
