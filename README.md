@@ -69,6 +69,14 @@ CFR-닮은 유명인 확인
 문의
 - aa
 
+에러 로그
+<details>
+ <summary>에러 로그 사진</summary>
+
+![로그알람](https://github.com/Onihsoy07/cfrboard/assets/84126411/12c3548f-91c4-499b-8455-16cc06324f6d)
+ 
+</details>
+
 <br>
 
 # 에러 해결
@@ -76,7 +84,7 @@ CFR-닮은 유명인 확인
 <details>
  <summary>Jasypt 복호화 문제</summary>
 
- ## 증상 : 복호화가 안되어 Database의 password를 바인딩 못함
+ ## 증상 : 복호화가 안되어 Database의 password를 바인딩 못함 발생
 
   ``` text
  Description:
@@ -99,11 +107,11 @@ CFR-닮은 유명인 확인
 <details>
  <summary>Entity 기본 초기화 값 null 문제</summary>
 
-## 증상 : @DynamicInsert에 @ColumnDefault를 Column 초기화를 해주었으나 null이 들어감
+## 증상 : @DynamicInsert에 @ColumnDefault를 Column 초기화를 해주었으나 null 저장 발생
 
-@DynamicInsert에서 Insert 쿼리를 날릴 떄 value 값이 없으면 자동으로 그 Column은 제외하고 쿼리가 만들어지기 때문에 null값으로 초기화 됨.
+@DynamicInsert에서 Insert 쿼리를 날릴 떄 value 값이 없으면 자동으로 그 Column은 제외하고 쿼리가 만들어지기 때문에 null 값으로 초기화 됩니다.
 
-@PrePersist는 EntityManager의 persist가 호출되면 @PrePersist를 먼저 실행 함.(Entity 영속화 직전 수행)
+@PrePersist는 EntityManager의 persist가 호출되면 @PrePersist를 먼저 실행합니다.(Entity 영속화 직전 수행)
 
 그래서 @PrePersist를 사용하여 Column을 초기화하였습니다.
 
@@ -111,6 +119,18 @@ CFR-닮은 유명인 확인
  
 </details>
 
+<details>
+ <summary>AWS RDS에 데이터 저장 시 시간 안 맞는 문제</summary>
+
+## 증상 : AWS RDS의 생성 및 수정 시간이 현재 한국 시간과 9시간 차이가 발생
+
+로컬 MySQL의 TimeZone은 정상이었으나 AWS RDS의 TimeZone은 기본 값이 UTC이기 때문에 시간 차이가 났습니다.
+
+AWS RDS 및 SpringBoot의 TimeZone을 Asia/Seoul로 변경하였습니다.
+
+해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/95e182fdadaecc86c54fba150e0d25d59d357326
+ 
+</details>
 
 
 
