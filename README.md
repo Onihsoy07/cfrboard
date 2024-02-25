@@ -16,12 +16,28 @@
 - Database : MySQL 8.0.32
 <br>
 
+# 목차
+[1. 시스템 아키텍처](#시스템-아키텍처)
+
+[2. 엔티티 다이어그램](#엔티티-다이어그램)
+
+[3. 주요 기능 시퀀스 다이어그램](#주요-기능-시퀀스-다이어그램)
+
+[4. 주요 기능](#주요-기능)
+
+[5. 에러 해결](#에러-해결)
+
+[6. 웹 사이트 화면](#웹-사이트-화면)
+
+
+<br>
+
 # 시스템 아키텍처
 ![스크린샷 2024-02-25 110319](https://github.com/Onihsoy07/cfrboard/assets/84126411/340a7500-0e01-44b0-a04c-b8dec882e00b)
 
 <br>
 
-# ERD
+# 엔티티 다이어그램
 ![image](https://github.com/Onihsoy07/cfrboard/assets/84126411/dbd11283-2cd5-4d31-91f0-fbfd71698fca)
 
 <br>
@@ -75,6 +91,8 @@ CFR-닮은 유명인 확인
  ```
 
  jasypt 버전 3.0으로 바뀌면서 기본 알고리즘이 PBEWithMD5AndDES -> PBEWITHHMACSHA512ANDAES_256로 바뀌었으나 복호화 시 알고리즘 이슈 등의 문제로 기존 알고리즘을 사용하기 위해서 iv 생성기를 RandomIvGenerator -> NoIvGenerator로 변경을 하였습니다.
+
+ 해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/96806b49147a4c1dcb81cde3407e9ca6e70ca05e
  
 </details>
 
@@ -89,7 +107,7 @@ CFR-닮은 유명인 확인
 
 그래서 @PrePersist를 사용하여 Column을 초기화하였습니다.
 
-https://github.com/Onihsoy07/cfrboard/commit/62f18ca6476099368f2683f651720a2f53ed3190
+해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/62f18ca6476099368f2683f651720a2f53ed3190
  
 </details>
 
