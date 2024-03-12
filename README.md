@@ -30,7 +30,7 @@
 
 [4. 주요 기능](#주요-기능)
 
-[5. 에러 해결](#문제-해결)
+[5. 문제제 해결](#문제-해결)
 
 [6. 웹 사이트 화면](#웹-사이트-화면)
 
@@ -71,58 +71,11 @@
 
 ## 문제 해결
 
-<details>
- <summary>Jasypt 복호화 문제</summary>
+- [Jasypt 복호화 문제](https://github.com/Onihsoy07/cfrboard/wiki/Jasypt-%EB%B3%B5%ED%98%B8%ED%99%94-%EB%AC%B8%EC%A0%9C)
 
- ### 증상 : 복호화가 안되어 Database의 password를 바인딩 못함 발생
+- [Column 기본 값 저장 안되는 문제(null 저장)](https://github.com/Onihsoy07/cfrboard/wiki/Column-%EA%B8%B0%EB%B3%B8-%EA%B0%92-null-%EB%AC%B8%EC%A0%9C)
 
-  ``` text
- Description:
- 
- Failed to bind properties under 'spring.datasource.password' to java.lang.String:
- 
-     Reason: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.datasource.password' to java.lang.String
- 
- Action:
- 
- Update your application's configuration
- ```
-
- jasypt 버전 3.0으로 바뀌면서 기본 알고리즘이 PBEWithMD5AndDES -> PBEWITHHMACSHA512ANDAES_256로 바뀌었으나 복호화 시 알고리즘 이슈 등의 문제로 기존 알고리즘을 사용하기 위해서 iv 생성기를 RandomIvGenerator -> NoIvGenerator로 변경을 하였습니다.
-
- 해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/96806b49147a4c1dcb81cde3407e9ca6e70ca05e
- 
-</details>
-
-<details>
- <summary>Entity 기본 초기화 값 null 문제</summary>
-
-### 증상 : @DynamicInsert에 @ColumnDefault를 Column 초기화를 해주었으나 null 저장 발생
-
-@DynamicInsert에서 Insert 쿼리를 날릴 떄 value 값이 없으면 자동으로 그 Column은 제외하고 쿼리가 만들어지기 때문에 null 값으로 초기화 됩니다.
-
-@PrePersist는 EntityManager의 persist가 호출되면 @PrePersist를 먼저 실행합니다.(Entity 영속화 직전 수행)
-
-그래서 @PrePersist를 사용하여 Column을 초기화하였습니다.
-
-해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/62f18ca6476099368f2683f651720a2f53ed3190
- 
-</details>
-
-<details>
- <summary>AWS RDS에 데이터 저장 시 시간 안 맞는 문제</summary>
-
-### 증상 : AWS RDS의 생성 및 수정 시간이 현재 한국 시간과 9시간 차이가 발생
-
-로컬 MySQL의 TimeZone은 정상이었으나 AWS RDS의 TimeZone은 기본 값이 UTC이기 때문에 시간 차이가 났습니다.
-
-AWS RDS 및 SpringBoot의 TimeZone을 Asia/Seoul로 변경하였습니다.
-
-해결 코드 : https://github.com/Onihsoy07/cfrboard/commit/95e182fdadaecc86c54fba150e0d25d59d357326
- 
-</details>
-
-
+- [AWS RDS에 데이터 저장 시 시간 안 맞는 문제](https://github.com/Onihsoy07/cfrboard/wiki/AWS-RDS%EC%97%90-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%80%EC%9E%A5-%EC%8B%9C-%EC%8B%9C%EA%B0%84-%EC%95%88-%EB%A7%9E%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 
 
 
@@ -139,7 +92,7 @@ AWS RDS 및 SpringBoot의 TimeZone을 Asia/Seoul로 변경하였습니다.
 |<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/ad207561-d125-430d-9576-8c7320fc9ee0" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/3de0ed7b-7353-4462-9e06-d71c8a64264e" />|
 |모바일 메인 네비|모바일 게시글|
 |<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/346f0edd-e391-4e76-a426-2b1670c4f4ef" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/73737ea5-55db-4679-a49b-2e82b176a687" />|
-|모바일 게시판|모바일 게시글|
+|모바일 게시판|모바일 게시글 댓글|
 |<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/b52e81aa-f16c-4ecb-879b-c6398accde6d" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/6efca2ca-7423-4707-a347-5dcb93e00598" />|
 |에러 로그(Slack)||
 |<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/3d8e4769-b214-4d8c-9664-092530f81871" />||
