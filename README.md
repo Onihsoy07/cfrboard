@@ -11,7 +11,7 @@
 
 
 ## 멤버구성
-- 박준혁 : 프론트(Thymeleaf) 및 백엔드(Spring Boot 2)
+- 박준혁 : 프론트엔드(Thymeleaf) 및 백엔드(Spring Boot 2)
 
 
 ## 개발환경
