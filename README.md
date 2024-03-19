@@ -1,10 +1,10 @@
 # CFR 게시판
-네이버 CFR(CLOVA Face Recognition) API를 활용한 닮은 유명인 확인 및 공유를 위한 사이트입니다.
+네이버 CFR(CLOVA Face Recognition) API를 활용한 닮은 유명인 확인 및 공유를 위한 게시판입니다.
 
 
 ## 프로젝트 소개
-네이버에서 개발한 CLOVA Face Recognition(유명인 얼굴 인식)이 얼마나 정확한지 확인하다가 이것을 활용하여 무엇을 만들까 생각하였습니다.
-친구들끼리 해보고 공유하면 누가 얼마나 닮았는지 확인하면 재미있을 것 같아 만들었습니다.
+네이버에서 개발한 CLOVA Face Recognition(유명인 얼굴 인식)에 흥미가 있어 사용하다가 이것을 활용하여 무엇을 만들까 생각했습니다.
+친구들끼리 공유하여 누가 얼마나 닮았는지 확인하면 재미있을 것 같아 만들었습니다.
 
 ## 개발 기간
  - 2023.07.09 ~ 2023.11.03
@@ -30,7 +30,7 @@
 
 [4. 주요 기능](#주요-기능)
 
-[5. 문제제 해결](#문제-해결)
+[5. 문제 해결](#문제-해결)
 
 [6. 웹 사이트 화면](#웹-사이트-화면)
 
@@ -85,15 +85,15 @@
 
 |메인페이지|회원가입|
 |:---:|:---:|
-|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/615a16e9-4f71-492a-a0ec-d6b4134a3559" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/f0cd597d-a280-4c84-9010-0935bcfdee7d" />|
+|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/5b25f66a-6b78-484a-ad5d-a1dd571772b7" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/f0cd597d-a280-4c84-9010-0935bcfdee7d" />|
 |사진 보내기|닮은 유명인 확인|
 |<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/c14f17d1-7be0-435d-9258-64403aefc6e6" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/fbda3a3d-72cc-4632-95e2-3a814e11ed2f" />|
 |게시판|문의글|
-|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/ad207561-d125-430d-9576-8c7320fc9ee0" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/3de0ed7b-7353-4462-9e06-d71c8a64264e" />|
+|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/daba619b-74bc-43ed-ab88-db037d0df04e" />|<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/d7b0bfd8-b0eb-4454-92a7-46214bde570a" />|
 |모바일 메인 네비|모바일 게시글|
-|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/346f0edd-e391-4e76-a426-2b1670c4f4ef" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/73737ea5-55db-4679-a49b-2e82b176a687" />|
+|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/7208d492-df41-4739-ae25-22f6c56733fa" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/29e86f82-afb2-4ad4-a0b7-49e6aee43519" />|
 |모바일 게시판|모바일 게시글 댓글|
-|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/b52e81aa-f16c-4ecb-879b-c6398accde6d" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/6efca2ca-7423-4707-a347-5dcb93e00598" />|
+|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/2bf57ec3-ca33-42cf-906a-087ab28b98bb" />|<img width="300" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/667d10be-7d63-42d3-947c-3b2118365f6f" />|
 |에러 로그(Slack)||
 |<img width="700" src="https://github.com/Onihsoy07/cfrboard/assets/84126411/3d8e4769-b214-4d8c-9664-092530f81871" />||
 
